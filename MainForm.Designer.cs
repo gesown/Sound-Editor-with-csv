@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:05:778",
@@ -71,6 +72,7 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -112,6 +114,9 @@
             this.tabControl5 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.audioContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.редактироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -133,6 +138,7 @@
             this.tabControl4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabControl5.SuspendLayout();
+            this.audioContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -456,13 +462,16 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader5});
+            this.columnHeader5,
+            this.columnHeader9});
+            this.listAudio.ContextMenuStrip = this.audioContextMenuStrip;
             this.listAudio.ForeColor = System.Drawing.SystemColors.WindowText;
             this.listAudio.FullRowSelect = true;
             this.listAudio.GridLines = true;
             this.listAudio.Location = new System.Drawing.Point(0, 36);
             this.listAudio.MultiSelect = false;
             this.listAudio.Name = "listAudio";
+            this.listAudio.ShowItemToolTips = true;
             this.listAudio.Size = new System.Drawing.Size(345, 200);
             this.listAudio.TabIndex = 0;
             this.listAudio.UseCompatibleStateImageBehavior = false;
@@ -485,12 +494,20 @@
             // 
             // columnHeader4
             // 
+            this.columnHeader4.DisplayIndex = 4;
             this.columnHeader4.Text = "Формат";
             // 
             // columnHeader5
             // 
+            this.columnHeader5.DisplayIndex = 5;
             this.columnHeader5.Text = "Путь";
             this.columnHeader5.Width = 230;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.DisplayIndex = 3;
+            this.columnHeader9.Text = "Разрядность";
+            this.columnHeader9.Width = 80;
             // 
             // tabControl2
             // 
@@ -954,6 +971,27 @@
             this.tabPage8.Text = "tabPage8";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
+            // audioContextMenuStrip
+            // 
+            this.audioContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.редактироватьToolStripMenuItem,
+            this.удалитьToolStripMenuItem});
+            this.audioContextMenuStrip.Name = "audioContextMenuStrip";
+            this.audioContextMenuStrip.Size = new System.Drawing.Size(155, 70);
+            // 
+            // редактироватьToolStripMenuItem
+            // 
+            this.редактироватьToolStripMenuItem.Name = "редактироватьToolStripMenuItem";
+            this.редактироватьToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.редактироватьToolStripMenuItem.Text = "Редактировать";
+            this.редактироватьToolStripMenuItem.Click += new System.EventHandler(this.редактироватьToolStripMenuItem_Click);
+            // 
+            // удалитьToolStripMenuItem
+            // 
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.удалитьToolStripMenuItem.Text = "Удалить";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -991,6 +1029,7 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             this.tabControl5.ResumeLayout(false);
+            this.audioContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1076,6 +1115,10 @@
         private System.Windows.Forms.TabControl tabControl5;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ContextMenuStrip audioContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem редактироватьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
     }
 }
 

@@ -17,14 +17,14 @@ namespace Sound_Editor {
         }
 
         private List<AudioFile> files = new List<AudioFile>();
-        private BlockAlignReductionStream stream = null;
+        private BlockAlignReductionStream currentStream = null;
         private DirectSoundOut output = null;
 
         private void openToolStripButton_Click(object sender, EventArgs e) {
-            OpenFileDialog open = new OpenFileDialog();
+        BlockAlignReductionStream stream = null;
+        OpenFileDialog open = new OpenFileDialog();
             open.Filter = "Audio File (*.mp3;*.wav)|*.mp3;*.wav;";
             if (open.ShowDialog() != DialogResult.OK) return;
-            DisposeWave();
 
             if (open.FileName.EndsWith(".mp3")) {
                 WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(new Mp3FileReader(open.FileName));
@@ -41,10 +41,25 @@ namespace Sound_Editor {
             item.SubItems.Add(file.SampleRate.ToString() + " Hz");
             item.SubItems.Add(file.Format.ToString());
             item.SubItems.Add(file.Path.ToString());
+            item.SubItems.Add(file.bitDepth.ToString() + " bit");
             listAudio.Items.Add(item);
+            if (files.Count == 1) {
+                currentStream = stream;
+                output = new DirectSoundOut();
+                output.Init(stream);
+            }
+        }
 
-            output = new DirectSoundOut();
-            output.Init(stream);
+        private void редактироватьToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (listAudio.SelectedItems.Count > 0) {
+                AudioFile file = files.Find(audio => audio.Name == listAudio.SelectedItems[0].Text && audio.Format == listAudio.SelectedItems[0].SubItems[3].Text);
+                if (output.PlaybackState == PlaybackState.Playing) {
+                    output.Pause();
+                }
+                output.Init(file.Stream);
+            } else {
+                MessageBox.Show("Вы не выбрали аудио файл.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Pause
@@ -69,7 +84,7 @@ namespace Sound_Editor {
         private void toolStripButton2_Click(object sender, EventArgs e) {
             if (output != null) {
                 if (output.PlaybackState != PlaybackState.Stopped) {
-                    stream.Position = 0;
+                    currentStream.Position = 0;
                     output.Stop();
                 }
             }
@@ -83,14 +98,15 @@ namespace Sound_Editor {
                 output.Dispose();
                 output = null;
             }
-            if (stream != null) {
-                stream.Dispose();
-                stream = null;
+            if (currentStream != null) {
+                currentStream.Dispose();
+                currentStream = null;
             }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
             DisposeWave();
         }
+
     }
 }
