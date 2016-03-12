@@ -14,6 +14,7 @@ namespace Sound_Editor {
         public int bitDepth { get; set; }
         public string Format { get; set; }
         public string Path { get; set; }
+        public BlockAlignReductionStream Stream { get; }
 
         public AudioFile(BlockAlignReductionStream stream, string path) {
             int startIndexOfName = path.LastIndexOf('\\') + 1;
@@ -27,6 +28,7 @@ namespace Sound_Editor {
             this.bitDepth = stream.WaveFormat.BitsPerSample;
             this.Format = path.Substring(startIndexOfFormat);
             this.Path = path;
+            this.Stream = stream;
         }
     }
 }
