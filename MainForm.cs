@@ -16,6 +16,7 @@ namespace Sound_Editor {
             InitializeComponent();
         }
 
+        private List<AudioFile> files = new List<AudioFile>();
         private BlockAlignReductionStream stream = null;
         private DirectSoundOut output = null;
 
@@ -34,6 +35,13 @@ namespace Sound_Editor {
             } else throw new InvalidOperationException("Неверный формат аудиофайла");
 
             AudioFile file = new AudioFile(stream, open.FileName);
+            files.Add(file);
+            ListViewItem item = new ListViewItem(file.Name);
+            item.SubItems.Add(String.Format("{0:00}:{1:00}:{2:000}", file.Duration.Minutes, file.Duration.Seconds, file.Duration.Milliseconds));
+            item.SubItems.Add(file.SampleRate.ToString() + " Hz");
+            item.SubItems.Add(file.Format.ToString());
+            item.SubItems.Add(file.Path.ToString());
+            listAudio.Items.Add(item);
 
             output = new DirectSoundOut();
             output.Init(stream);
