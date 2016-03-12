@@ -11,8 +11,8 @@ using NAudio;
 using NAudio.Wave;
 
 namespace Sound_Editor {
-    public partial class Form1 : Form {
-        public Form1() {
+    public partial class MainForm : Form {
+        public MainForm() {
             InitializeComponent();
         }
 
@@ -24,6 +24,7 @@ namespace Sound_Editor {
             open.Filter = "Audio File (*.mp3;*.wav)|*.mp3;*.wav;";
             if (open.ShowDialog() != DialogResult.OK) return;
             DisposeWave();
+
             if (open.FileName.EndsWith(".mp3")) {
                 WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(new Mp3FileReader(open.FileName));
                 stream = new BlockAlignReductionStream(pcm);
@@ -31,7 +32,9 @@ namespace Sound_Editor {
                 WaveStream pcm = new WaveChannel32(new WaveFileReader(open.FileName));
                 stream = new BlockAlignReductionStream(pcm);
             } else throw new InvalidOperationException("Неверный формат аудиофайла");
-            
+
+            AudioFile file = new AudioFile(stream, open.FileName);
+
             output = new DirectSoundOut();
             output.Init(stream);
         }
