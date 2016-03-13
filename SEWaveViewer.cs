@@ -182,7 +182,7 @@ namespace Sound_Editor {
                     float highPercent = ((((float)high) - short.MinValue) / ushort.MaxValue);
                     e.Graphics.DrawLine(linePen, x, this.Height * lowPercent, x, this.Height * highPercent);
                 }
-                waveStream.Position = 0;
+                waveStream.Position = 0;    // Костыль
             }
 
             base.OnPaint(e);

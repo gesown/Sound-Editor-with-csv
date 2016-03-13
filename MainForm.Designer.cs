@@ -81,7 +81,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.originalCurrentTime = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
@@ -119,6 +119,7 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
+            this.originalPlayTimer = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -599,7 +600,7 @@
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(38, 38);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
+            this.originalCurrentTime,
             this.toolStripButton2,
             this.toolStripButton1,
             this.toolStripButton3,
@@ -615,15 +616,15 @@
             this.toolStrip2.TabIndex = 7;
             this.toolStrip2.Text = "toolStrip2";
             // 
-            // toolStripLabel1
+            // originalCurrentTime
             // 
-            this.toolStripLabel1.AutoSize = false;
-            this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolStripLabel1.ForeColor = System.Drawing.Color.Indigo;
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(276, 47);
-            this.toolStripLabel1.Text = "0:00:000";
-            this.toolStripLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.originalCurrentTime.AutoSize = false;
+            this.originalCurrentTime.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.originalCurrentTime.ForeColor = System.Drawing.Color.Indigo;
+            this.originalCurrentTime.Name = "originalCurrentTime";
+            this.originalCurrentTime.Size = new System.Drawing.Size(276, 47);
+            this.originalCurrentTime.Text = "0:00:000";
+            this.originalCurrentTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // toolStripButton2
             // 
@@ -1031,6 +1032,10 @@
             this.originalWaveViewer.TabIndex = 0;
             this.originalWaveViewer.WaveStream = null;
             // 
+            // originalPlayTimer
+            // 
+            this.originalPlayTimer.Tick += new System.EventHandler(this.originalPlayTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1112,7 +1117,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton6;
         private System.Windows.Forms.ToolStripButton toolStripButton7;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripLabel originalCurrentTime;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem новыйToolStripMenuItem;
@@ -1162,6 +1167,7 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.TrackBar trackBar2;
         private SEWaveViewer originalWaveViewer;
+        private System.Windows.Forms.Timer originalPlayTimer;
     }
 }
 

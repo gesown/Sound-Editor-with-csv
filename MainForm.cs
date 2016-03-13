@@ -48,6 +48,8 @@ namespace Sound_Editor {
 
                 output = new DirectSoundOut();
                 output.Init(stream);
+
+                originalPlayTimer.Interval = 1;
             }
         }
 
@@ -77,6 +79,7 @@ namespace Sound_Editor {
             if (output != null) {
                 if (output.PlaybackState != PlaybackState.Playing) {
                     output.Play();
+                    originalPlayTimer.Enabled = true;
                 }
             }
         }
@@ -87,6 +90,8 @@ namespace Sound_Editor {
                 if (output.PlaybackState != PlaybackState.Stopped) {
                     currentStream.Position = 0;
                     output.Stop();
+                    originalCurrentTime.Text = "00:00:000";
+                    originalPlayTimer.Enabled = false;
                 }
             }
         }
@@ -107,6 +112,10 @@ namespace Sound_Editor {
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
             DisposeWave();
+        }
+
+        private void originalPlayTimer_Tick(object sender, EventArgs e) {
+            originalCurrentTime.Text = String.Format("{0:00}:{1:00}:{2:000}", currentStream.CurrentTime.Minutes, currentStream.CurrentTime.Seconds, currentStream.CurrentTime.Milliseconds);
         }
     }
 }
