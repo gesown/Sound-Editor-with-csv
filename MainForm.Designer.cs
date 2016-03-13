@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem37 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:05:778",
             "0:23:803",
             "0:18:124"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
-            System.Windows.Forms.ListViewItem listViewItem38 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem39 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:00",
             "1:15:650",
             "1:15:650"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
@@ -78,7 +78,6 @@
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
@@ -119,6 +118,7 @@
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -128,7 +128,6 @@
             this.audioContextMenuStrip.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.toolStrip2.SuspendLayout();
@@ -558,7 +557,7 @@
             // 
             this.tabPage2.AutoScroll = true;
             this.tabPage2.AutoScrollMinSize = new System.Drawing.Size(848, 0);
-            this.tabPage2.Controls.Add(this.pictureBox1);
+            this.tabPage2.Controls.Add(this.originalWaveViewer);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -566,18 +565,6 @@
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "Редактор: SoundFile1.mp3";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(883, 242);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // tabPage3
             // 
@@ -865,7 +852,7 @@
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(-1, -1);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(881, 435);
+            this.pictureBox2.Size = new System.Drawing.Size(884, 418);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
@@ -930,9 +917,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem37,
-            listViewItem38,
-            listViewItem39});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3});
             this.listView2.Location = new System.Drawing.Point(67, 6);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(268, 82);
@@ -1030,6 +1017,20 @@
             this.trackBar2.TabIndex = 13;
             this.trackBar2.TickStyle = System.Windows.Forms.TickStyle.Both;
             // 
+            // originalWaveViewer
+            // 
+            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
+            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalWaveViewer.Location = new System.Drawing.Point(3, 3);
+            this.originalWaveViewer.Name = "originalWaveViewer";
+            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
+            this.originalWaveViewer.PenWidth = 1F;
+            this.originalWaveViewer.SamplesPerPixel = 128;
+            this.originalWaveViewer.Size = new System.Drawing.Size(845, 215);
+            this.originalWaveViewer.StartPosition = ((long)(0));
+            this.originalWaveViewer.TabIndex = 0;
+            this.originalWaveViewer.WaveStream = null;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1053,7 +1054,6 @@
             this.audioContextMenuStrip.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.toolStrip2.ResumeLayout(false);
@@ -1099,7 +1099,6 @@
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabControl tabControl3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.PictureBox pictureBox2;
@@ -1162,6 +1161,7 @@
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.TrackBar trackBar2;
+        private SEWaveViewer originalWaveViewer;
     }
 }
 

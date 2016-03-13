@@ -43,6 +43,9 @@ namespace Sound_Editor {
             listAudio.Items.Add(item);
             if (files.Count == 1) {
                 currentStream = stream;
+                originalWaveViewer.WaveStream = stream;
+                originalWaveViewer.FitToScreen();
+
                 output = new DirectSoundOut();
                 output.Init(stream);
             }
