@@ -36,10 +36,10 @@
             "1:15:650"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.audioStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.audioRate = new System.Windows.Forms.ToolStripStatusLabel();
+            this.audioSize = new System.Windows.Forms.ToolStripStatusLabel();
+            this.audioLength = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.новыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +76,7 @@
             this.audioContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.редактироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.VizualizationTab = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -118,8 +118,8 @@
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
-            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.originalPlayTimer = new System.Windows.Forms.Timer(this.components);
+            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -127,7 +127,7 @@
             this.tabPage1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.audioContextMenuStrip.SuspendLayout();
-            this.tabControl2.SuspendLayout();
+            this.VizualizationTab.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -157,7 +157,7 @@
             this.tableLayoutPanel1.Controls.Add(this.statusStrip1, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.menuStrip1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tabControl1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.tabControl2, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.VizualizationTab, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.toolStrip2, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.toolStrip3, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.tabControl3, 1, 3);
@@ -182,10 +182,10 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.statusStrip1, 3);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabel3,
-            this.toolStripStatusLabel4});
+            this.audioStatus,
+            this.audioRate,
+            this.audioSize,
+            this.audioLength});
             this.statusStrip1.Location = new System.Drawing.Point(0, 745);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.ShowItemToolTips = true;
@@ -193,41 +193,41 @@
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // audioStatus
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(977, 16);
-            this.toolStripStatusLabel1.Spring = true;
-            this.toolStripStatusLabel1.Text = "Воспроизведение: SoundFile1.mp3";
-            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripStatusLabel1.ToolTipText = "Статус";
+            this.audioStatus.Name = "audioStatus";
+            this.audioStatus.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.audioStatus.Size = new System.Drawing.Size(946, 16);
+            this.audioStatus.Spring = true;
+            this.audioStatus.Text = "Готово";
+            this.audioStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.audioStatus.ToolTipText = "Статус";
             // 
-            // toolStripStatusLabel2
+            // audioRate
             // 
-            this.toolStripStatusLabel2.AutoSize = false;
-            this.toolStripStatusLabel2.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(94, 16);
-            this.toolStripStatusLabel2.Text = "11025 Hz";
-            this.toolStripStatusLabel2.ToolTipText = "Частота дискретизации";
+            this.audioRate.AutoSize = false;
+            this.audioRate.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
+            this.audioRate.Name = "audioRate";
+            this.audioRate.Size = new System.Drawing.Size(94, 16);
+            this.audioRate.Text = "11025 Hz";
+            this.audioRate.ToolTipText = "Частота дискретизации";
             // 
-            // toolStripStatusLabel3
+            // audioSize
             // 
-            this.toolStripStatusLabel3.AutoSize = false;
-            this.toolStripStatusLabel3.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(75, 16);
-            this.toolStripStatusLabel3.Text = "43,50 MB";
-            this.toolStripStatusLabel3.ToolTipText = "Размер аудио";
+            this.audioSize.AutoSize = false;
+            this.audioSize.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.audioSize.Name = "audioSize";
+            this.audioSize.Size = new System.Drawing.Size(75, 16);
+            this.audioSize.Text = "43,50 MB";
+            this.audioSize.ToolTipText = "Размер аудио";
             // 
-            // toolStripStatusLabel4
+            // audioLength
             // 
-            this.toolStripStatusLabel4.AutoSize = false;
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(70, 16);
-            this.toolStripStatusLabel4.Text = "03:18:25";
-            this.toolStripStatusLabel4.ToolTipText = "Длительность";
+            this.audioLength.AutoSize = false;
+            this.audioLength.Name = "audioLength";
+            this.audioLength.Size = new System.Drawing.Size(70, 16);
+            this.audioLength.Text = "03:18:25";
+            this.audioLength.ToolTipText = "Длительность";
             // 
             // menuStrip1
             // 
@@ -540,19 +540,19 @@
             this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
             // 
-            // tabControl2
+            // VizualizationTab
             // 
-            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.VizualizationTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.tabControl2, 2);
-            this.tabControl2.Controls.Add(this.tabPage2);
-            this.tabControl2.Controls.Add(this.tabPage3);
-            this.tabControl2.Location = new System.Drawing.Point(372, 28);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(856, 264);
-            this.tabControl2.TabIndex = 3;
+            this.tableLayoutPanel1.SetColumnSpan(this.VizualizationTab, 2);
+            this.VizualizationTab.Controls.Add(this.tabPage2);
+            this.VizualizationTab.Controls.Add(this.tabPage3);
+            this.VizualizationTab.Location = new System.Drawing.Point(372, 28);
+            this.VizualizationTab.Name = "VizualizationTab";
+            this.VizualizationTab.SelectedIndex = 0;
+            this.VizualizationTab.Size = new System.Drawing.Size(856, 264);
+            this.VizualizationTab.TabIndex = 3;
             // 
             // tabPage2
             // 
@@ -564,7 +564,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(848, 238);
             this.tabPage2.TabIndex = 0;
-            this.tabPage2.Text = "Редактор: SoundFile1.mp3";
+            this.tabPage2.Text = "Редактор";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
@@ -853,7 +853,7 @@
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(-1, -1);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(884, 418);
+            this.pictureBox2.Size = new System.Drawing.Size(887, 401);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
@@ -1018,6 +1018,10 @@
             this.trackBar2.TabIndex = 13;
             this.trackBar2.TickStyle = System.Windows.Forms.TickStyle.Both;
             // 
+            // originalPlayTimer
+            // 
+            this.originalPlayTimer.Tick += new System.EventHandler(this.originalPlayTimer_Tick);
+            // 
             // originalWaveViewer
             // 
             this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
@@ -1032,10 +1036,6 @@
             this.originalWaveViewer.TabIndex = 0;
             this.originalWaveViewer.WaveStream = null;
             // 
-            // originalPlayTimer
-            // 
-            this.originalPlayTimer.Tick += new System.EventHandler(this.originalPlayTimer_Tick);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1046,6 +1046,7 @@
             this.Name = "MainForm";
             this.Text = "Sound Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -1057,7 +1058,7 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.audioContextMenuStrip.ResumeLayout(false);
-            this.tabControl2.ResumeLayout(false);
+            this.VizualizationTab.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -1101,7 +1102,7 @@
         private System.Windows.Forms.ToolStripButton pasteToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
-        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabControl VizualizationTab;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabControl tabControl3;
@@ -1133,10 +1134,10 @@
         private System.Windows.Forms.ToolStripMenuItem правкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem видToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripStatusLabel audioStatus;
+        private System.Windows.Forms.ToolStripStatusLabel audioRate;
+        private System.Windows.Forms.ToolStripStatusLabel audioSize;
+        private System.Windows.Forms.ToolStripStatusLabel audioLength;
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripButton toolStripButton8;

@@ -18,7 +18,26 @@ namespace Sound_Editor {
 
         private List<AudioFile> files = new List<AudioFile>();
         private BlockAlignReductionStream currentStream = null;
+        private AudioFile currentAudio = null;
         private DirectSoundOut output = null;
+
+        private void MainForm_Load(object sender, EventArgs e) {
+            originalPlayTimer.Interval = 1;
+        }
+
+        private void initAudio(AudioFile f) {
+            currentStream = f.Stream;
+            currentAudio = f;
+            originalWaveViewer.WaveStream = f.Stream;
+            originalWaveViewer.FitToScreen();
+
+            VizualizationTab.TabPages[0].Text = "Редактор: " + f.Name + "." + f.Format;
+            audioRate.Text = f.SampleRate + " Hz";
+            audioSize.Text = Math.Round(f.Size, 1).ToString() + " MB";
+            audioLength.Text = String.Format("{0:00}:{1:00}:{2:00}", f.Duration.Minutes, f.Duration.Seconds, f.Duration.Milliseconds);
+
+            output.Init(f.Stream);
+        }
 
         private void openToolStripButton_Click(object sender, EventArgs e) {
             BlockAlignReductionStream stream = null;
@@ -42,14 +61,8 @@ namespace Sound_Editor {
             item.SubItems.Add(file.bitDepth.ToString() + " bit");
             listAudio.Items.Add(item);
             if (files.Count == 1) {
-                currentStream = stream;
-                originalWaveViewer.WaveStream = stream;
-                originalWaveViewer.FitToScreen();
-
                 output = new DirectSoundOut();
-                output.Init(stream);
-
-                originalPlayTimer.Interval = 1;
+                this.initAudio(file);
             }
         }
 
@@ -58,8 +71,9 @@ namespace Sound_Editor {
                 AudioFile file = files.Find(audio => audio.Name == listAudio.SelectedItems[0].Text && audio.Format == listAudio.SelectedItems[0].SubItems[3].Text);
                 if (output.PlaybackState == PlaybackState.Playing) {
                     output.Pause();
+                    audioStatus.Text = "Приостановлено: " + currentAudio.Name + "." + currentAudio.Format;
                 }
-                output.Init(file.Stream);
+                this.initAudio(file);
             } else {
                 MessageBox.Show("Вы не выбрали аудио файл.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -70,6 +84,7 @@ namespace Sound_Editor {
             if (output != null) {
                 if (output.PlaybackState == PlaybackState.Playing) {
                     output.Pause();
+                    audioStatus.Text = "Приостановлено: " + currentAudio.Name + "." + currentAudio.Format;
                 }
             }
         }
@@ -80,6 +95,7 @@ namespace Sound_Editor {
                 if (output.PlaybackState != PlaybackState.Playing) {
                     output.Play();
                     originalPlayTimer.Enabled = true;
+                    audioStatus.Text = "Воспроизведение: " + currentAudio.Name + "." + currentAudio.Format;
                 }
             }
         }
@@ -92,6 +108,7 @@ namespace Sound_Editor {
                     output.Stop();
                     originalCurrentTime.Text = "00:00:000";
                     originalPlayTimer.Enabled = false;
+                    audioStatus.Text = "Остановлено: " + currentAudio.Name + "." + currentAudio.Format;
                 }
             }
         }

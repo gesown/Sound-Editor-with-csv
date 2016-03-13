@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using NAudio.Wave;
 
 namespace Sound_Editor {
@@ -12,6 +13,7 @@ namespace Sound_Editor {
         public TimeSpan Position { get; set; }
         public int SampleRate { get; set; }
         public int bitDepth { get; set; }
+        public double Size { get; set; }
         public string Format { get; set; }
         public string Path { get; set; }
         public BlockAlignReductionStream Stream { get; }
@@ -26,6 +28,7 @@ namespace Sound_Editor {
             this.Position = stream.CurrentTime;
             this.SampleRate = stream.WaveFormat.SampleRate;
             this.bitDepth = stream.WaveFormat.BitsPerSample;
+            this.Size = new FileInfo(path).Length * Math.Pow(10, -6);
             this.Format = path.Substring(startIndexOfFormat);
             this.Path = path;
             this.Stream = stream;
