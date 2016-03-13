@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem37 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:05:778",
             "0:23:803",
             "0:18:124"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem38 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem39 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:00",
             "1:15:650",
             "1:15:650"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
@@ -151,8 +151,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
             this.tableLayoutPanel1.Controls.Add(this.statusStrip1, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.menuStrip1, 0, 0);
@@ -350,7 +350,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(15, 5, 5, 5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(324, 260);
+            this.tabControl1.Size = new System.Drawing.Size(349, 260);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -360,7 +360,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(316, 234);
+            this.tabPage1.Size = new System.Drawing.Size(341, 234);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Файлы";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -368,6 +368,7 @@
             // toolStrip1
             // 
             this.toolStrip1.AutoSize = false;
+            this.toolStrip1.BackColor = System.Drawing.SystemColors.Window;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripButton,
             this.openToolStripButton,
@@ -382,7 +383,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(3, 3);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(310, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(335, 30);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -481,7 +482,7 @@
             this.listAudio.MultiSelect = false;
             this.listAudio.Name = "listAudio";
             this.listAudio.ShowItemToolTips = true;
-            this.listAudio.Size = new System.Drawing.Size(347, 200);
+            this.listAudio.Size = new System.Drawing.Size(345, 200);
             this.listAudio.TabIndex = 0;
             this.listAudio.UseCompatibleStateImageBehavior = false;
             this.listAudio.View = System.Windows.Forms.View.Details;
@@ -547,10 +548,10 @@
             this.tableLayoutPanel1.SetColumnSpan(this.tabControl2, 2);
             this.tabControl2.Controls.Add(this.tabPage2);
             this.tabControl2.Controls.Add(this.tabPage3);
-            this.tabControl2.Location = new System.Drawing.Point(347, 28);
+            this.tabControl2.Location = new System.Drawing.Point(372, 28);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(881, 264);
+            this.tabControl2.Size = new System.Drawing.Size(856, 264);
             this.tabControl2.TabIndex = 3;
             // 
             // tabPage2
@@ -561,7 +562,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(873, 238);
+            this.tabPage2.Size = new System.Drawing.Size(848, 238);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "Редактор: SoundFile1.mp3";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -574,7 +575,7 @@
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(908, 242);
+            this.pictureBox1.Size = new System.Drawing.Size(883, 242);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -584,7 +585,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(873, 238);
+            this.tabPage3.Size = new System.Drawing.Size(848, 238);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "Спектрограмма";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -620,10 +621,10 @@
             this.toolStripButton5,
             this.toolStripButton6,
             this.toolStripButton7});
-            this.toolStrip2.Location = new System.Drawing.Point(344, 295);
+            this.toolStrip2.Location = new System.Drawing.Point(369, 295);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip2.Size = new System.Drawing.Size(738, 50);
+            this.toolStrip2.Size = new System.Drawing.Size(713, 50);
             this.toolStrip2.TabIndex = 7;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -736,10 +737,10 @@
             this.toolStripButton13,
             this.toolStripButton14});
             this.toolStrip3.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip3.Location = new System.Drawing.Point(344, 615);
+            this.toolStrip3.Location = new System.Drawing.Point(369, 615);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip3.Size = new System.Drawing.Size(738, 50);
+            this.toolStrip3.Size = new System.Drawing.Size(713, 50);
             this.toolStrip3.TabIndex = 9;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -837,10 +838,10 @@
             this.tableLayoutPanel1.SetColumnSpan(this.tabControl3, 2);
             this.tabControl3.Controls.Add(this.tabPage4);
             this.tabControl3.Controls.Add(this.tabPage5);
-            this.tabControl3.Location = new System.Drawing.Point(347, 348);
+            this.tabControl3.Location = new System.Drawing.Point(372, 348);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(881, 264);
+            this.tabControl3.Size = new System.Drawing.Size(856, 264);
             this.tabControl3.TabIndex = 4;
             // 
             // tabPage4
@@ -851,7 +852,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(873, 238);
+            this.tabPage4.Size = new System.Drawing.Size(848, 238);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Редактор: SoundFile1.mp3";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -864,7 +865,7 @@
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(-1, -1);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(906, 435);
+            this.pictureBox2.Size = new System.Drawing.Size(881, 435);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
@@ -874,7 +875,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(873, 238);
+            this.tabPage5.Size = new System.Drawing.Size(848, 238);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Спектрограмма";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -902,7 +903,7 @@
             this.tabControl4.Name = "tabControl4";
             this.tableLayoutPanel1.SetRowSpan(this.tabControl4, 2);
             this.tabControl4.SelectedIndex = 0;
-            this.tabControl4.Size = new System.Drawing.Size(324, 120);
+            this.tabControl4.Size = new System.Drawing.Size(349, 120);
             this.tabControl4.TabIndex = 10;
             // 
             // tabPage6
@@ -913,7 +914,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(316, 94);
+            this.tabPage6.Size = new System.Drawing.Size(341, 94);
             this.tabPage6.TabIndex = 0;
             this.tabPage6.Text = "Выделено / Просмотр";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -929,12 +930,12 @@
             this.columnHeader7,
             this.columnHeader8});
             this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4,
-            listViewItem5,
-            listViewItem6});
+            listViewItem37,
+            listViewItem38,
+            listViewItem39});
             this.listView2.Location = new System.Drawing.Point(67, 6);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(270, 82);
+            this.listView2.Size = new System.Drawing.Size(268, 82);
             this.listView2.TabIndex = 2;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
@@ -984,7 +985,7 @@
             this.tabControl5.Name = "tabControl5";
             this.tableLayoutPanel1.SetRowSpan(this.tabControl5, 2);
             this.tabControl5.SelectedIndex = 0;
-            this.tabControl5.Size = new System.Drawing.Size(324, 310);
+            this.tabControl5.Size = new System.Drawing.Size(349, 310);
             this.tabControl5.TabIndex = 11;
             // 
             // tabPage7
@@ -992,7 +993,7 @@
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(316, 284);
+            this.tabPage7.Size = new System.Drawing.Size(341, 284);
             this.tabPage7.TabIndex = 0;
             this.tabPage7.Text = "tabPage7";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -1002,7 +1003,7 @@
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(316, 284);
+            this.tabPage8.Size = new System.Drawing.Size(341, 284);
             this.tabPage8.TabIndex = 1;
             this.tabPage8.Text = "tabPage8";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -1016,6 +1017,7 @@
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(143, 44);
             this.trackBar1.TabIndex = 12;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
             // 
             // trackBar2
             // 
@@ -1026,6 +1028,7 @@
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(143, 44);
             this.trackBar2.TabIndex = 13;
+            this.trackBar2.TickStyle = System.Windows.Forms.TickStyle.Both;
             // 
             // MainForm
             // 
@@ -1033,6 +1036,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1234, 766);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.MinimumSize = new System.Drawing.Size(715, 540);
             this.Name = "MainForm";
             this.Text = "Sound Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

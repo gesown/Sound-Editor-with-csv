@@ -21,11 +21,10 @@ namespace Sound_Editor {
         private DirectSoundOut output = null;
 
         private void openToolStripButton_Click(object sender, EventArgs e) {
-        BlockAlignReductionStream stream = null;
-        OpenFileDialog open = new OpenFileDialog();
+            BlockAlignReductionStream stream = null;
+            OpenFileDialog open = new OpenFileDialog();
             open.Filter = "Audio File (*.mp3;*.wav)|*.mp3;*.wav;";
             if (open.ShowDialog() != DialogResult.OK) return;
-
             if (open.FileName.EndsWith(".mp3")) {
                 WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(new Mp3FileReader(open.FileName));
                 stream = new BlockAlignReductionStream(pcm);
@@ -33,7 +32,6 @@ namespace Sound_Editor {
                 WaveStream pcm = new WaveChannel32(new WaveFileReader(open.FileName));
                 stream = new BlockAlignReductionStream(pcm);
             } else throw new InvalidOperationException("Неверный формат аудиофайла");
-
             AudioFile file = new AudioFile(stream, open.FileName);
             files.Add(file);
             ListViewItem item = new ListViewItem(file.Name);
@@ -107,6 +105,5 @@ namespace Sound_Editor {
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
             DisposeWave();
         }
-
     }
 }
