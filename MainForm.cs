@@ -26,6 +26,7 @@ namespace Sound_Editor {
         }
 
         private void initAudio(AudioFile f) {
+            // check format and create object
             currentStream = f.Stream;
             currentAudio = f;
             originalWaveViewer.WaveStream = f.Reader;
@@ -35,25 +36,23 @@ namespace Sound_Editor {
             audioRate.Text = f.SampleRate + " Hz";
             audioSize.Text = Math.Round(f.Size, 1).ToString() + " MB";
             audioLength.Text = String.Format("{0:00}:{1:00}:{2:00}", f.Duration.Minutes, f.Duration.Seconds, f.Duration.Milliseconds);
-
             output.Init(f.Stream);
         }
 
         private void openToolStripButton_Click(object sender, EventArgs e) {
             AudioFile file = null;
-            BlockAlignReductionStream stream = null;
             OpenFileDialog open = new OpenFileDialog();
             open.Filter = "Audio File (*.mp3;*.wav)|*.mp3;*.wav;";
             if (open.ShowDialog() != DialogResult.OK) return;
             if (open.FileName.EndsWith(".mp3")) {
                 Mp3FileReader reader = new Mp3FileReader(open.FileName);
                 WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(reader);
-                stream = new BlockAlignReductionStream(pcm);
+                BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
                 file = new MP3File(reader, stream, open.FileName);
             } else if (open.FileName.EndsWith(".wav")) {
                 WaveFileReader reader = new WaveFileReader(open.FileName);
                 WaveStream pcm = new WaveChannel32(reader);
-                stream = new BlockAlignReductionStream(pcm);
+                BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
                 file = new WaveFile(reader, stream, open.FileName);
             } else throw new InvalidOperationException("Неверный формат аудиофайла");
             files.Add(file);
@@ -137,8 +136,7 @@ namespace Sound_Editor {
         }
 
         private void originalPlayTimer_Tick(object sender, EventArgs e) {
-            TimeSpan currentTime = currentAudio.Reader.CurrentTime;
-            originalCurrentTime.Text = String.Format("{0:00}:{1:00}:{2:00}", currentTime.Minutes, currentTime.Seconds, currentTime.Milliseconds);
+            originalCurrentTime.Text = String.Format("{0:00}:{1:00}:{2:00}", currentStream.CurrentTime.Minutes, currentStream.CurrentTime.Seconds, currentStream.CurrentTime.Milliseconds);
         }
 
         private void trackBarOriginal_Scroll(object sender, EventArgs e) {
