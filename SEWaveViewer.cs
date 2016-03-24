@@ -183,7 +183,7 @@ namespace Sound_Editor {
                         e.Graphics.DrawLine(linePen, x, this.Height * lowPercent, x, this.Height * highPercent);
                     }
                 }
-                waveStream.Position = 0;    // Костыль
+                waveStream.Position = StartPosition;
             }
 
             base.OnPaint(e);

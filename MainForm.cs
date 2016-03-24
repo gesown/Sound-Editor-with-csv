@@ -19,7 +19,7 @@ namespace Sound_Editor {
         private List<AudioFile> files = new List<AudioFile>();
         private BlockAlignReductionStream currentStream = null;
         private AudioFile currentAudio = null;
-        private DirectSoundOut output = null;
+        private WaveOut output = null;
 
         private void MainForm_Load(object sender, EventArgs e) {
             originalPlayTimer.Interval = 1;
@@ -65,7 +65,8 @@ namespace Sound_Editor {
             item.SubItems.Add(file.bitDepth.ToString() + " bit");
             listAudio.Items.Add(item);
             if (files.Count == 1) {
-                output = new DirectSoundOut();
+                output = new WaveOut();
+                output.Volume = 1f;
                 this.initAudio(file);
             }
         }
@@ -136,7 +137,14 @@ namespace Sound_Editor {
         }
 
         private void originalPlayTimer_Tick(object sender, EventArgs e) {
-            originalCurrentTime.Text = String.Format("{0:00}:{1:00}:{2:000}", currentStream.CurrentTime.Minutes, currentStream.CurrentTime.Seconds, currentStream.CurrentTime.Milliseconds);
+            TimeSpan currentTime = currentAudio.Reader.CurrentTime;
+            originalCurrentTime.Text = String.Format("{0:00}:{1:00}:{2:00}", currentTime.Minutes, currentTime.Seconds, currentTime.Milliseconds);
+        }
+
+        private void trackBarOriginal_Scroll(object sender, EventArgs e) {
+            if (output != null) {
+                output.Volume = trackBarOriginal.Value / 10f;
+            }
         }
     }
 }

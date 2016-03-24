@@ -116,7 +116,7 @@
             this.tabControl5 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.trackBarOriginal = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.originalPlayTimer = new System.Windows.Forms.Timer(this.components);
             this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
@@ -141,7 +141,7 @@
             this.tabControl4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabControl5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarOriginal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -163,7 +163,7 @@
             this.tableLayoutPanel1.Controls.Add(this.tabControl3, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.tabControl4, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.tabControl5, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.trackBar1, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.trackBarOriginal, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.trackBar2, 2, 4);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -197,7 +197,7 @@
             // 
             this.audioStatus.Name = "audioStatus";
             this.audioStatus.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.audioStatus.Size = new System.Drawing.Size(946, 16);
+            this.audioStatus.Size = new System.Drawing.Size(977, 16);
             this.audioStatus.Spring = true;
             this.audioStatus.Text = "Готово";
             this.audioStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -623,7 +623,7 @@
             this.originalCurrentTime.ForeColor = System.Drawing.Color.Indigo;
             this.originalCurrentTime.Name = "originalCurrentTime";
             this.originalCurrentTime.Size = new System.Drawing.Size(276, 47);
-            this.originalCurrentTime.Text = "0:00:000";
+            this.originalCurrentTime.Text = "0:00:00";
             this.originalCurrentTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // toolStripButton2
@@ -853,7 +853,7 @@
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(-1, -1);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(887, 401);
+            this.pictureBox2.Size = new System.Drawing.Size(890, 384);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
@@ -996,16 +996,18 @@
             this.tabPage8.Text = "tabPage8";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
-            // trackBar1
+            // trackBarOriginal
             // 
-            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.trackBarOriginal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar1.Location = new System.Drawing.Point(1085, 298);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(143, 44);
-            this.trackBar1.TabIndex = 12;
-            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarOriginal.Location = new System.Drawing.Point(1085, 298);
+            this.trackBarOriginal.Name = "trackBarOriginal";
+            this.trackBarOriginal.Size = new System.Drawing.Size(143, 44);
+            this.trackBarOriginal.TabIndex = 12;
+            this.trackBarOriginal.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarOriginal.Value = 10;
+            this.trackBarOriginal.Scroll += new System.EventHandler(this.trackBarOriginal_Scroll);
             // 
             // trackBar2
             // 
@@ -1020,6 +1022,7 @@
             // 
             // originalPlayTimer
             // 
+            this.originalPlayTimer.Interval = 1;
             this.originalPlayTimer.Tick += new System.EventHandler(this.originalPlayTimer_Tick);
             // 
             // originalWaveViewer
@@ -1075,7 +1078,7 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             this.tabControl5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarOriginal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             this.ResumeLayout(false);
 
@@ -1165,7 +1168,7 @@
         private System.Windows.Forms.ContextMenuStrip audioContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem редактироватьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar trackBarOriginal;
         private System.Windows.Forms.TrackBar trackBar2;
         private SEWaveViewer originalWaveViewer;
         private System.Windows.Forms.Timer originalPlayTimer;
