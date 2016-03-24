@@ -28,7 +28,7 @@ namespace Sound_Editor {
         private void initAudio(AudioFile f) {
             currentStream = f.Stream;
             currentAudio = f;
-            originalWaveViewer.WaveStream = f.Stream;
+            originalWaveViewer.WaveStream = f.Reader;
             originalWaveViewer.FitToScreen();
 
             VizualizationTab.TabPages[0].Text = "Редактор: " + f.Name + "." + f.Format;
@@ -40,18 +40,22 @@ namespace Sound_Editor {
         }
 
         private void openToolStripButton_Click(object sender, EventArgs e) {
+            AudioFile file = null;
             BlockAlignReductionStream stream = null;
             OpenFileDialog open = new OpenFileDialog();
             open.Filter = "Audio File (*.mp3;*.wav)|*.mp3;*.wav;";
             if (open.ShowDialog() != DialogResult.OK) return;
             if (open.FileName.EndsWith(".mp3")) {
-                WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(new Mp3FileReader(open.FileName));
+                Mp3FileReader reader = new Mp3FileReader(open.FileName);
+                WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(reader);
                 stream = new BlockAlignReductionStream(pcm);
+                file = new MP3File(reader, stream, open.FileName);
             } else if (open.FileName.EndsWith(".wav")) {
-                WaveStream pcm = new WaveChannel32(new WaveFileReader(open.FileName));
+                WaveFileReader reader = new WaveFileReader(open.FileName);
+                WaveStream pcm = new WaveChannel32(reader);
                 stream = new BlockAlignReductionStream(pcm);
+                file = new WaveFile(reader, stream, open.FileName);
             } else throw new InvalidOperationException("Неверный формат аудиофайла");
-            AudioFile file = new AudioFile(stream, open.FileName);
             files.Add(file);
             ListViewItem item = new ListViewItem(file.Name);
             item.SubItems.Add(String.Format("{0:00}:{1:00}:{2:000}", file.Duration.Minutes, file.Duration.Seconds, file.Duration.Milliseconds));

@@ -7,7 +7,7 @@ using System.IO;
 using NAudio.Wave;
 
 namespace Sound_Editor {
-    class AudioFile {
+    abstract class AudioFile {
         public string Name { get; set; }
         public TimeSpan Duration { get; set; }
         public TimeSpan Position { get; set; }
@@ -16,7 +16,8 @@ namespace Sound_Editor {
         public double Size { get; set; }
         public string Format { get; set; }
         public string Path { get; set; }
-        public BlockAlignReductionStream Stream { get; }
+        public BlockAlignReductionStream Stream { get; set; }
+        public virtual dynamic Reader { get; set; }
 
         public AudioFile(BlockAlignReductionStream stream, string path) {
             int startIndexOfName = path.LastIndexOf('\\') + 1;
