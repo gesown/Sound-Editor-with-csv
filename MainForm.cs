@@ -38,7 +38,7 @@ namespace Sound_Editor {
         }
 
         private void visualizeSpectrum(AudioFile f) {
-            byte[] buff = new byte[1024];
+            byte[] buff = new byte[256];
             int byteRead = 0;
             if (f.Format == "mp3") {
                 MP3File file = f as MP3File;
@@ -50,18 +50,21 @@ namespace Sound_Editor {
                 byteRead = file.Reader.Read(buff, 0, buff.Length);
             }
 
-            Complex[] data = new Complex[1024];
+            Complex[] data = new Complex[buff.Length];
             for (int i = 0; i < buff.Length; i++) {
                 data[i].X = buff[i];
                 data[i].Y = 0.0f;
             }
-            FastFourierTransform.FFT(true, 10, data);
+            FastFourierTransform.FFT(true, (int)Math.Log(buff.Length, 2), data);
 
-            double[] res = new double[1024];
-            for (int i = 0; i < data.Length; i++) {
+            double[] res = new double[buff.Length / 2];
+            for (int i = 0; i < data.Length / 2; i++) {
                 res[i] = Math.Sqrt(data[i].X * data[i].X + data[i].Y * data[i].Y);
             }
 
+            spectrumViewer1.spectrum = res;
+            spectrumViewer1.PenColor = Color.Red;
+            spectrumViewer1.PenWidth = 4;
         }
 
         private void initAudio(AudioFile f) {
