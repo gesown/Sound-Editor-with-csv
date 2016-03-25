@@ -38,16 +38,25 @@ namespace Sound_Editor {
         }
 
         private void visualizeSpectrum(AudioFile f) {
-            WaveFile file = f as WaveFile;
             byte[] buff = new byte[1024];
-            file.Reader.Position = 15883488;
-            int byteRead = file.Reader.Read(buff, 0, buff.Length);
+            int byteRead = 0;
+            if (f.Format == "mp3") {
+                MP3File file = f as MP3File;
+                file.Reader.Position = 15883488;
+                byteRead = file.Reader.Read(buff, 0, buff.Length);
+            } else if (f.Format == "wav") {
+                WaveFile file = f as WaveFile;
+                file.Reader.Position = 15883488;
+                byteRead = file.Reader.Read(buff, 0, buff.Length);
+            }
+
             Complex[] data = new Complex[1024];
             for (int i = 0; i < buff.Length; i++) {
                 data[i].X = buff[i];
                 data[i].Y = 0.0f;
             }
             FastFourierTransform.FFT(true, 10, data);
+
             double[] res = new double[1024];
             for (int i = 0; i < data.Length; i++) {
                 res[i] = Math.Sqrt(data[i].X * data[i].X + data[i].Y * data[i].Y);
