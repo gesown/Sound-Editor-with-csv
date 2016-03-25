@@ -7,7 +7,7 @@ using NAudio.Wave;
 
 namespace Sound_Editor {
     class WaveFile : AudioFile {
-        public override dynamic Reader { get; set; }
+        public WaveFileReader Reader { get; set; }
 
         public WaveFile(WaveFileReader reader, BlockAlignReductionStream stream, string path) : base(stream, path) {
             this.Reader = reader;

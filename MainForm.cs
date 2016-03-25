@@ -17,7 +17,7 @@ namespace Sound_Editor {
         }
 
         private List<AudioFile> files = new List<AudioFile>();
-        private BlockAlignReductionStream currentStream = null;
+        private BlockAlignReductionStream currentStream = null; // to delete later
         private AudioFile currentAudio = null;
         private WaveOut output = null;
 
@@ -26,10 +26,16 @@ namespace Sound_Editor {
         }
 
         private void initAudio(AudioFile f) {
-            // check format and create object
+            if (f.Format == "mp3") {
+                MP3File file = f as MP3File;
+                originalWaveViewer.WaveStream = file.Reader;
+            } else if (f.Format == "wav") {
+                WaveFile file = f as WaveFile;
+                originalWaveViewer.WaveStream = file.Reader;
+            }
             currentStream = f.Stream;
             currentAudio = f;
-            originalWaveViewer.WaveStream = f.Reader;
+            
             originalWaveViewer.FitToScreen();
 
             VizualizationTab.TabPages[0].Text = "Редактор: " + f.Name + "." + f.Format;
@@ -136,7 +142,15 @@ namespace Sound_Editor {
         }
 
         private void originalPlayTimer_Tick(object sender, EventArgs e) {
-            originalCurrentTime.Text = String.Format("{0:00}:{1:00}:{2:00}", currentStream.CurrentTime.Minutes, currentStream.CurrentTime.Seconds, currentStream.CurrentTime.Milliseconds);
+            TimeSpan currentTime = new TimeSpan();
+            if (currentAudio.Format == "mp3") {
+                MP3File file = currentAudio as MP3File;
+                currentTime = file.Reader.CurrentTime;
+            } else if (currentAudio.Format == "wav") {
+                WaveFile file = currentAudio as WaveFile;
+                currentTime = file.Reader.CurrentTime;
+            }
+            originalCurrentTime.Text = String.Format("{0:00}:{1:00}:{2:00}", currentTime.Minutes, currentTime.Seconds, currentTime.Milliseconds);
         }
 
         private void trackBarOriginal_Scroll(object sender, EventArgs e) {
