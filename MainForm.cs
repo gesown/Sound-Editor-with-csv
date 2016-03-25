@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio;
 using NAudio.Wave;
+using NAudio.Dsp;
 
 namespace Sound_Editor {
     public partial class MainForm : Form {
@@ -25,7 +26,7 @@ namespace Sound_Editor {
             originalPlayTimer.Interval = 1;
         }
 
-        private void initAudio(AudioFile f) {
+        private void visualizeWave(AudioFile f) {
             if (f.Format == "mp3") {
                 MP3File file = f as MP3File;
                 originalWaveViewer.WaveStream = file.Reader;
@@ -33,10 +34,33 @@ namespace Sound_Editor {
                 WaveFile file = f as WaveFile;
                 originalWaveViewer.WaveStream = file.Reader;
             }
+            originalWaveViewer.FitToScreen();
+        }
+
+        private void visualizeSpectrum(AudioFile f) {
+            WaveFile file = f as WaveFile;
+            byte[] buff = new byte[1024];
+            file.Reader.Position = 15883488;
+            int byteRead = file.Reader.Read(buff, 0, buff.Length);
+            Complex[] data = new Complex[1024];
+            for (int i = 0; i < buff.Length; i++) {
+                data[i].X = buff[i];
+                data[i].Y = 0.0f;
+            }
+            FastFourierTransform.FFT(true, 10, data);
+            double[] res = new double[1024];
+            for (int i = 0; i < data.Length; i++) {
+                res[i] = Math.Sqrt(data[i].X * data[i].X + data[i].Y * data[i].Y);
+            }
+
+        }
+
+        private void initAudio(AudioFile f) {
             currentStream = f.Stream;
             currentAudio = f;
-            
-            originalWaveViewer.FitToScreen();
+
+            visualizeWave(f);
+            visualizeSpectrum(f);
 
             VizualizationTab.TabPages[0].Text = "Редактор: " + f.Name + "." + f.Format;
             audioRate.Text = f.SampleRate + " Hz";

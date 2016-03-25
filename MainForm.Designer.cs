@@ -78,6 +78,7 @@
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VizualizationTab = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
@@ -119,7 +120,7 @@
             this.trackBarOriginal = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.originalPlayTimer = new System.Windows.Forms.Timer(this.components);
-            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -547,6 +548,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.VizualizationTab, 2);
             this.VizualizationTab.Controls.Add(this.tabPage2);
+            this.VizualizationTab.Controls.Add(this.tabPage9);
             this.VizualizationTab.Controls.Add(this.tabPage3);
             this.VizualizationTab.Location = new System.Drawing.Point(372, 28);
             this.VizualizationTab.Name = "VizualizationTab";
@@ -566,6 +568,20 @@
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "Редактор";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // originalWaveViewer
+            // 
+            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
+            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalWaveViewer.Location = new System.Drawing.Point(3, 3);
+            this.originalWaveViewer.Name = "originalWaveViewer";
+            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
+            this.originalWaveViewer.PenWidth = 1F;
+            this.originalWaveViewer.SamplesPerPixel = 128;
+            this.originalWaveViewer.Size = new System.Drawing.Size(842, 232);
+            this.originalWaveViewer.StartPosition = ((long)(0));
+            this.originalWaveViewer.TabIndex = 0;
+            this.originalWaveViewer.WaveStream = null;
             // 
             // tabPage3
             // 
@@ -1025,19 +1041,14 @@
             this.originalPlayTimer.Interval = 1;
             this.originalPlayTimer.Tick += new System.EventHandler(this.originalPlayTimer_Tick);
             // 
-            // originalWaveViewer
+            // tabPage9
             // 
-            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
-            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.originalWaveViewer.Location = new System.Drawing.Point(3, 3);
-            this.originalWaveViewer.Name = "originalWaveViewer";
-            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
-            this.originalWaveViewer.PenWidth = 1F;
-            this.originalWaveViewer.SamplesPerPixel = 128;
-            this.originalWaveViewer.Size = new System.Drawing.Size(845, 215);
-            this.originalWaveViewer.StartPosition = ((long)(0));
-            this.originalWaveViewer.TabIndex = 0;
-            this.originalWaveViewer.WaveStream = null;
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Size = new System.Drawing.Size(848, 238);
+            this.tabPage9.TabIndex = 2;
+            this.tabPage9.Text = "Спектр";
+            this.tabPage9.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1172,6 +1183,7 @@
         private System.Windows.Forms.TrackBar trackBar2;
         private SEWaveViewer originalWaveViewer;
         private System.Windows.Forms.Timer originalPlayTimer;
+        private System.Windows.Forms.TabPage tabPage9;
     }
 }
 

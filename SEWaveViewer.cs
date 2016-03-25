@@ -44,6 +44,7 @@ namespace Sound_Editor {
         public void Zoom(int leftSample, int rightSample) {
             startPosition = leftSample * bytesPerSample;
             SamplesPerPixel = (rightSample - leftSample) / this.Width;
+            MessageBox.Show(StartPosition.ToString());
         }
 
         private Point mousePos, startPos;
