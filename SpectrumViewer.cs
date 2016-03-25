@@ -38,19 +38,19 @@ namespace Sound_Editor {
                 Pen linePen = new Pen(this.PenColor, this.PenWidth);
                 linePen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
                 linePen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
-                float max = (float)this.spectrum[0];
-                for (int i = 1; i < this.spectrum.Length; i++) {
+                float max = (float)this.spectrum[1];
+                for (int i = 2; i < this.spectrum.Length; i++) {
                     if (spectrum[i] > max)
                         max = (float)spectrum[i];
                 }
                 float koef = this.Height / Math.Max(max, 1);
-                float step = (float)(this.Width ) / spectrum.Length;
+                float step = (float)(this.Width) / spectrum.Length;
                 float x = e.ClipRectangle.X;
                 float y = (float)this.Height;
                 float x1, y1;
-                for (int i = 0; i < this.spectrum.Length; i++) {
+                for (int i = 1; i < this.spectrum.Length; i++) {
                     x1 = x + step;
-                    y1 = this.Height - (float)(spectrum[i] * koef );
+                    y1 = this.Height - (float)(spectrum[i] * koef);
                     e.Graphics.DrawLine(linePen, x, y, x1, y1);
                     x = x1; y = y1;
                 }

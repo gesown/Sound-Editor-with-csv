@@ -24,8 +24,8 @@ namespace Sound_Editor {
 
         private void MainForm_Load(object sender, EventArgs e) {
             originalPlayTimer.Interval = 1;
-            spectrumViewer1.PenColor = Color.Red;
-            spectrumViewer1.PenWidth = 4;
+            spectrumViewer1.PenColor = Color.GreenYellow;
+            spectrumViewer1.PenWidth = 2;
         }
 
         private void visualizeWave(AudioFile f) {
@@ -40,7 +40,7 @@ namespace Sound_Editor {
         }
 
         private void visualizeSpectrum(AudioFile f) {
-            byte[] buff = new byte[256];
+            byte[] buff = new byte[1024];
             int byteRead = 0;
             if (f.Format == "mp3") {
                 MP3File file = f as MP3File;
