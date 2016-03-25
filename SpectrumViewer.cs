@@ -46,11 +46,11 @@ namespace Sound_Editor {
                 float koef = this.Height / Math.Max(max, 1);
                 float step = (float)(this.Width ) / spectrum.Length;
                 float x = e.ClipRectangle.X;
-                float y = 0f;
+                float y = (float)this.Height;
                 float x1, y1;
                 for (int i = 0; i < this.spectrum.Length; i++) {
                     x1 = x + step;
-                    y1 = (float)spectrum[i] * koef;
+                    y1 = this.Height - (float)(spectrum[i] * koef );
                     e.Graphics.DrawLine(linePen, x, y, x1, y1);
                     x = x1; y = y1;
                 }
