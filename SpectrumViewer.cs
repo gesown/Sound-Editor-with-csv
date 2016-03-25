@@ -34,20 +34,21 @@ namespace Sound_Editor {
 
         protected override void OnPaint(PaintEventArgs e) {
             if (this.spectrum != null) {
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 Pen linePen = new Pen(this.PenColor, this.PenWidth);
                 linePen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
                 linePen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
-                float max = (float)this.spectrum[0] * 10;
-                for (int i = 1; i < this.spectrum.Length ; i++) {
+                float max = (float)this.spectrum[0];
+                for (int i = 1; i < this.spectrum.Length; i++) {
                     if (spectrum[i] > max)
                         max = (float)spectrum[i];
                 }
-                float koef = 10 * this.Height / max;
+                float koef = this.Height / Math.Max(max, 1);
                 float step = (float)(this.Width ) / spectrum.Length;
                 float x = e.ClipRectangle.X;
                 float y = 0f;
                 float x1, y1;
-                for (int i = 0; i < this.spectrum.Length ; i++) {
+                for (int i = 0; i < this.spectrum.Length; i++) {
                     x1 = x + step;
                     y1 = (float)spectrum[i] * koef;
                     e.Graphics.DrawLine(linePen, x, y, x1, y1);
