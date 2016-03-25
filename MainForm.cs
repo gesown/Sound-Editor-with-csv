@@ -44,21 +44,21 @@ namespace Sound_Editor {
             int byteRead = 0;
             if (f.Format == "mp3") {
                 MP3File file = f as MP3File;
-                byteRead = file.Reader.Read(buff, 0, buff.Length);
+                byteRead = file.Reader.Read(buff, 0, 1024);
             } else if (f.Format == "wav") {
                 WaveFile file = f as WaveFile;
-                byteRead = file.Reader.Read(buff, 0, buff.Length);
+                byteRead = file.Reader.Read(buff, 0, 1024);
             }
 
-            Complex[] data = new Complex[buff.Length];
+            Complex[] data = new Complex[1024];
             for (int i = 0; i < buff.Length; i++) {
                 data[i].X = buff[i];
                 data[i].Y = 0.0f;
             }
-            FastFourierTransform.FFT(true, (int)Math.Log(buff.Length, 2), data);
+            FastFourierTransform.FFT(true, 10, data);
 
-            double[] res = new double[buff.Length / 2];
-            for (int i = 0; i < data.Length / 2; i++) {
+            double[] res = new double[512];
+            for (int i = 0; i < 512; i++) {
                 res[i] = Math.Sqrt(data[i].X * data[i].X + data[i].Y * data[i].Y);
             }
 
