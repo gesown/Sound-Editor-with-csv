@@ -22,27 +22,18 @@ namespace Sound_Editor {
         private WaveOut output = null;
 
         private void MainForm_Load(object sender, EventArgs e) {
+            originalPlayTimer.Enabled = true;
             spectrumViewer.PenColor = Color.GreenYellow;
             spectrumViewer.PenWidth = 2;
-        }
-
-        private void visualizeWave(AudioFile f) {
-            if (f.Format == "mp3") {
-                MP3File file = f as MP3File;
-                originalWaveViewer.WaveStream = file.Reader;
-            } else if (f.Format == "wav") {
-                WaveFile file = f as WaveFile;
-                originalWaveViewer.WaveStream = file.Reader;
-            }
-            originalWaveViewer.Audio = f;
-            originalWaveViewer.FitToScreen();
         }
 
         private void initAudio(AudioFile f) {
             currentAudio = f;
 
-            visualizeWave(f);
-            spectrumViewer.Audio = currentAudio;
+            originalWaveViewer.Audio = f;
+            originalWaveViewer.FitToScreen();
+
+            spectrumViewer.Audio = f;
 
             VizualizationTab.TabPages[0].Text = "Редактор: " + f.Name + "." + f.Format;
             audioRate.Text = f.SampleRate + " Hz";
@@ -100,7 +91,7 @@ namespace Sound_Editor {
             if (output != null) {
                 if (output.PlaybackState == PlaybackState.Playing) {
                     output.Pause();
-                    originalPlayTimer.Enabled = false;
+                    //originalPlayTimer.Enabled = false;
                     spectrumTimer.Enabled = false;
                     audioStatus.Text = "Приостановлено: " + currentAudio.Name + "." + currentAudio.Format;
                 }
@@ -112,7 +103,7 @@ namespace Sound_Editor {
             if (output != null) {
                 if (output.PlaybackState != PlaybackState.Playing) {
                     output.Play();
-                    originalPlayTimer.Enabled = true;
+                    //originalPlayTimer.Enabled = true;
                     spectrumTimer.Enabled = true;
                     audioStatus.Text = "Воспроизведение: " + currentAudio.Name + "." + currentAudio.Format;
                 }
@@ -126,7 +117,7 @@ namespace Sound_Editor {
                     currentAudio.Stream.Position = 0;
                     output.Stop();
                     originalCurrentTime.Text = "00:00:000";
-                    originalPlayTimer.Enabled = false;
+                    //originalPlayTimer.Enabled = false;
                     spectrumTimer.Enabled = false;
                     audioStatus.Text = "Остановлено: " + currentAudio.Name + "." + currentAudio.Format;
                 }
@@ -152,6 +143,7 @@ namespace Sound_Editor {
         }
 
         private void originalPlayTimer_Tick(object sender, EventArgs e) {
+            if (currentAudio == null) return;
             TimeSpan currentTime = new TimeSpan();
             if (currentAudio.Format == "mp3") {
                 MP3File file = currentAudio as MP3File;
@@ -160,6 +152,10 @@ namespace Sound_Editor {
                 WaveFile file = currentAudio as WaveFile;
                 currentTime = file.Reader.CurrentTime;
             }
+            if (currentAudio.Duration == currentTime) {
+                toolStripButton2_Click(sender, e);
+            }
+
             originalCurrentTime.Text = String.Format("{0:00}:{1:00}:{2:00}", currentTime.Minutes, currentTime.Seconds, currentTime.Milliseconds);
         }
 

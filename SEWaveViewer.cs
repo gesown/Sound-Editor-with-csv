@@ -12,8 +12,9 @@ namespace Sound_Editor {
         public float PenWidth { get; set; }
 
         private System.ComponentModel.Container components = null;
-        private WaveStream waveStream;
-        public AudioFile Audio { get; set; }
+
+        private WaveStream waveStream;  // WaveFileReader or MP3FileReader
+        private AudioFile audio;
         private int samplesPerPixel = 128;
         private long startPosition;
         private int bytesPerSample;
@@ -89,6 +90,25 @@ namespace Sound_Editor {
             ControlPaint.DrawReversibleLine(PointToScreen(new Point(x, 0)), PointToScreen(new Point(x, Height)), Color.White);
         }
 
+        public AudioFile Audio
+        {
+            get
+            {
+                return audio;
+            }
+            set
+            {
+                audio = value;
+                if (audio.Format == "mp3") {
+                    MP3File file = audio as MP3File;
+                    WaveStream = file.Reader;
+                } else if (audio.Format == "wav") {
+                    WaveFile file = audio as WaveFile;
+                    WaveStream = file.Reader;
+                }
+            }
+        }
+
         public WaveStream WaveStream
         {
             get
@@ -141,24 +161,18 @@ namespace Sound_Editor {
 
         protected override void OnPaint(PaintEventArgs e) {
             if (waveStream != null) {
-                int bytesRead = samplesPerPixel * bytesPerSample;
-                byte[] waveData = new byte[samplesPerPixel * bytesPerSample];
-                //long realPosition = waveStream.Position;    // Сохраняем позицию на котороый мы находимся
+                int bytesToRead = samplesPerPixel * bytesPerSample;
+                byte[] waveData = new byte[bytesToRead];
                 long position = startPosition + (e.ClipRectangle.Left * bytesPerSample * samplesPerPixel);
-                //waveStream.Position = startPosition + (e.ClipRectangle.Left * bytesPerSample * samplesPerPixel);
                 using (Pen linePen = new Pen(this.penColor, this.PenWidth)) {
                     for (float x = e.ClipRectangle.X; x < e.ClipRectangle.Right; x += 1) {
                         short low = 0;
                         short high = 0;
-                        for (int i = 0; i < samplesPerPixel * bytesPerSample; i++) {
-
+                        for (int i = 0; i < bytesToRead; i++) {
                             waveData[i] = Audio.Samples[position + i];
                         }
-                        position += samplesPerPixel * bytesPerSample;
-                        //bytesRead = waveStream.Read(waveData, 0, samplesPerPixel * bytesPerSample);
-                        //if (bytesRead == 0)
-                        //break;
-                        for (int n = 0; n < bytesRead; n += 2) {
+                        position += bytesToRead;
+                        for (int n = 0; n < bytesToRead; n += 2) {
                             short sample = BitConverter.ToInt16(waveData, n);
                             if (sample < low) low = sample;
                             if (sample > high) high = sample;
@@ -168,11 +182,9 @@ namespace Sound_Editor {
                         e.Graphics.DrawLine(linePen, x, this.Height * lowPercent, x, this.Height * highPercent);
                     }
                 }
-                //waveStream.Position = realPosition; // Восстанавливаем позицию на которой мы остановились
             }
             base.OnPaint(e);
         }
-
 
         #region Component Designer generated code
         private void InitializeComponent() {
