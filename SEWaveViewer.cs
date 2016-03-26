@@ -7,24 +7,16 @@ using System.Windows.Forms;
 using NAudio.Wave;
 
 namespace Sound_Editor {
-    /// <summary>
-    /// Control for viewing waveforms
-    /// </summary>
     public class SEWaveViewer : System.Windows.Forms.UserControl {
         public Color penColor { get; set; }
         public float PenWidth { get; set; }
 
-        /// <summary> 
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.Container components = null;
         private WaveStream waveStream;
         private int samplesPerPixel = 128;
         private long startPosition;
         private int bytesPerSample;
-        /// <summary>
-        /// Creates a new WaveViewer control
-        /// </summary>
+
         public SEWaveViewer() {
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
@@ -96,9 +88,6 @@ namespace Sound_Editor {
             ControlPaint.DrawReversibleLine(PointToScreen(new Point(x, 0)), PointToScreen(new Point(x, Height)), Color.White);
         }
 
-        /// <summary>
-        /// sets the associated wavestream
-        /// </summary>
         public WaveStream WaveStream
         {
             get
@@ -115,9 +104,6 @@ namespace Sound_Editor {
             }
         }
 
-        /// <summary>
-        /// The zoom level, in samples per pixel
-        /// </summary>
         public int SamplesPerPixel
         {
             get
@@ -131,9 +117,6 @@ namespace Sound_Editor {
             }
         }
 
-        /// <summary>
-        /// Start position (currently in bytes)
-        /// </summary>
         public long StartPosition
         {
             get
@@ -146,9 +129,6 @@ namespace Sound_Editor {
             }
         }
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
         protected override void Dispose(bool disposing) {
             if (disposing) {
                 if (components != null) {
@@ -158,14 +138,11 @@ namespace Sound_Editor {
             base.Dispose(disposing);
         }
 
-        /// <summary>
-        /// <see cref="Control.OnPaint"/>
-        /// </summary>
         protected override void OnPaint(PaintEventArgs e) {
             if (waveStream != null) {
-                waveStream.Position = 0;
                 int bytesRead;
                 byte[] waveData = new byte[samplesPerPixel * bytesPerSample];
+                long realPosition = waveStream.Position;    // Сохраняем позицию на котороый мы находимся
                 waveStream.Position = startPosition + (e.ClipRectangle.Left * bytesPerSample * samplesPerPixel);
                 using (Pen linePen = new Pen(this.penColor, this.PenWidth)) {
                     for (float x = e.ClipRectangle.X; x < e.ClipRectangle.Right; x += 1) {
@@ -184,18 +161,13 @@ namespace Sound_Editor {
                         e.Graphics.DrawLine(linePen, x, this.Height * lowPercent, x, this.Height * highPercent);
                     }
                 }
-                waveStream.Position = StartPosition;
+                waveStream.Position = realPosition; // Восстанавливаем позицию на которой мы остановились
             }
-
             base.OnPaint(e);
         }
 
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
         }

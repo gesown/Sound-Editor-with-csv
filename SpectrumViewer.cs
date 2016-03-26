@@ -13,8 +13,8 @@ namespace Sound_Editor {
     public class SpectrumViewer : System.Windows.Forms.UserControl {
         public Color PenColor { get; set; }
         public int PenWidth { get; set; }
-
         public AudioFile Audio { get; set; }
+
         private System.ComponentModel.Container components = null;
 
         public SpectrumViewer() {
@@ -60,7 +60,6 @@ namespace Sound_Editor {
             for (int i = 0; i < 512; i++) {
                 res[i] = Math.Sqrt(data[i].X * data[i].X + data[i].Y * data[i].Y);
             }
-
             return res;
         }
 

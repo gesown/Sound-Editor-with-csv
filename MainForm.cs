@@ -22,7 +22,6 @@ namespace Sound_Editor {
         private WaveOut output = null;
 
         private void MainForm_Load(object sender, EventArgs e) {
-            originalPlayTimer.Interval = 1;
             spectrumViewer.PenColor = Color.GreenYellow;
             spectrumViewer.PenWidth = 2;
         }
