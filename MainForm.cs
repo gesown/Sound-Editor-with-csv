@@ -91,7 +91,6 @@ namespace Sound_Editor {
             if (output != null) {
                 if (output.PlaybackState == PlaybackState.Playing) {
                     output.Pause();
-                    //originalPlayTimer.Enabled = false;
                     spectrumTimer.Enabled = false;
                     audioStatus.Text = "Приостановлено: " + currentAudio.Name + "." + currentAudio.Format;
                 }
@@ -103,7 +102,6 @@ namespace Sound_Editor {
             if (output != null) {
                 if (output.PlaybackState != PlaybackState.Playing) {
                     output.Play();
-                    //originalPlayTimer.Enabled = true;
                     spectrumTimer.Enabled = true;
                     audioStatus.Text = "Воспроизведение: " + currentAudio.Name + "." + currentAudio.Format;
                 }
@@ -117,7 +115,6 @@ namespace Sound_Editor {
                     currentAudio.Stream.Position = 0;
                     output.Stop();
                     originalCurrentTime.Text = "00:00:000";
-                    //originalPlayTimer.Enabled = false;
                     spectrumTimer.Enabled = false;
                     audioStatus.Text = "Остановлено: " + currentAudio.Name + "." + currentAudio.Format;
                 }

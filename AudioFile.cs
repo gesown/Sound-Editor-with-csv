@@ -10,7 +10,6 @@ namespace Sound_Editor {
     public abstract class AudioFile {
         public string Name { get; set; }
         public TimeSpan Duration { get; set; }
-        public TimeSpan Position { get; set; }
         public int SampleRate { get; set; }
         public int bitDepth { get; set; }
         public double Size { get; set; }
@@ -26,7 +25,6 @@ namespace Sound_Editor {
 
             this.Name = path.Substring(startIndexOfName, nameLength);
             this.Duration = stream.TotalTime;
-            this.Position = stream.CurrentTime;
             this.SampleRate = stream.WaveFormat.SampleRate;
             this.bitDepth = stream.WaveFormat.BitsPerSample;
             this.Size = new FileInfo(path).Length * Math.Pow(10, -6);
