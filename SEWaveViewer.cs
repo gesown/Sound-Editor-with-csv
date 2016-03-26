@@ -48,7 +48,7 @@ namespace Sound_Editor {
                 startPos = e.Location;
                 WaveStream.Position = StartPosition + startPos.X * bytesPerSample * samplesPerPixel;
                 MainForm.originalPosition.CurrentTime = WaveStream.CurrentTime;
-                MainForm.allocatedPeriod.StartTime = WaveStream.CurrentTime;
+                //MainForm.allocatedPeriod.StartTime = WaveStream.CurrentTime;
                 mousePos = new Point(-1, -1);
                 mouseDrag = true;
                 DrawVerticalLine(e.X);

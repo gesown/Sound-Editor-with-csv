@@ -31,7 +31,7 @@ namespace Sound_Editor {
             originalPosition = new Position(originalCurrentTime);
             originalPosition.CurrentTime = new TimeSpan(0);
 
-            allocatedPeriod = new TimePeriod(periodList.Items[0]);
+            //allocatedPeriod = new TimePeriod(periodList.Items[0]);
         }
 
         private void initAudio(AudioFile f) {
