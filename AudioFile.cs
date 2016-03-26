@@ -16,6 +16,7 @@ namespace Sound_Editor {
         public double Size { get; set; }
         public string Format { get; set; }
         public string Path { get; set; }
+        public byte[] Samples { get; set; }
         public BlockAlignReductionStream Stream { get; set; }
 
         public AudioFile(BlockAlignReductionStream stream, string path) {

@@ -41,17 +41,22 @@ namespace Sound_Editor {
 
         private void visualizeSpectrum(AudioFile f) {
             byte[] buff = new byte[1024];
-            int byteRead = 0;
+            long position = 0;
             if (f.Format == "mp3") {
                 MP3File file = f as MP3File;
-                byteRead = file.Reader.Read(buff, 0, 1024);
+                position = file.Reader.Position;
             } else if (f.Format == "wav") {
                 WaveFile file = f as WaveFile;
-                byteRead = file.Reader.Read(buff, 0, 1024);
+                position = file.Reader.Position;
+            }
+            if (position + 1024 < f.Samples.Length) {
+                for (int i = 0; i < 1024; i++) {
+                    buff[i] = f.Samples[position + i];
+                }
             }
 
             Complex[] data = new Complex[1024];
-            for (int i = 0; i < buff.Length; i++) {
+            for (int i = 0; i < 1024; i++) {
                 data[i].X = buff[i];
                 data[i].Y = 0.0f;
             }
@@ -68,7 +73,7 @@ namespace Sound_Editor {
 
         private void initAudio(AudioFile f) {
             currentStream = f.Stream;
-            currentAudio = f;
+            currentAudio = f;           
 
             visualizeWave(f);
             visualizeSpectrum(f);
