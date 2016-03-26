@@ -18,6 +18,7 @@ namespace Sound_Editor {
         }
 
         public static Position originalPosition = null;
+        public static TimePeriod allocatedPeriod = null;
 
         private List<AudioFile> files = new List<AudioFile>();
         private AudioFile currentAudio = null;
@@ -29,6 +30,8 @@ namespace Sound_Editor {
 
             originalPosition = new Position(originalCurrentTime);
             originalPosition.CurrentTime = new TimeSpan(0);
+
+            allocatedPeriod = new TimePeriod(periodList.Items[0]);
         }
 
         private void initAudio(AudioFile f) {
@@ -121,7 +124,7 @@ namespace Sound_Editor {
                     currentAudio.Stream.Position = 0;
                     output.Stop();
                     originalPlayTimer.Enabled = false;
-                    originalCurrentTime.Text = "00:00:000";//to fix
+                    originalPosition.CurrentTime = new TimeSpan(0);
                     spectrumTimer.Enabled = false;
                     audioStatus.Text = "Остановлено: " + currentAudio.Name + "." + currentAudio.Format;
                 }

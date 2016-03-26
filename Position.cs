@@ -16,12 +16,16 @@ namespace Sound_Editor {
             }
             set {
                 currentTime = value;
-                currentTimeLabel.Text = String.Format("{0:00}:{1:00}:{2:00}", currentTime.Minutes, currentTime.Seconds, currentTime.Milliseconds);
+                currentTimeLabel.Text = getTimeString(currentTime);
             }
         }
 
-        public Position (ToolStripLabel label) {
+        public Position(ToolStripLabel label) {
             this.currentTimeLabel = label;
+        }
+
+        public static string getTimeString(TimeSpan time) {
+            return String.Format("{0:00}:{1:00}:{2:00}", time.Minutes, time.Seconds, time.Milliseconds);
         }
     }
 }
