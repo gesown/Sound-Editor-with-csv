@@ -18,14 +18,13 @@ namespace Sound_Editor {
         }
 
         private List<AudioFile> files = new List<AudioFile>();
-        private BlockAlignReductionStream currentStream = null; // to delete later
         private AudioFile currentAudio = null;
         private WaveOut output = null;
 
         private void MainForm_Load(object sender, EventArgs e) {
             originalPlayTimer.Interval = 1;
-            spectrumViewer1.PenColor = Color.GreenYellow;
-            spectrumViewer1.PenWidth = 2;
+            spectrumViewer.PenColor = Color.GreenYellow;
+            spectrumViewer.PenWidth = 2;
         }
 
         private void visualizeWave(AudioFile f) {
@@ -39,44 +38,11 @@ namespace Sound_Editor {
             originalWaveViewer.FitToScreen();
         }
 
-        private void visualizeSpectrum(AudioFile f) {
-            byte[] buff = new byte[1024];
-            long position = 0;
-            if (f.Format == "mp3") {
-                MP3File file = f as MP3File;
-                position = file.Reader.Position;
-            } else if (f.Format == "wav") {
-                WaveFile file = f as WaveFile;
-                position = file.Reader.Position;
-            }
-            if (position + 1024 < f.Samples.Length) {
-                for (int i = 0; i < 1024; i++) {
-                    buff[i] = f.Samples[position + i];
-                }
-            }
-
-            Complex[] data = new Complex[1024];
-            for (int i = 0; i < 1024; i++) {
-                data[i].X = buff[i];
-                data[i].Y = 0.0f;
-            }
-            FastFourierTransform.FFT(true, 10, data);
-
-            double[] res = new double[512];
-            for (int i = 0; i < 512; i++) {
-                res[i] = Math.Sqrt(data[i].X * data[i].X + data[i].Y * data[i].Y);
-            }
-
-            spectrumViewer1.Refresh();
-            spectrumViewer1.spectrum = res;
-        }
-
         private void initAudio(AudioFile f) {
-            currentStream = f.Stream;
-            currentAudio = f;           
+            currentAudio = f;
 
             visualizeWave(f);
-            visualizeSpectrum(f);
+            spectrumViewer.Audio = currentAudio;
 
             VizualizationTab.TabPages[0].Text = "Редактор: " + f.Name + "." + f.Format;
             audioRate.Text = f.SampleRate + " Hz";
@@ -157,7 +123,7 @@ namespace Sound_Editor {
         private void toolStripButton2_Click(object sender, EventArgs e) {
             if (output != null) {
                 if (output.PlaybackState != PlaybackState.Stopped) {
-                    currentStream.Position = 0;
+                    currentAudio.Stream.Position = 0;
                     output.Stop();
                     originalCurrentTime.Text = "00:00:000";
                     originalPlayTimer.Enabled = false;
@@ -175,9 +141,9 @@ namespace Sound_Editor {
                 output.Dispose();
                 output = null;
             }
-            if (currentStream != null) {
-                currentStream.Dispose();
-                currentStream = null;
+            if (currentAudio.Stream != null) {
+                currentAudio.Stream.Dispose();
+                currentAudio.Stream = null;
             }
         }
 
@@ -204,7 +170,7 @@ namespace Sound_Editor {
         }
 
         private void spectrumTimer_Tick(object sender, EventArgs e) {
-            visualizeSpectrum(currentAudio);
+            spectrumViewer.Refresh();
         }
     }
 }

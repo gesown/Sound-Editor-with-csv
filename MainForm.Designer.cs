@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:05:778",
             "0:23:803",
             "0:18:124"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:00",
             "1:15:650",
             "1:15:650"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
@@ -78,7 +78,9 @@
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VizualizationTab = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.spectrumViewer = new Sound_Editor.SpectrumViewer();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
@@ -121,8 +123,6 @@
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.originalPlayTimer = new System.Windows.Forms.Timer(this.components);
             this.spectrumTimer = new System.Windows.Forms.Timer(this.components);
-            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
-            this.spectrumViewer1 = new Sound_Editor.SpectrumViewer();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -572,15 +572,40 @@
             this.tabPage2.Text = "Редактор";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // originalWaveViewer
+            // 
+            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
+            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalWaveViewer.Location = new System.Drawing.Point(3, 3);
+            this.originalWaveViewer.Name = "originalWaveViewer";
+            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
+            this.originalWaveViewer.PenWidth = 1F;
+            this.originalWaveViewer.SamplesPerPixel = 128;
+            this.originalWaveViewer.Size = new System.Drawing.Size(842, 232);
+            this.originalWaveViewer.StartPosition = ((long)(0));
+            this.originalWaveViewer.TabIndex = 0;
+            this.originalWaveViewer.WaveStream = null;
+            // 
             // tabPage9
             // 
-            this.tabPage9.Controls.Add(this.spectrumViewer1);
+            this.tabPage9.Controls.Add(this.spectrumViewer);
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Size = new System.Drawing.Size(848, 238);
             this.tabPage9.TabIndex = 2;
             this.tabPage9.Text = "Спектр";
             this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // spectrumViewer
+            // 
+            this.spectrumViewer.BackColor = System.Drawing.Color.Black;
+            this.spectrumViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spectrumViewer.Location = new System.Drawing.Point(0, 0);
+            this.spectrumViewer.Name = "spectrumViewer";
+            this.spectrumViewer.PenColor = System.Drawing.Color.Red;
+            this.spectrumViewer.PenWidth = 2;
+            this.spectrumViewer.Size = new System.Drawing.Size(848, 238);
+            this.spectrumViewer.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -933,9 +958,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
+            listViewItem4,
+            listViewItem5,
+            listViewItem6});
             this.listView2.Location = new System.Drawing.Point(67, 6);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(268, 82);
@@ -1044,32 +1069,6 @@
             // 
             this.spectrumTimer.Interval = 50;
             this.spectrumTimer.Tick += new System.EventHandler(this.spectrumTimer_Tick);
-            // 
-            // originalWaveViewer
-            // 
-            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
-            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.originalWaveViewer.Location = new System.Drawing.Point(3, 3);
-            this.originalWaveViewer.Name = "originalWaveViewer";
-            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
-            this.originalWaveViewer.PenWidth = 1F;
-            this.originalWaveViewer.SamplesPerPixel = 128;
-            this.originalWaveViewer.Size = new System.Drawing.Size(845, 215);
-            this.originalWaveViewer.StartPosition = ((long)(0));
-            this.originalWaveViewer.TabIndex = 0;
-            this.originalWaveViewer.WaveStream = null;
-            // 
-            // spectrumViewer1
-            // 
-            this.spectrumViewer1.BackColor = System.Drawing.Color.Black;
-            this.spectrumViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spectrumViewer1.Location = new System.Drawing.Point(0, 0);
-            this.spectrumViewer1.Name = "spectrumViewer1";
-            this.spectrumViewer1.PenColor = System.Drawing.Color.Red;
-            this.spectrumViewer1.PenWidth = 2;
-            this.spectrumViewer1.Size = new System.Drawing.Size(848, 238);
-            this.spectrumViewer1.spectrum = null;
-            this.spectrumViewer1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -1206,7 +1205,7 @@
         private SEWaveViewer originalWaveViewer;
         private System.Windows.Forms.Timer originalPlayTimer;
         private System.Windows.Forms.TabPage tabPage9;
-        private SpectrumViewer spectrumViewer1;
+        private SpectrumViewer spectrumViewer;
         private System.Windows.Forms.Timer spectrumTimer;
     }
 }

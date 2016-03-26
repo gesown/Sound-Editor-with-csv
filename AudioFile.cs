@@ -7,7 +7,7 @@ using System.IO;
 using NAudio.Wave;
 
 namespace Sound_Editor {
-    abstract class AudioFile {
+    public abstract class AudioFile {
         public string Name { get; set; }
         public TimeSpan Duration { get; set; }
         public TimeSpan Position { get; set; }

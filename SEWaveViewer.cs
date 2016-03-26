@@ -52,6 +52,7 @@ namespace Sound_Editor {
         protected override void OnMouseDown(MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
                 startPos = e.Location;
+                WaveStream.Position = StartPosition + startPos.X * bytesPerSample * samplesPerPixel;
                 mousePos = new Point(-1, -1);
                 mouseDrag = true;
                 DrawVerticalLine(e.X);
