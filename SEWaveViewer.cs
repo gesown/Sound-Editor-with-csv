@@ -13,6 +13,7 @@ namespace Sound_Editor {
 
         private System.ComponentModel.Container components = null;
         private WaveStream waveStream;
+        public AudioFile Audio { get; set; }
         private int samplesPerPixel = 128;
         private long startPosition;
         private int bytesPerSample;
@@ -140,17 +141,23 @@ namespace Sound_Editor {
 
         protected override void OnPaint(PaintEventArgs e) {
             if (waveStream != null) {
-                int bytesRead;
+                int bytesRead = samplesPerPixel * bytesPerSample;
                 byte[] waveData = new byte[samplesPerPixel * bytesPerSample];
-                long realPosition = waveStream.Position;    // Сохраняем позицию на котороый мы находимся
-                waveStream.Position = startPosition + (e.ClipRectangle.Left * bytesPerSample * samplesPerPixel);
+                //long realPosition = waveStream.Position;    // Сохраняем позицию на котороый мы находимся
+                long position = startPosition + (e.ClipRectangle.Left * bytesPerSample * samplesPerPixel);
+                //waveStream.Position = startPosition + (e.ClipRectangle.Left * bytesPerSample * samplesPerPixel);
                 using (Pen linePen = new Pen(this.penColor, this.PenWidth)) {
                     for (float x = e.ClipRectangle.X; x < e.ClipRectangle.Right; x += 1) {
                         short low = 0;
                         short high = 0;
-                        bytesRead = waveStream.Read(waveData, 0, samplesPerPixel * bytesPerSample);
-                        if (bytesRead == 0)
-                            break;
+                        for (int i = 0; i < samplesPerPixel * bytesPerSample; i++) {
+
+                            waveData[i] = Audio.Samples[position + i];
+                        }
+                        position += samplesPerPixel * bytesPerSample;
+                        //bytesRead = waveStream.Read(waveData, 0, samplesPerPixel * bytesPerSample);
+                        //if (bytesRead == 0)
+                        //break;
                         for (int n = 0; n < bytesRead; n += 2) {
                             short sample = BitConverter.ToInt16(waveData, n);
                             if (sample < low) low = sample;
@@ -161,7 +168,7 @@ namespace Sound_Editor {
                         e.Graphics.DrawLine(linePen, x, this.Height * lowPercent, x, this.Height * highPercent);
                     }
                 }
-                waveStream.Position = realPosition; // Восстанавливаем позицию на которой мы остановились
+                //waveStream.Position = realPosition; // Восстанавливаем позицию на которой мы остановились
             }
             base.OnPaint(e);
         }

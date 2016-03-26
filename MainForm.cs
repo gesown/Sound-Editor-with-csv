@@ -34,6 +34,7 @@ namespace Sound_Editor {
                 WaveFile file = f as WaveFile;
                 originalWaveViewer.WaveStream = file.Reader;
             }
+            originalWaveViewer.Audio = f;
             originalWaveViewer.FitToScreen();
         }
 
