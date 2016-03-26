@@ -17,14 +17,18 @@ namespace Sound_Editor {
             InitializeComponent();
         }
 
+        public static Position originalPosition = null;
+
         private List<AudioFile> files = new List<AudioFile>();
         private AudioFile currentAudio = null;
         private WaveOut output = null;
 
         private void MainForm_Load(object sender, EventArgs e) {
-            originalPlayTimer.Enabled = true;
             spectrumViewer.PenColor = Color.GreenYellow;
             spectrumViewer.PenWidth = 2;
+
+            originalPosition = new Position(originalCurrentTime);
+            originalPosition.CurrentTime = new TimeSpan(0);
         }
 
         private void initAudio(AudioFile f) {
@@ -91,6 +95,7 @@ namespace Sound_Editor {
             if (output != null) {
                 if (output.PlaybackState == PlaybackState.Playing) {
                     output.Pause();
+                    originalPlayTimer.Enabled = false;
                     spectrumTimer.Enabled = false;
                     audioStatus.Text = "Приостановлено: " + currentAudio.Name + "." + currentAudio.Format;
                 }
@@ -102,6 +107,7 @@ namespace Sound_Editor {
             if (output != null) {
                 if (output.PlaybackState != PlaybackState.Playing) {
                     output.Play();
+                    originalPlayTimer.Enabled = true;
                     spectrumTimer.Enabled = true;
                     audioStatus.Text = "Воспроизведение: " + currentAudio.Name + "." + currentAudio.Format;
                 }
@@ -114,7 +120,8 @@ namespace Sound_Editor {
                 if (output.PlaybackState != PlaybackState.Stopped) {
                     currentAudio.Stream.Position = 0;
                     output.Stop();
-                    originalCurrentTime.Text = "00:00:000";
+                    originalPlayTimer.Enabled = false;
+                    originalCurrentTime.Text = "00:00:000";//to fix
                     spectrumTimer.Enabled = false;
                     audioStatus.Text = "Остановлено: " + currentAudio.Name + "." + currentAudio.Format;
                 }
@@ -153,7 +160,7 @@ namespace Sound_Editor {
                 toolStripButton2_Click(sender, e);
             }
 
-            originalCurrentTime.Text = String.Format("{0:00}:{1:00}:{2:00}", currentTime.Minutes, currentTime.Seconds, currentTime.Milliseconds);
+            originalPosition.CurrentTime = currentTime;
         }
 
         private void trackBarOriginal_Scroll(object sender, EventArgs e) {

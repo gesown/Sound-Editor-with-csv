@@ -47,6 +47,7 @@ namespace Sound_Editor {
             if (e.Button == MouseButtons.Left) {
                 startPos = e.Location;
                 WaveStream.Position = StartPosition + startPos.X * bytesPerSample * samplesPerPixel;
+                MainForm.originalPosition.CurrentTime = WaveStream.CurrentTime;
                 mousePos = new Point(-1, -1);
                 mouseDrag = true;
                 DrawVerticalLine(e.X);
