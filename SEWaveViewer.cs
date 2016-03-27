@@ -18,7 +18,7 @@ namespace Sound_Editor {
         private int samplesPerPixel = 128;
         private long startPosition;
         private int bytesPerSample;
-        private double millisecondsPerSample;
+        private double millisecondsPerSample = 0;
 
         public SEWaveViewer() {
             // This call is required by the Windows.Forms Form Designer.
@@ -106,12 +106,14 @@ namespace Sound_Editor {
             }
             set {
                 audio = value;
-                if (audio.Format == "mp3") {
-                    MP3File file = audio as MP3File;
-                    WaveStream = file.Reader;
-                } else if (audio.Format == "wav") {
-                    WaveFile file = audio as WaveFile;
-                    WaveStream = file.Reader;
+                if (audio != null) {
+                    if (audio.Format == "mp3") {
+                        MP3File file = audio as MP3File;
+                        WaveStream = file.Reader;
+                    } else if (audio.Format == "wav") {
+                        WaveFile file = audio as WaveFile;
+                        WaveStream = file.Reader;
+                    }
                 }
             }
         }
