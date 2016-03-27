@@ -3,3 +3,4 @@
 /Properties/*
 App.config
 *.csproj
+*.user
