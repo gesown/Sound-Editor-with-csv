@@ -47,7 +47,7 @@ namespace Sound_Editor {
             VizualizationTab.TabPages[0].Text = "Редактор: " + f.Name + "." + f.Format;
             audioRate.Text = f.SampleRate + " Hz";
             audioSize.Text = Math.Round(f.Size, 1).ToString() + " MB";
-            audioLength.Text = String.Format("{0:00}:{1:00}:{2:00}", f.Duration.Minutes, f.Duration.Seconds, f.Duration.Milliseconds);
+            audioLength.Text = Position.getTimeString(f.Duration);
             output.Init(f.Stream);
         }
 
@@ -69,7 +69,7 @@ namespace Sound_Editor {
             } else throw new InvalidOperationException("Неверный формат аудиофайла");
             files.Add(file);
             ListViewItem item = new ListViewItem(file.Name);
-            item.SubItems.Add(String.Format("{0:00}:{1:00}:{2:000}", file.Duration.Minutes, file.Duration.Seconds, file.Duration.Milliseconds));
+            item.SubItems.Add(Position.getTimeString(file.Duration));
             item.SubItems.Add(file.SampleRate.ToString() + " Hz");
             item.SubItems.Add(file.Format.ToString());
             item.SubItems.Add(file.Path.ToString());
