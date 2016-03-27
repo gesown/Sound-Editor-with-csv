@@ -48,12 +48,14 @@ namespace Sound_Editor {
 
         private Point mousePos, startPos;
         private bool mouseDrag = false;
+        private TimeSpan clickPosition = new TimeSpan();
 
         protected override void OnMouseDown(MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
                 startPos = e.Location;
                 WaveStream.Position = StartPosition + startPos.X * bytesPerSample * samplesPerPixel;
                 MainForm.originalPosition.CurrentTime = WaveStream.CurrentTime;
+                clickPosition = new TimeSpan(WaveStream.CurrentTime.Days, WaveStream.CurrentTime.Hours, WaveStream.CurrentTime.Minutes, WaveStream.CurrentTime.Seconds, WaveStream.CurrentTime.Milliseconds);
                 mousePos = new Point(-1, -1);
                 mouseDrag = true;
                 DrawVerticalLine(e.X);
@@ -68,17 +70,26 @@ namespace Sound_Editor {
                     DrawVerticalLine(mousePos.X);
                 }
                 mousePos = e.Location;
-                MainForm.allocatedPeriod.StartTime = WaveStream.CurrentTime;
-                int endMilliseconds = (int)(startPosition / bytesPerSample / millisecondsPerSample + mousePos.X * samplesPerPixel / millisecondsPerSample);
-                TimeSpan current = new TimeSpan(0, 0, 0, 0, endMilliseconds);
-                MainForm.allocatedPeriod.EndTime = current;
+                int endMilliseconds = 0;
+                if (mousePos.X <= startPos.X) {
+                    WaveStream.Position = StartPosition + mousePos.X * bytesPerSample * samplesPerPixel;
+                    MainForm.originalPosition.CurrentTime = WaveStream.CurrentTime;
+                    endMilliseconds = (int)(StartPosition / bytesPerSample / millisecondsPerSample + startPos.X * samplesPerPixel / millisecondsPerSample);
+                    MainForm.allocatedPeriod.StartTime = waveStream.CurrentTime;
+                    MainForm.allocatedPeriod.EndTime = new TimeSpan(0, 0, 0, 0, endMilliseconds);
+                } else {
+                    MainForm.allocatedPeriod.StartTime = clickPosition;
+                    endMilliseconds = (int)(startPosition / bytesPerSample / millisecondsPerSample + mousePos.X * samplesPerPixel / millisecondsPerSample);
+                    TimeSpan current = new TimeSpan(0, 0, 0, 0, endMilliseconds);
+                    MainForm.allocatedPeriod.EndTime = current;
+                }                
             }
             base.OnMouseMove(e);
         }
 
         protected override void OnMouseUp(MouseEventArgs e) {
             if (mouseDrag && e.Button == MouseButtons.Left) {
-                MainForm.viewPeriod.StartTime = WaveStream.CurrentTime;
+                MainForm.viewPeriod.StartTime = clickPosition;
 
                 MainForm.allocatedPeriod.StartTime = new TimeSpan(0);
                 MainForm.allocatedPeriod.EndTime = new TimeSpan(0);
