@@ -18,7 +18,7 @@ namespace Sound_Editor {
         private int samplesPerPixel = 128;
         private long startPosition;
         private int bytesPerSample;
-        private double millisecondsPerSample = 0;
+        private double millisecondsPerSample;
 
         public SEWaveViewer() {
             // This call is required by the Windows.Forms Form Designer.
@@ -35,11 +35,15 @@ namespace Sound_Editor {
             startPosition = 0;
             SamplesPerPixel = samples / this.Width;
             millisecondsPerSample = samples / audio.Duration.TotalMilliseconds;
+            MainForm.viewPeriod.StartTime = new TimeSpan(0);
+            MainForm.viewPeriod.EndTime = new TimeSpan(0,0,0,0, (int)(samples / millisecondsPerSample));
         }
 
         public void Zoom(int leftSample, int rightSample) {
             startPosition = leftSample * bytesPerSample;
-            SamplesPerPixel = (rightSample - leftSample) / this.Width;
+            int samples = (rightSample - leftSample);
+            SamplesPerPixel = samples / this.Width;
+            MainForm.viewPeriod.EndTime = new TimeSpan(0, 0, 0, 0, (int)(startPosition / bytesPerSample / millisecondsPerSample + samples / millisecondsPerSample));
         }
 
         private Point mousePos, startPos;
@@ -74,6 +78,8 @@ namespace Sound_Editor {
 
         protected override void OnMouseUp(MouseEventArgs e) {
             if (mouseDrag && e.Button == MouseButtons.Left) {
+                MainForm.viewPeriod.StartTime = WaveStream.CurrentTime;
+
                 MainForm.allocatedPeriod.StartTime = new TimeSpan(0);
                 MainForm.allocatedPeriod.EndTime = new TimeSpan(0);
 

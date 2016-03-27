@@ -19,6 +19,7 @@ namespace Sound_Editor {
 
         public static Position originalPosition = null;
         public static TimePeriod allocatedPeriod = null;
+        public static TimePeriod viewPeriod = null;
 
         private List<AudioFile> files = new List<AudioFile>();
         private AudioFile currentAudio = null;
@@ -34,6 +35,10 @@ namespace Sound_Editor {
             allocatedPeriod = new TimePeriod(timePeriods.Items[0]);
             allocatedPeriod.StartTime = new TimeSpan(0);
             allocatedPeriod.EndTime = new TimeSpan(0);
+
+            viewPeriod = new TimePeriod(timePeriods.Items[2]);
+            viewPeriod.StartTime = new TimeSpan(0);
+            viewPeriod.EndTime = new TimeSpan(0);
         }
 
         private void initAudio(AudioFile f) {
