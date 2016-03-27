@@ -18,6 +18,7 @@ namespace Sound_Editor {
         private int samplesPerPixel = 128;
         private long startPosition;
         private int bytesPerSample;
+        private double millisecondsPerSample;
 
         public SEWaveViewer() {
             // This call is required by the Windows.Forms Form Designer.
@@ -33,6 +34,7 @@ namespace Sound_Editor {
             int samples = (int)(waveStream.Length / bytesPerSample);
             startPosition = 0;
             SamplesPerPixel = samples / this.Width;
+            millisecondsPerSample = samples / audio.Duration.TotalMilliseconds;
         }
 
         public void Zoom(int leftSample, int rightSample) {
@@ -48,7 +50,6 @@ namespace Sound_Editor {
                 startPos = e.Location;
                 WaveStream.Position = StartPosition + startPos.X * bytesPerSample * samplesPerPixel;
                 MainForm.originalPosition.CurrentTime = WaveStream.CurrentTime;
-                //MainForm.allocatedPeriod.StartTime = WaveStream.CurrentTime;
                 mousePos = new Point(-1, -1);
                 mouseDrag = true;
                 DrawVerticalLine(e.X);
@@ -63,12 +64,19 @@ namespace Sound_Editor {
                     DrawVerticalLine(mousePos.X);
                 }
                 mousePos = e.Location;
+                MainForm.allocatedPeriod.StartTime = WaveStream.CurrentTime;
+                int endMilliseconds = (int)(startPosition / bytesPerSample / millisecondsPerSample + mousePos.X * samplesPerPixel / millisecondsPerSample);
+                TimeSpan current = new TimeSpan(0, 0, 0, 0, endMilliseconds);
+                MainForm.allocatedPeriod.EndTime = current;
             }
             base.OnMouseMove(e);
         }
 
         protected override void OnMouseUp(MouseEventArgs e) {
             if (mouseDrag && e.Button == MouseButtons.Left) {
+                MainForm.allocatedPeriod.StartTime = new TimeSpan(0);
+                MainForm.allocatedPeriod.EndTime = new TimeSpan(0);
+
                 mouseDrag = false;
                 DrawVerticalLine(startPos.X);
                 if (mousePos.X == -1) return;
@@ -92,14 +100,11 @@ namespace Sound_Editor {
             ControlPaint.DrawReversibleLine(PointToScreen(new Point(x, 0)), PointToScreen(new Point(x, Height)), Color.White);
         }
 
-        public AudioFile Audio
-        {
-            get
-            {
+        public AudioFile Audio {
+            get {
                 return audio;
             }
-            set
-            {
+            set {
                 audio = value;
                 if (audio.Format == "mp3") {
                     MP3File file = audio as MP3File;
@@ -111,14 +116,11 @@ namespace Sound_Editor {
             }
         }
 
-        public WaveStream WaveStream
-        {
-            get
-            {
+        public WaveStream WaveStream {
+            get {
                 return waveStream;
             }
-            set
-            {
+            set {
                 waveStream = value;
                 if (waveStream != null) {
                     bytesPerSample = (waveStream.WaveFormat.BitsPerSample / 8) * waveStream.WaveFormat.Channels;
@@ -127,27 +129,21 @@ namespace Sound_Editor {
             }
         }
 
-        public int SamplesPerPixel
-        {
-            get
-            {
+        public int SamplesPerPixel {
+            get {
                 return samplesPerPixel;
             }
-            set
-            {
+            set {
                 samplesPerPixel = Math.Max(1, value);
                 this.Invalidate();
             }
         }
 
-        public long StartPosition
-        {
-            get
-            {
+        public long StartPosition {
+            get {
                 return startPosition;
             }
-            set
-            {
+            set {
                 startPosition = value;
             }
         }

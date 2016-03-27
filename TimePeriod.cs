@@ -28,8 +28,8 @@ namespace Sound_Editor {
             }
             set {
                 endTime = value;
-                listView.SubItems[0].Text = Position.getTimeString(endTime);
-                Duration = startTime.Subtract(endTime);
+                listView.SubItems[1].Text = Position.getTimeString(endTime);
+                Duration = endTime.Subtract(startTime);
             }
         }
 
@@ -39,7 +39,7 @@ namespace Sound_Editor {
             }
             set {
                 duration = value;
-                listView.SubItems[1].Text = Position.getTimeString(duration);
+                listView.SubItems[2].Text = Position.getTimeString(duration);
             }
         }
 
