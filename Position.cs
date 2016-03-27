@@ -25,7 +25,7 @@ namespace Sound_Editor {
         }
 
         public static string getTimeString(TimeSpan time) {
-            return String.Format("{0:00}:{1:00}:{2:00}", time.Minutes, time.Seconds, time.Milliseconds);
+            return String.Format("{0:00}:{1:00}:{2:000}", time.Minutes, time.Seconds, time.Milliseconds);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Sound_Editor {
             originalPosition = new Position(originalCurrentTime);
             originalPosition.CurrentTime = new TimeSpan(0);
 
-            allocatedPeriod = new TimePeriod(listView2.Items[0]);
+            allocatedPeriod = new TimePeriod(timePeriods.Items[0]);
             allocatedPeriod.StartTime = new TimeSpan(0);
             allocatedPeriod.EndTime = new TimeSpan(0);
         }
