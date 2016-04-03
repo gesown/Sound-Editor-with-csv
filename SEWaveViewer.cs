@@ -89,14 +89,14 @@ namespace Sound_Editor {
 
         protected override void OnMouseUp(MouseEventArgs e) {
             if (mouseDrag && e.Button == MouseButtons.Left) {
-                MainForm.viewPeriod.StartTime = clickPosition;
-
+                
                 MainForm.allocatedPeriod.StartTime = new TimeSpan(0);
                 MainForm.allocatedPeriod.EndTime = new TimeSpan(0);
 
                 mouseDrag = false;
                 DrawVerticalLine(startPos.X);
                 if (mousePos.X == -1) return;
+                MainForm.viewPeriod.StartTime = clickPosition;
                 DrawVerticalLine(mousePos.X);
 
                 int leftSample = (int)(StartPosition / bytesPerSample + samplesPerPixel * Math.Min(startPos.X, mousePos.X));
