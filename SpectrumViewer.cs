@@ -19,7 +19,7 @@ namespace Sound_Editor {
 
         public SpectrumViewer() {
             InitializeComponent();
-
+            this.DoubleBuffered = true;
             this.PenColor = Color.Red;
             this.PenWidth = 2;
         }
