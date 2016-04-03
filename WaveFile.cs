@@ -13,6 +13,7 @@ namespace Sound_Editor {
             this.Reader = reader;
             this.Samples = new byte[this.Reader.Length];
             this.readBytes();
+            this.readFloats();
         }
 
         private void readBytes() {

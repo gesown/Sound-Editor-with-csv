@@ -34,18 +34,18 @@ namespace Sound_Editor {
         }
 
         private double[] getSpectrum() {
-            byte[] buff = new byte[1024];
+            float[] buff = new float[1024];
             long position = 0;
             if (Audio.Format == "mp3") {
                 MP3File file = Audio as MP3File;
-                position = file.Reader.Position;
+                position = file.Reader.Position / 2;
             } else if (Audio.Format == "wav") {
                 WaveFile file = Audio as WaveFile;
-                position = file.Reader.Position;
+                position = file.Reader.Position / 2;
             }
-            if (position + 1024 < Audio.Samples.Length) {
+            if (position + 1024 < Audio.FloatSamples.Length) {
                 for (int i = 0; i < 1024; i++) {
-                    buff[i] = Audio.Samples[position + i];
+                    buff[i] = Audio.FloatSamples[position + i];
                 }
             }
 
@@ -70,12 +70,7 @@ namespace Sound_Editor {
                 Pen linePen = new Pen(this.PenColor, this.PenWidth);
                 linePen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
                 linePen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
-                float max = (float)spectrum[1];
-                for (int i = 2; i < spectrum.Length; i++) {
-                    if (spectrum[i] > max)
-                        max = (float)spectrum[i];
-                }
-                float koef = this.Height / Math.Max(max, 1);
+                float koef = this.Height / this.Audio.Avg;
                 float step = (float)(this.Width) / spectrum.Length;
                 float x = e.ClipRectangle.X;
                 float y = (float)this.Height;

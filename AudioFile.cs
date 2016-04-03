@@ -16,6 +16,8 @@ namespace Sound_Editor {
         public string Format { get; set; }
         public string Path { get; set; }
         public byte[] Samples { get; set; }
+        public float[] FloatSamples { get; set; }
+        public float Avg { get; set; }
         public BlockAlignReductionStream Stream { get; set; }
 
         public AudioFile(BlockAlignReductionStream stream, string path) {
@@ -31,6 +33,24 @@ namespace Sound_Editor {
             this.Format = path.Substring(startIndexOfFormat);
             this.Path = path;
             this.Stream = stream;
+        }
+
+        protected void readFloats() {
+            AudioFileReader r = new AudioFileReader(this.Path);
+            long sampleCount = r.Length / 2;
+            this.FloatSamples = new float[sampleCount];
+            r.Read(this.FloatSamples, 0, (int)sampleCount);
+            this.getAvg();
+        }
+
+        private void getAvg() {
+            this.Avg = 0;
+            for (int i = 0; i < this.FloatSamples.Length; i++) {
+                if (this.Avg < this.FloatSamples[i]) {
+                    this.Avg = this.FloatSamples[i];
+                }
+            }
+            this.Avg /= 64;
         }
     }
 }
