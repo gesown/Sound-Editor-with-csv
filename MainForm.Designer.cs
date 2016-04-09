@@ -868,7 +868,7 @@
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(-1, -1);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(911, 265);
+            this.pictureBox2.Size = new System.Drawing.Size(914, 248);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 

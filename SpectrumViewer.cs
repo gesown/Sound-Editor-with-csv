@@ -13,7 +13,7 @@ namespace Sound_Editor {
     public class SpectrumViewer : System.Windows.Forms.UserControl {
         public Color PenColor { get; set; }
         public int PenWidth { get; set; }
-        private int freq;
+        private double freq;
         private AudioFile audio;
         public AudioFile Audio {
             get {
@@ -22,7 +22,7 @@ namespace Sound_Editor {
             set {
                 if (value != null) {
                     this.audio = value;
-                    freq = this.audio.SampleRate / 1024;
+                    freq = this.audio.SampleRate / 1024.0;
                 }
             }
         }
@@ -83,17 +83,21 @@ namespace Sound_Editor {
                 linePen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
                 linePen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
+                float step = (float)(this.Width - 20) / spectrum.Length;
+
                 // Отрисовка шкалы по оси X
                 e.Graphics.DrawLine(Pens.White, 0, this.Height - 20, this.Width, this.Height - 20);
-                e.Graphics.DrawString("Hz", new Font(FontFamily.GenericSansSerif, 9f), Brushes.White, 0, this.Height - 20);
-                int[] freqPointsPercents = { 5, 10, 20, 25, 40, 60, 75, 80, 90, 95 };
-                int freqPoint;
-                double currentFreq;
+                e.Graphics.DrawString("kHz", new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, 0, this.Height - 17);
+                int[] freqPointsPercents = { 5, 10, 20, 25, 40, 50, 60, 75, 80, 90, 95 };
+                float freqPoint;
+                //double currentFreq;
                 for (int i = 0; i < freqPointsPercents.Length; i++) {
-                    freqPoint =  20 + freqPointsPercents[i] * (this.Width - 20) / 100;
+                    freqPoint = 20 + (freqPointsPercents[i] * (this.Width - 20) / 100f);
                     e.Graphics.DrawLine(new Pen(Color.Gray, 1f), freqPoint, 0, freqPoint, this.Height - 20);
-                    currentFreq = (freqPoint - 20) * (freq / 2) / (double)(this.Width - 20);
-                    e.Graphics.DrawString(currentFreq.ToString("0.0"), new Font(FontFamily.GenericSansSerif, 9f), Brushes.White, freqPoint - 10, this.Height - 20);
+                    //currentFreq = (freqPoint - 20) * (freq / 2) / (double)(this.Width - 20);
+                    double sample = (spectrum.Length * freqPointsPercents[i]) / 100.0;
+                    string currentFreq = ((sample * freq) * Math.Pow(10, -3)).ToString("0.000");
+                    e.Graphics.DrawString(currentFreq, new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, freqPoint - 15, this.Height - 17);
                 }
 
                 // Отрисовка шкалы по оси Y
@@ -112,7 +116,7 @@ namespace Sound_Editor {
 
                 // Отрисовка спектра
                 float koef = this.Height / this.Audio.Avg;
-                float step = (float)(this.Width - 20) / spectrum.Length;
+                
                 float x = e.ClipRectangle.X + 20;
                 float y = (float)(this.Height - 20);
                 float x1, y1;
