@@ -13,7 +13,19 @@ namespace Sound_Editor {
     public class SpectrumViewer : System.Windows.Forms.UserControl {
         public Color PenColor { get; set; }
         public int PenWidth { get; set; }
-        public AudioFile Audio { get; set; }
+        private int freq;
+        private AudioFile audio;
+        public AudioFile Audio {
+            get {
+                return this.audio;
+            }
+            set {
+                if (value != null) {
+                    this.audio = value;
+                    freq = this.audio.SampleRate / 1024;
+                }
+            }
+        }
 
         private System.ComponentModel.Container components = null;
 
@@ -70,14 +82,43 @@ namespace Sound_Editor {
                 Pen linePen = new Pen(this.PenColor, this.PenWidth);
                 linePen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
                 linePen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+
+                // Отрисовка шкалы по оси X
+                e.Graphics.DrawLine(Pens.White, 0, this.Height - 20, this.Width, this.Height - 20);
+                e.Graphics.DrawString("Hz", new Font(FontFamily.GenericSansSerif, 9f), Brushes.White, 0, this.Height - 20);
+                int[] freqPointsPercents = { 5, 10, 20, 25, 40, 60, 75, 80, 90, 95 };
+                int freqPoint;
+                double currentFreq;
+                for (int i = 0; i < freqPointsPercents.Length; i++) {
+                    freqPoint =  20 + freqPointsPercents[i] * (this.Width - 20) / 100;
+                    e.Graphics.DrawLine(new Pen(Color.Gray, 1f), freqPoint, 0, freqPoint, this.Height - 20);
+                    currentFreq = (freqPoint - 20) * (freq / 2) / (double)(this.Width - 20);
+                    e.Graphics.DrawString(currentFreq.ToString("0.0"), new Font(FontFamily.GenericSansSerif, 9f), Brushes.White, freqPoint - 10, this.Height - 20);
+                }
+
+                // Отрисовка шкалы по оси Y
+                e.Graphics.DrawLine(Pens.White, 20, 0, 20, this.Height);
+                int[] gradePointsPercents = { 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+                int gradePoint;
+                double currentGrade;
+                for (int i = 0; i < gradePointsPercents.Length; i++) {
+                    gradePoint = gradePointsPercents[i] * (this.Height - 20) / 100;
+                    e.Graphics.DrawLine(new Pen(Color.Gray, 1f), 20, gradePoint, this.Width, gradePoint);
+                    currentGrade = (this.Height - 20 - gradePoint) * this.Audio.Avg / (this.Height - 20);
+                    currentGrade *= 10000;
+                    currentGrade = Math.Round(currentGrade);
+                    e.Graphics.DrawString(currentGrade.ToString(), new Font(FontFamily.GenericSansSerif, 7f), Brushes.White, 0, gradePoint - 5);
+                }
+
+                // Отрисовка спектра
                 float koef = this.Height / this.Audio.Avg;
-                float step = (float)(this.Width) / spectrum.Length;
-                float x = e.ClipRectangle.X;
-                float y = (float)this.Height;
+                float step = (float)(this.Width - 20) / spectrum.Length;
+                float x = e.ClipRectangle.X + 20;
+                float y = (float)(this.Height - 20);
                 float x1, y1;
                 for (int i = 1; i < spectrum.Length; i++) {
                     x1 = x + step;
-                    y1 = this.Height - (float)(spectrum[i] * koef);
+                    y1 = (this.Height - 20) - (float)(spectrum[i] * koef);
                     e.Graphics.DrawLine(linePen, x, y, x1, y1);
                     x = x1; y = y1;
                 }
