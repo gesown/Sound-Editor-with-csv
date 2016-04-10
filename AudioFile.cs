@@ -37,7 +37,7 @@ namespace Sound_Editor {
 
         protected void readFloats() {
             AudioFileReader r = new AudioFileReader(this.Path);
-            long sampleCount = r.Length / 2;
+            long sampleCount = r.Length / 4;
             this.FloatSamples = new float[sampleCount];
             r.Read(this.FloatSamples, 0, (int)sampleCount);
             this.getAvg();

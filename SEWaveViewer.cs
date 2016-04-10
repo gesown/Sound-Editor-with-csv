@@ -38,9 +38,8 @@ namespace Sound_Editor {
             millisecondsPerSample = samples / audio.Duration.TotalMilliseconds;
             MainForm.viewPeriod.StartTime = new TimeSpan(0);
             MainForm.viewPeriod.EndTime = new TimeSpan(0,0,0,0, (int)(samples / millisecondsPerSample));
-            this.Spectrogram.StartPosition = 0;
-            this.Spectrogram.Count = (int)this.WaveStream.Length / 1024;
-
+            Spectrogram.StartPosition = 0;
+            Spectrogram.Count = (int)(this.WaveStream.Length / 2) / 1024;
         }
 
         public void Zoom(int leftSample, int rightSample) {
@@ -49,8 +48,8 @@ namespace Sound_Editor {
             SamplesPerPixel = samples / this.Width;
             MainForm.viewPeriod.EndTime = new TimeSpan(0, 0, 0, 0, (int)(startPosition / bytesPerSample / millisecondsPerSample + samples / millisecondsPerSample));
             // Указываем контролу спектрограммы начальный сэмпл и их количество для отображения
-            Spectrogram.StartPosition = startPosition;
-            Spectrogram.Count = samples / 1024;
+            Spectrogram.StartPosition = startPosition / 2;
+            Spectrogram.Count = (samples * 2) / 1024;
         }
 
         private Point mousePos, startPos;
