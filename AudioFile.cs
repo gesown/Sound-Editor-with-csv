@@ -35,12 +35,22 @@ namespace Sound_Editor {
             this.Stream = stream;
         }
 
-        protected void readFloats() {
-            AudioFileReader r = new AudioFileReader(this.Path);
-            long sampleCount = r.Length / 4;
-            this.FloatSamples = new float[sampleCount];
-            r.Read(this.FloatSamples, 0, (int)sampleCount);
+        protected abstract void readBytes();
+        protected abstract void readFloats();
+
+        protected void callRead() {
+            this.readBytes();
+            this.readFloats();
+            this.normalize();
+        }
+
+        private void normalize() {
             this.getAvg();
+            float koef = 1f / this.Avg;
+            this.Avg *= koef / 32;
+            for (int i = 0; i < this.FloatSamples.Length; i++) {
+                this.FloatSamples[i] *= koef;
+            }
         }
 
         private void getAvg() {
@@ -50,7 +60,6 @@ namespace Sound_Editor {
                     this.Avg = this.FloatSamples[i];
                 }
             }
-            this.Avg /= 64;
         }
     }
 }
