@@ -46,6 +46,8 @@ namespace Sound_Editor {
         private void initAudio(AudioFile f) {
             currentAudio = f;
 
+            originalSpectrogramViewer.Audio = f;
+
             originalWaveViewer.Spectrogram = originalSpectrogramViewer;
             originalWaveViewer.Audio = f;
             originalWaveViewer.FitToScreen();

@@ -45,19 +45,11 @@ namespace Sound_Editor {
             base.Dispose(disposing);
         }
 
-        private double[] getSpectrum() {
+        public static double[] getSpectrum(AudioFile audio, long startPos) {
             float[] buff = new float[1024];
-            long position = 0;
-            if (Audio.Format == "mp3") {
-                MP3File file = Audio as MP3File;
-                position = file.Reader.Position / 2;
-            } else if (Audio.Format == "wav") {
-                WaveFile file = Audio as WaveFile;
-                position = file.Reader.Position / 2;
-            }
-            if (position + 1024 < Audio.FloatSamples.Length) {
+            if (startPos + 1024 < audio.FloatSamples.Length) {
                 for (int i = 0; i < 1024; i++) {
-                    buff[i] = Audio.FloatSamples[position + i];
+                    buff[i] = audio.FloatSamples[startPos + i];
                 }
             }
 
@@ -77,7 +69,16 @@ namespace Sound_Editor {
 
         protected override void OnPaint(PaintEventArgs e) {
             if (this.Audio != null) {
-                double[] spectrum = this.getSpectrum();
+                long position = 0;
+                if (audio.Format == "mp3") {
+                    MP3File file = audio as MP3File;
+                    position = file.Reader.Position / 2;
+                } else if (audio.Format == "wav") {
+                    WaveFile file = audio as WaveFile;
+                    position = file.Reader.Position / 2;
+                }
+                double[] spectrum = SpectrumViewer.getSpectrum(this.Audio, position);
+
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 Pen linePen = new Pen(this.PenColor, this.PenWidth);
                 linePen.StartCap = System.Drawing.Drawing2D.LineCap.Round;

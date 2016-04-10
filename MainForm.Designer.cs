@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
@@ -581,6 +581,7 @@
             this.originalWaveViewer.PenWidth = 1F;
             this.originalWaveViewer.SamplesPerPixel = 128;
             this.originalWaveViewer.Size = new System.Drawing.Size(848, 238);
+            this.originalWaveViewer.Spectrogram = null;
             this.originalWaveViewer.StartPosition = ((long)(0));
             this.originalWaveViewer.TabIndex = 0;
             this.originalWaveViewer.WaveStream = null;
@@ -622,11 +623,15 @@
             // 
             // originalSpectrogramViewer
             // 
+            this.originalSpectrogramViewer.Area = null;
+            this.originalSpectrogramViewer.Audio = null;
+            this.originalSpectrogramViewer.Count = 0;
             this.originalSpectrogramViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.originalSpectrogramViewer.Location = new System.Drawing.Point(3, 3);
             this.originalSpectrogramViewer.MinimumSize = new System.Drawing.Size(0, 512);
             this.originalSpectrogramViewer.Name = "originalSpectrogramViewer";
             this.originalSpectrogramViewer.Size = new System.Drawing.Size(825, 512);
+            this.originalSpectrogramViewer.StartPosition = ((long)(0));
             this.originalSpectrogramViewer.TabIndex = 0;
             // 
             // toolStrip2
@@ -957,9 +962,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.timePeriods.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4,
-            listViewItem5,
-            listViewItem6});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3});
             this.timePeriods.Location = new System.Drawing.Point(67, 6);
             this.timePeriods.Name = "timePeriods";
             this.timePeriods.Size = new System.Drawing.Size(268, 82);
