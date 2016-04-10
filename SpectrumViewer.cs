@@ -90,11 +90,9 @@ namespace Sound_Editor {
                 e.Graphics.DrawString("kHz", new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, 0, this.Height - 17);
                 int[] freqPointsPercents = { 5, 10, 20, 25, 40, 50, 60, 75, 80, 90, 95 };
                 float freqPoint;
-                //double currentFreq;
                 for (int i = 0; i < freqPointsPercents.Length; i++) {
                     freqPoint = 20 + (freqPointsPercents[i] * (this.Width - 20) / 100f);
                     e.Graphics.DrawLine(new Pen(Color.Gray, 1f), freqPoint, 0, freqPoint, this.Height - 20);
-                    //currentFreq = (freqPoint - 20) * (freq / 2) / (double)(this.Width - 20);
                     double sample = (spectrum.Length * freqPointsPercents[i]) / 100.0;
                     string currentFreq = ((sample * freq) * Math.Pow(10, -3)).ToString("0.000");
                     e.Graphics.DrawString(currentFreq, new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, freqPoint - 15, this.Height - 17);

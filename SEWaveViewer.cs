@@ -8,6 +8,7 @@ using NAudio.Wave;
 
 namespace Sound_Editor {
     public class SEWaveViewer : System.Windows.Forms.UserControl {
+        public SpectrogramViewer Spectrogram { get; set; }
         public Color penColor { get; set; }
         public float PenWidth { get; set; }
 
@@ -37,6 +38,9 @@ namespace Sound_Editor {
             millisecondsPerSample = samples / audio.Duration.TotalMilliseconds;
             MainForm.viewPeriod.StartTime = new TimeSpan(0);
             MainForm.viewPeriod.EndTime = new TimeSpan(0,0,0,0, (int)(samples / millisecondsPerSample));
+            this.Spectrogram.StartPosition = 0;
+            this.Spectrogram.Count = (int)this.WaveStream.Length / 1024;
+
         }
 
         public void Zoom(int leftSample, int rightSample) {
@@ -44,6 +48,9 @@ namespace Sound_Editor {
             int samples = (rightSample - leftSample);
             SamplesPerPixel = samples / this.Width;
             MainForm.viewPeriod.EndTime = new TimeSpan(0, 0, 0, 0, (int)(startPosition / bytesPerSample / millisecondsPerSample + samples / millisecondsPerSample));
+            // Указываем контролу спектрограммы начальный сэмпл и их количество для отображения
+            Spectrogram.StartPosition = startPosition;
+            Spectrogram.Count = samples / 1024;
         }
 
         private Point mousePos, startPos;

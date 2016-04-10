@@ -29,6 +29,8 @@ namespace Sound_Editor {
             spectrumViewer.PenColor = Color.GreenYellow;
             spectrumViewer.PenWidth = 2;
 
+            originalSpectrogramViewer.Area = originalVizualizationTab.TabPages[2];
+
             originalPosition = new Position(originalCurrentTime);
             originalPosition.CurrentTime = new TimeSpan(0);
 
@@ -44,12 +46,13 @@ namespace Sound_Editor {
         private void initAudio(AudioFile f) {
             currentAudio = f;
 
+            originalWaveViewer.Spectrogram = originalSpectrogramViewer;
             originalWaveViewer.Audio = f;
             originalWaveViewer.FitToScreen();
 
             spectrumViewer.Audio = f;
 
-            VizualizationTab.TabPages[0].Text = "Редактор: " + f.Name + "." + f.Format;
+            originalVizualizationTab.TabPages[0].Text = "Редактор: " + f.Name + "." + f.Format;
             audioRate.Text = f.SampleRate + " Hz";
             audioSize.Text = Math.Round(f.Size, 1).ToString() + " MB";
             audioLength.Text = Position.getTimeString(f.Duration);
@@ -153,7 +156,7 @@ namespace Sound_Editor {
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
-            DisposeWave();
+            //DisposeWave();
         }
 
         private void originalPlayTimer_Tick(object sender, EventArgs e) {
