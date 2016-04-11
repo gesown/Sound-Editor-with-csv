@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using NAudio.Dsp;
 
 namespace Sound_Editor {
-    public enum State {
+    public enum ViewState {
         DEFAULT, LOGARITHM
     }
 
@@ -18,7 +18,7 @@ namespace Sound_Editor {
         public Color PenColor { get; set; }
         public int PenWidth { get; set; }
         private double freq;
-        private State state;
+        private ViewState state;
         private AudioFile audio;
         public AudioFile Audio {
             get {
@@ -39,7 +39,7 @@ namespace Sound_Editor {
             this.DoubleBuffered = true;
             this.PenColor = Color.Red;
             this.PenWidth = 2;
-            this.state = State.DEFAULT;
+            this.state = ViewState.DEFAULT;
         }
 
         protected override void Dispose(bool disposing) {
@@ -69,19 +69,26 @@ namespace Sound_Editor {
             double[] res = new double[512];
             for (int i = 0; i < 512; i++) {
                 res[i] = Math.Sqrt(data[i].X * data[i].X + data[i].Y * data[i].Y);
-            }
+
+            }            
             return res;
+        }
+
+        private void logarithmSpectrum(double[] spectrum) {
+            for (int i = 0; i < spectrum.Length; i++) {
+                spectrum[i] = 20 * Math.Log10(spectrum[i]);
+            }
         }
 
         protected override void OnClick(EventArgs e) {
             MouseEventArgs args = (MouseEventArgs)e;
             if (args.Button != MouseButtons.Left) return;
-            if (this.state == State.DEFAULT) {
-                this.state = State.LOGARITHM;
+            if (this.state == ViewState.DEFAULT) {
+                this.state = ViewState.LOGARITHM;
             } else {
-                this.state = State.DEFAULT;
+                this.state = ViewState.DEFAULT;
             }
-
+            this.Refresh();
         }
 
         protected override void OnPaint(PaintEventArgs e) {
@@ -94,7 +101,11 @@ namespace Sound_Editor {
                     WaveFile file = audio as WaveFile;
                     position = file.Reader.Position / 2;
                 }
+
                 double[] spectrum = SpectrumViewer.getSpectrum(this.Audio, position);
+                if (this.state == ViewState.LOGARITHM) {
+                    this.logarithmSpectrum(spectrum);
+                }
 
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 Pen linePen = new Pen(this.PenColor, this.PenWidth);
@@ -104,16 +115,22 @@ namespace Sound_Editor {
                 float step = (float)(this.Width - 20) / spectrum.Length;
 
                 // Отрисовка шкалы по оси X
-                e.Graphics.DrawLine(Pens.White, 0, this.Height - 20, this.Width, this.Height - 20);
-                e.Graphics.DrawString("kHz", new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, 0, this.Height - 17);
+                int yLinePos = (this.state == ViewState.DEFAULT) ? this.Height - 20 : 20;
+                int yStringPos = (this.state == ViewState.DEFAULT) ? yLinePos + 3 : 3;
+                e.Graphics.DrawLine(Pens.White, 0, yLinePos, this.Width, yLinePos);
+                e.Graphics.DrawString("kHz", new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, 0, yStringPos);
                 int[] freqPointsPercents = { 5, 10, 20, 25, 40, 50, 60, 75, 80, 90, 95 };
                 float freqPoint;
                 for (int i = 0; i < freqPointsPercents.Length; i++) {
                     freqPoint = 20 + (freqPointsPercents[i] * (this.Width - 20) / 100f);
-                    e.Graphics.DrawLine(new Pen(Color.Gray, 1f), freqPoint, 0, freqPoint, this.Height - 20);
+                    if (this.state == ViewState.DEFAULT) {
+                        e.Graphics.DrawLine(new Pen(Color.Gray, 1f), freqPoint, 0, freqPoint, this.Height - 20);
+                    } else {
+                        e.Graphics.DrawLine(new Pen(Color.Gray, 1f), freqPoint, 20, freqPoint, this.Height);
+                    }
                     double sample = (spectrum.Length * freqPointsPercents[i]) / 100.0;
                     string currentFreq = ((sample * freq) * Math.Pow(10, -3)).ToString("0.000");
-                    e.Graphics.DrawString(currentFreq, new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, freqPoint - 15, this.Height - 17);
+                    e.Graphics.DrawString(currentFreq, new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, freqPoint - 15, yStringPos);
                 }
 
                 // Отрисовка шкалы по оси Y
@@ -131,14 +148,15 @@ namespace Sound_Editor {
                 }
 
                 // Отрисовка спектра
-                float koef = this.Height / this.Audio.Avg;
+                float koef = (this.state == ViewState.DEFAULT) ? this.Height / this.Audio.Avg : 1.5f;
                 
                 float x = e.ClipRectangle.X + 20;
                 float y = (float)(this.Height - 20);
+                y = (this.state == ViewState.LOGARITHM) ? 20 : y;
                 float x1, y1;
                 for (int i = 1; i < spectrum.Length; i++) {
                     x1 = x + step;
-                    y1 = (this.Height - 20) - (float)(spectrum[i] * koef);
+                    y1 = (this.state == ViewState.DEFAULT) ? (this.Height - 20) - (float)(spectrum[i] * koef) : 20 - (float)(spectrum[i] * koef);
                     e.Graphics.DrawLine(linePen, x, y, x1, y1);
                     x = x1; y = y1;
                 }
