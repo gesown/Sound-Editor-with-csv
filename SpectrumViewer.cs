@@ -136,12 +136,13 @@ namespace Sound_Editor {
                 // Отрисовка шкалы по оси Y
                 e.Graphics.DrawLine(Pens.White, 20, 0, 20, this.Height);
                 if (this.state == ViewState.LOGARITHM) {
-                    e.Graphics.DrawString("dB", new Font(FontFamily.GenericSansSerif, 7f), Brushes.White, 2, this.Height - 15);
+                    e.Graphics.DrawString("dB", new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, 2, this.Height - 15);
                 }
                 int[] gradePointsPercents = { 10, 20, 30, 40, 50, 60, 70, 80, 90 };
                 int gradePoint;
                 double currentGrade;
                 for (int i = 0; i < gradePointsPercents.Length; i++) {
+                    if (i == gradePointsPercents.Length - 1 && this.state == ViewState.LOGARITHM) break;
                     gradePoint = gradePointsPercents[i] * (this.Height - 20) / 100;
                     gradePoint = (this.state == ViewState.LOGARITHM) ? gradePoint + 20 : gradePoint;
                     e.Graphics.DrawLine(new Pen(Color.Gray, 1f), 20, gradePoint, this.Width, gradePoint);
@@ -165,6 +166,7 @@ namespace Sound_Editor {
                 for (int i = 1; i < spectrum.Length; i++) {
                     x1 = x + step;
                     y1 = (this.state == ViewState.DEFAULT) ? (this.Height - 20) - (float)(spectrum[i] * koef) : 20 - (float)(spectrum[i] * koef);
+                    if (float.IsInfinity(y1)) continue;
                     e.Graphics.DrawLine(linePen, x, y, x1, y1);
                     x = x1; y = y1;
                 }
