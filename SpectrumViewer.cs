@@ -10,10 +10,15 @@ using System.Windows.Forms;
 using NAudio.Dsp;
 
 namespace Sound_Editor {
+    public enum State {
+        DEFAULT, LOGARITHM
+    }
+
     public class SpectrumViewer : System.Windows.Forms.UserControl {
         public Color PenColor { get; set; }
         public int PenWidth { get; set; }
         private double freq;
+        private State state;
         private AudioFile audio;
         public AudioFile Audio {
             get {
@@ -34,6 +39,7 @@ namespace Sound_Editor {
             this.DoubleBuffered = true;
             this.PenColor = Color.Red;
             this.PenWidth = 2;
+            this.state = State.DEFAULT;
         }
 
         protected override void Dispose(bool disposing) {
@@ -65,6 +71,17 @@ namespace Sound_Editor {
                 res[i] = Math.Sqrt(data[i].X * data[i].X + data[i].Y * data[i].Y);
             }
             return res;
+        }
+
+        protected override void OnClick(EventArgs e) {
+            MouseEventArgs args = (MouseEventArgs)e;
+            if (args.Button != MouseButtons.Left) return;
+            if (this.state == State.DEFAULT) {
+                this.state = State.LOGARITHM;
+            } else {
+                this.state = State.DEFAULT;
+            }
+
         }
 
         protected override void OnPaint(PaintEventArgs e) {
