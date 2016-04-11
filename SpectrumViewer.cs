@@ -135,20 +135,28 @@ namespace Sound_Editor {
 
                 // Отрисовка шкалы по оси Y
                 e.Graphics.DrawLine(Pens.White, 20, 0, 20, this.Height);
+                if (this.state == ViewState.LOGARITHM) {
+                    e.Graphics.DrawString("dB", new Font(FontFamily.GenericSansSerif, 7f), Brushes.White, 2, this.Height - 15);
+                }
                 int[] gradePointsPercents = { 10, 20, 30, 40, 50, 60, 70, 80, 90 };
                 int gradePoint;
                 double currentGrade;
                 for (int i = 0; i < gradePointsPercents.Length; i++) {
                     gradePoint = gradePointsPercents[i] * (this.Height - 20) / 100;
+                    gradePoint = (this.state == ViewState.LOGARITHM) ? gradePoint + 20 : gradePoint;
                     e.Graphics.DrawLine(new Pen(Color.Gray, 1f), 20, gradePoint, this.Width, gradePoint);
-                    currentGrade = (this.Height - 20 - gradePoint) * this.Audio.Avg / (this.Height - 20);
-                    currentGrade *= 10000;
-                    currentGrade = Math.Round(currentGrade);
-                    e.Graphics.DrawString(currentGrade.ToString(), new Font(FontFamily.GenericSansSerif, 7f), Brushes.White, 0, gradePoint - 5);
+                    if (this.state == ViewState.DEFAULT) {
+                        currentGrade = (this.Height - 20 - gradePoint) * this.Audio.Avg / (this.Height - 20);
+                        currentGrade *= 10000;
+                        currentGrade = Math.Round(currentGrade);
+                    } else {
+                        currentGrade = Math.Round(gradePoint / -1.5);
+                    }
+                    e.Graphics.DrawString(currentGrade.ToString(), new Font(FontFamily.GenericSansSerif, 7f), Brushes.White, -1, gradePoint - 6);
                 }
 
                 // Отрисовка спектра
-                float koef = (this.state == ViewState.DEFAULT) ? this.Height / this.Audio.Avg : 1.5f;
+                float koef = (this.state == ViewState.DEFAULT) ? (this.Height - 20) / this.Audio.Avg : 1.5f;
                 
                 float x = e.ClipRectangle.X + 20;
                 float y = (float)(this.Height - 20);
