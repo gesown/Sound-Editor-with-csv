@@ -162,6 +162,9 @@ namespace Sound_Editor {
                     e.Graphics.DrawLine(new Pen(Color.Gray, 1f), 20, gradePoint, this.Width, gradePoint);
                     if (this.state != ViewState.LOGARITHM) {
                         currentGrade = (this.Height - 20 - gradePoint) * this.Audio.Avg / (this.Height - 20);
+                        if (this.state == ViewState.COLUMNAR) {
+                            currentGrade /= 3;
+                        }
                         currentGrade *= 10000;
                         currentGrade = Math.Round(currentGrade);
                     } else {
