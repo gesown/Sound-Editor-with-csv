@@ -35,6 +35,7 @@ namespace Sound_Editor {
         public SpectrogramViewer() {
             InitializeComponent();
             this.DoubleBuffered = true;
+            this.BackColor = Color.FromArgb(1, 19, 1);
         }
 
         private void findMax() {
@@ -81,6 +82,9 @@ namespace Sound_Editor {
                     }
                 }
                 e.Graphics.DrawImage(this.bitMap, new PointF(0, 0));
+                if (this.count < this.Width) {
+                    e.Graphics.DrawLine(new Pen(Color.White, 1), this.count + 1, 0, this.count + 1, this.Height);
+                }
             }
             base.OnPaint(e);
         }

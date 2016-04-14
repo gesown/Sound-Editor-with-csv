@@ -20,6 +20,7 @@ namespace Sound_Editor {
         private double freq;
         private ViewState state;
         private int columnCount = 64;
+        private float[] oldValues;
         private AudioFile audio;
         public AudioFile Audio {
             get {
@@ -41,6 +42,7 @@ namespace Sound_Editor {
             this.PenColor = Color.Red;
             this.PenWidth = 2;
             this.state = ViewState.DEFAULT;
+            this.oldValues = new float[this.columnCount];
         }
 
         protected override void Dispose(bool disposing) {
@@ -186,15 +188,22 @@ namespace Sound_Editor {
                 } else {    // Для столбчатого
                     float columnWidth = (float)(this.Width - 20) / this.columnCount;
                     float columnHeight = 0;
+                    float columnHeightCoord;
+                    float oldLineYCoord;
                     for (int i = 0; i < this.columnCount; i++, columnHeight = 0) {
                         for (int j = i * (spectrum.Length / this.columnCount), count = 0; count < (spectrum.Length / this.columnCount); j++, count++) {
                             if (i == 0 && j == 0) continue;
                             columnHeight += (float)spectrum[j];
                         }
                         columnHeight /= (i == 0) ? (spectrum.Length / this.columnCount) - 1 : spectrum.Length / this.columnCount;
-                        columnHeight = (this.Height - 20) - columnHeight * koef * 3;
-                        e.Graphics.FillRectangle(new SolidBrush(this.PenColor), x, columnHeight, columnWidth, y - columnHeight);
-                        e.Graphics.DrawRectangle(Pens.Black, x, columnHeight, columnWidth, y - columnHeight);
+                        this.oldValues[i] -= 0.00005f; // Плавное падение полосы-указателя предыдущего уровня
+                        oldLineYCoord = (this.Height - 20) - this.oldValues[i] * koef * 3;
+                        if (columnHeight > this.oldValues[i] ) {
+                            this.oldValues[i] = columnHeight;   // Обновление указателя уровня
+                        }
+                        columnHeightCoord = (this.Height - 20) - columnHeight * koef * 3;
+                        e.Graphics.DrawLine(linePen, x, oldLineYCoord, x + columnWidth, oldLineYCoord);
+                        e.Graphics.DrawRectangle(Pens.Aqua, x, columnHeightCoord, columnWidth, y - columnHeightCoord);
                         x += columnWidth;
                     }
                 }
