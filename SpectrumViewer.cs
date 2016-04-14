@@ -19,7 +19,7 @@ namespace Sound_Editor {
         public int PenWidth { get; set; }
         private double freq;
         private ViewState state;
-        private int columnCount = 32;
+        private int columnCount = 64;
         private AudioFile audio;
         public AudioFile Audio {
             get {
@@ -83,13 +83,22 @@ namespace Sound_Editor {
 
         protected override void OnClick(EventArgs e) {
             MouseEventArgs args = (MouseEventArgs)e;
-            if (args.Button != MouseButtons.Left) return;
-            if (this.state == ViewState.DEFAULT) {
-                this.state = ViewState.LOGARITHM;
-            } else if (this.state == ViewState.LOGARITHM) {
-                this.state = ViewState.COLUMNAR;
-            } else {
-                this.state = ViewState.DEFAULT;
+            if (args.Button == MouseButtons.Left) {
+                if (this.state == ViewState.DEFAULT) {
+                    this.state = ViewState.LOGARITHM;
+                } else if (this.state == ViewState.LOGARITHM) {
+                    this.state = ViewState.COLUMNAR;
+                } else {
+                    this.state = ViewState.DEFAULT;
+                }
+            } else if (args.Button == MouseButtons.Right) {
+                if (this.state == ViewState.DEFAULT) {
+                    this.state = ViewState.COLUMNAR;
+                } else if (this.state == ViewState.COLUMNAR) {
+                    this.state = ViewState.LOGARITHM;
+                } else {
+                    this.state = ViewState.DEFAULT;
+                }
             }
             this.Refresh();
         }
@@ -122,20 +131,18 @@ namespace Sound_Editor {
                 int yStringPos = (this.state != ViewState.LOGARITHM) ? yLinePos + 3 : 3;
                 e.Graphics.DrawLine(Pens.White, 0, yLinePos, this.Width, yLinePos);
                 e.Graphics.DrawString("kHz", new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, 0, yStringPos);
-                if (this.state != ViewState.COLUMNAR) {
-                    int[] freqPointsPercents = { 5, 10, 20, 25, 40, 50, 60, 75, 80, 90, 95 };
-                    float freqPoint;
-                    for (int i = 0; i < freqPointsPercents.Length; i++) {
-                        freqPoint = 20 + (freqPointsPercents[i] * (this.Width - 20) / 100f);
-                        if (this.state == ViewState.DEFAULT) {
-                            e.Graphics.DrawLine(new Pen(Color.Gray, 1f), freqPoint, 0, freqPoint, this.Height - 20);
-                        } else {
-                            e.Graphics.DrawLine(new Pen(Color.Gray, 1f), freqPoint, 20, freqPoint, this.Height);
-                        }
-                        double sample = (spectrum.Length * freqPointsPercents[i]) / 100.0;
-                        string currentFreq = ((sample * freq) * Math.Pow(10, -3)).ToString("0.000");
-                        e.Graphics.DrawString(currentFreq, new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, freqPoint - 15, yStringPos);
+                int[] freqPointsPercents = { 5, 10, 20, 25, 40, 50, 60, 75, 80, 90, 95 };
+                float freqPoint;
+                for (int i = 0; i < freqPointsPercents.Length; i++) {
+                    freqPoint = 20 + (freqPointsPercents[i] * (this.Width - 20) / 100f);
+                    if (this.state == ViewState.COLUMNAR || this.state == ViewState.DEFAULT) {
+                        e.Graphics.DrawLine(new Pen(Color.Gray, 1f), freqPoint, 0, freqPoint, this.Height - 20);
+                    } else {
+                        e.Graphics.DrawLine(new Pen(Color.Gray, 1f), freqPoint, 20, freqPoint, this.Height);
                     }
+                    double sample = (spectrum.Length * freqPointsPercents[i]) / 100.0;
+                    string currentFreq = ((sample * freq) * Math.Pow(10, -3)).ToString("0.000");
+                    e.Graphics.DrawString(currentFreq, new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, freqPoint - 15, yStringPos);
                 }
 
                 // Отрисовка шкалы по оси Y
@@ -167,7 +174,7 @@ namespace Sound_Editor {
                 float x = e.ClipRectangle.X + 20;
                 float y = (float)(this.Height - 20);
                 y = (this.state == ViewState.LOGARITHM) ? 20 : y;
-                if (this.state != ViewState.COLUMNAR) {
+                if (this.state != ViewState.COLUMNAR) { // Для грфаического представления
                     float x1, y1;
                     for (int i = 1; i < spectrum.Length; i++) {
                         x1 = x + step;
@@ -176,16 +183,18 @@ namespace Sound_Editor {
                         e.Graphics.DrawLine(linePen, x, y, x1, y1);
                         x = x1; y = y1;
                     }
-                } else {
+                } else {    // Для столбчатого
                     float columnWidth = (float)(this.Width - 20) / this.columnCount;
                     float columnHeight = 0;
-                    for (int i = 0; i < this.columnCount - 1; i++, columnHeight = 0) {
-                        for (int j = i * this.columnCount, count = 0; count < spectrum.Length / this.columnCount; j++, count++) {
+                    for (int i = 0; i < this.columnCount; i++, columnHeight = 0) {
+                        for (int j = i * (spectrum.Length / this.columnCount), count = 0; count < (spectrum.Length / this.columnCount); j++, count++) {
+                            if (i == 0 && j == 0) continue;
                             columnHeight += (float)spectrum[j];
                         }
-                        columnHeight /= spectrum.Length / this.columnCount;
-                        columnHeight = (this.Height - 20) - columnHeight * koef;
-                        e.Graphics.FillRectangle(new SolidBrush(this.PenColor), x, y, columnWidth, columnHeight);
+                        columnHeight /= (i == 0) ? (spectrum.Length / this.columnCount) - 1 : spectrum.Length / this.columnCount;
+                        columnHeight = (this.Height - 20) - columnHeight * koef * 3;
+                        e.Graphics.FillRectangle(new SolidBrush(this.PenColor), x, columnHeight, columnWidth, y - columnHeight);
+                        e.Graphics.DrawRectangle(Pens.Black, x, columnHeight, columnWidth, y - columnHeight);
                         x += columnWidth;
                     }
                 }
