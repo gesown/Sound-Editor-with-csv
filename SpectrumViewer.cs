@@ -29,6 +29,7 @@ namespace Sound_Editor {
             set {
                 if (value != null) {
                     this.audio = value;
+                    // Получаем шаг значений частот для спектра
                     freq = this.audio.SampleRate / 1024.0;
                 }
             }
@@ -78,6 +79,7 @@ namespace Sound_Editor {
         }
 
         private void logarithmSpectrum(double[] spectrum) {
+            // Перевод значений спектра в dB
             for (int i = 0; i < spectrum.Length; i++) {
                 spectrum[i] = 20 * Math.Log10(spectrum[i]);
             }
@@ -85,6 +87,7 @@ namespace Sound_Editor {
 
         protected override void OnClick(EventArgs e) {
             MouseEventArgs args = (MouseEventArgs)e;
+            // ЛКМ - вперед, ПКМ - назад. Порядок: DEFAULT, LOGARITHM, COLUMNAR
             if (args.Button == MouseButtons.Left) {
                 if (this.state == ViewState.DEFAULT) {
                     this.state = ViewState.LOGARITHM;
@@ -133,7 +136,7 @@ namespace Sound_Editor {
                 int yStringPos = (this.state != ViewState.LOGARITHM) ? yLinePos + 3 : 3;
                 e.Graphics.DrawLine(Pens.White, 0, yLinePos, this.Width, yLinePos);
                 e.Graphics.DrawString("kHz", new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, 0, yStringPos);
-                int[] freqPointsPercents = { 5, 10, 20, 25, 40, 50, 60, 75, 80, 90, 95 };
+                int[] freqPointsPercents = { 5, 10, 20, 25, 40, 50, 60, 75, 80, 90, 95 };   // Позиции значений частот (в %) 
                 float freqPoint;
                 for (int i = 0; i < freqPointsPercents.Length; i++) {
                     freqPoint = 20 + (freqPointsPercents[i] * (this.Width - 20) / 100f);
@@ -142,6 +145,7 @@ namespace Sound_Editor {
                     } else {
                         e.Graphics.DrawLine(new Pen(Color.Gray, 1f), freqPoint, 20, freqPoint, this.Height);
                     }
+                    // Получение частоты в текущей точке и ее отображение
                     double sample = (spectrum.Length * freqPointsPercents[i]) / 100.0;
                     string currentFreq = ((sample * freq) * Math.Pow(10, -3)).ToString("0.000");
                     e.Graphics.DrawString(currentFreq, new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, freqPoint - 15, yStringPos);
@@ -152,15 +156,16 @@ namespace Sound_Editor {
                 if (this.state == ViewState.LOGARITHM) {
                     e.Graphics.DrawString("dB", new Font(FontFamily.GenericSansSerif, 7.5f), Brushes.White, 2, this.Height - 15);
                 }
-                int[] gradePointsPercents = { 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+                int[] gradePointsPercents = { 10, 20, 30, 40, 50, 60, 70, 80, 90 }; // Позиции значений уровня спектра (в %)
                 int gradePoint;
                 double currentGrade;
                 for (int i = 0; i < gradePointsPercents.Length; i++) {
-                    if (i == gradePointsPercents.Length - 1 && this.state == ViewState.LOGARITHM) break;
+                    if (i == gradePointsPercents.Length - 1 && this.state == ViewState.LOGARITHM) break;    // Для dB не выводить последнее значение
                     gradePoint = gradePointsPercents[i] * (this.Height - 20) / 100;
                     gradePoint = (this.state == ViewState.LOGARITHM) ? gradePoint + 20 : gradePoint;
                     e.Graphics.DrawLine(new Pen(Color.Gray, 1f), 20, gradePoint, this.Width, gradePoint);
                     if (this.state != ViewState.LOGARITHM) {
+                        // Нормировка значения уровня спектра
                         currentGrade = (this.Height - 20 - gradePoint) * this.Audio.Avg / (this.Height - 20);
                         if (this.state == ViewState.COLUMNAR) {
                             currentGrade /= 3;
@@ -194,6 +199,7 @@ namespace Sound_Editor {
                     float columnHeightCoord;
                     float oldLineYCoord;
                     for (int i = 0; i < this.columnCount; i++, columnHeight = 0) {
+                        // Находим среднее значение уровня для текущего столбца
                         for (int j = i * (spectrum.Length / this.columnCount), count = 0; count < (spectrum.Length / this.columnCount); j++, count++) {
                             if (i == 0 && j == 0) continue;
                             columnHeight += (float)spectrum[j];
