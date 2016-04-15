@@ -25,6 +25,8 @@ namespace Sound_Editor {
         private AudioFile currentAudio = null;
         private WaveOut output = null;
 
+        private WaveIn sourceStream = null;
+
         private void MainForm_Load(object sender, EventArgs e) {
             spectrumViewer.PenColor = Color.GreenYellow;
             spectrumViewer.PenWidth = 2;
@@ -198,6 +200,28 @@ namespace Sound_Editor {
                 ListViewItem item = new ListViewItem(source.ProductName);
                 item.SubItems.Add(new ListViewItem.ListViewSubItem(item, source.Channels.ToString()));
                 devicesListView.Items.Add(item);
+            }
+        }
+
+        private void startRecordButton_Click(object sender, EventArgs e) {
+            if (devicesListView.SelectedItems.Count == 0) return;
+            int deviceNumber = devicesListView.SelectedItems[0].Index;
+            this.sourceStream = new WaveIn();
+            this.sourceStream.DeviceNumber = deviceNumber;
+            this.sourceStream.WaveFormat = new WaveFormat(44100, WaveIn.GetCapabilities(deviceNumber).Channels);
+
+            WaveInProvider waveIn = new WaveInProvider(this.sourceStream);
+            output.Init(waveIn);
+
+            this.sourceStream.StartRecording();
+            output.Play();
+        }
+
+        private void stopRecordButton_Click(object sender, EventArgs e) {
+            if (this.sourceStream != null) {
+                this.sourceStream.StopRecording();
+                this.sourceStream.Dispose();
+                this.sourceStream = null;
             }
         }
     }

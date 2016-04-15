@@ -1118,6 +1118,7 @@
             this.startRecordButton.TabIndex = 2;
             this.startRecordButton.Text = "Старт";
             this.startRecordButton.UseVisualStyleBackColor = true;
+            this.startRecordButton.Click += new System.EventHandler(this.startRecordButton_Click);
             // 
             // stopRecordButton
             // 
@@ -1129,6 +1130,7 @@
             this.stopRecordButton.TabIndex = 3;
             this.stopRecordButton.Text = "Стоп";
             this.stopRecordButton.UseVisualStyleBackColor = true;
+            this.stopRecordButton.Click += new System.EventHandler(this.stopRecordButton_Click);
             // 
             // recordTimerLabel
             // 
