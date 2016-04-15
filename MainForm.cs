@@ -127,12 +127,39 @@ namespace Sound_Editor {
                 return;
             }
             if (listAudio.SelectedItems[0].Text == this.currentAudio.Name) return;
-            AudioFile file = files.Find(audio => audio.Name == listAudio.SelectedItems[0].Text && audio.Format == listAudio.SelectedItems[0].SubItems[3].Text);
+            AudioFile file = files.Find(audio => audio.Path == listAudio.SelectedItems[0].SubItems[4].Text);
             if (output.PlaybackState == PlaybackState.Playing) {
                 output.Pause();
                 audioStatus.Text = "Приостановлено: " + currentAudio.Name + "." + currentAudio.Format;
             }
             this.initAudio(file);
+        }
+
+        private void deleteToolStripButton_Click(object sender, EventArgs e) {
+            if (listAudio.SelectedItems.Count == 0) return;
+            AudioFile file = files.Find(audio => audio.Path == listAudio.SelectedItems[0].SubItems[4].Text);
+            listAudio.Items.Remove(listAudio.SelectedItems[0]);
+            if (file == null) return;
+            if (this.currentAudio == file) {
+                if (output.PlaybackState == PlaybackState.Playing) {
+                    originalPlayTimer.Stop();
+                    output.Stop();
+                    originalCurrentTime.Text = "00:00:000";
+                }
+                originalWaveViewer.WaveStream = null;
+                spectrumViewer.Audio = null;
+                originalSpectrogramViewer.Count = 0;
+            }
+            if (file.Format == "mp3") {
+                MP3File deleteFile = file as MP3File;
+                deleteFile.Reader.Dispose();
+            } else if (file.Format == "wav") {
+                WaveFile deleteFile = file as WaveFile;
+                deleteFile.Reader.Dispose();
+            }
+            file.Stream.Dispose();
+            files.Remove(file);
+            file = null;
         }
 
         // Pause

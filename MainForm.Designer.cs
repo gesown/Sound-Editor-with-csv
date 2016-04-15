@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
-            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
@@ -63,7 +63,6 @@
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.listAudio = new System.Windows.Forms.ListView();
@@ -75,11 +74,8 @@
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.originalVizualizationTab = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.spectrumViewer = new Sound_Editor.SpectrumViewer();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.originalSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.originalCurrentTime = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -129,6 +125,10 @@
             this.originalPlayTimer = new System.Windows.Forms.Timer(this.components);
             this.spectrumTimer = new System.Windows.Forms.Timer(this.components);
             this.recordingTimer = new System.Windows.Forms.Timer(this.components);
+            this.deleteToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
+            this.spectrumViewer = new Sound_Editor.SpectrumViewer();
+            this.originalSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -384,9 +384,9 @@
             this.openToolStripButton,
             this.saveToolStripButton,
             this.toolStripSeparator,
+            this.deleteToolStripButton,
             this.cutToolStripButton,
             this.copyToolStripButton,
-            this.pasteToolStripButton,
             this.toolStripSeparator1,
             this.toolStripTextBox1});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
@@ -448,15 +448,6 @@
             this.copyToolStripButton.Name = "copyToolStripButton";
             this.copyToolStripButton.Size = new System.Drawing.Size(23, 27);
             this.copyToolStripButton.Text = "&Copy";
-            // 
-            // pasteToolStripButton
-            // 
-            this.pasteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pasteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolStripButton.Image")));
-            this.pasteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pasteToolStripButton.Name = "pasteToolStripButton";
-            this.pasteToolStripButton.Size = new System.Drawing.Size(23, 27);
-            this.pasteToolStripButton.Text = "&Paste";
             // 
             // toolStripSeparator1
             // 
@@ -557,22 +548,6 @@
             this.tabPage2.Text = "Редактор";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // originalWaveViewer
-            // 
-            this.originalWaveViewer.Audio = null;
-            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
-            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.originalWaveViewer.Location = new System.Drawing.Point(0, 0);
-            this.originalWaveViewer.Name = "originalWaveViewer";
-            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
-            this.originalWaveViewer.PenWidth = 1F;
-            this.originalWaveViewer.SamplesPerPixel = 128;
-            this.originalWaveViewer.Size = new System.Drawing.Size(848, 238);
-            this.originalWaveViewer.Spectrogram = null;
-            this.originalWaveViewer.StartPosition = ((long)(0));
-            this.originalWaveViewer.TabIndex = 0;
-            this.originalWaveViewer.WaveStream = null;
-            // 
             // tabPage9
             // 
             this.tabPage9.Controls.Add(this.spectrumViewer);
@@ -582,18 +557,6 @@
             this.tabPage9.TabIndex = 2;
             this.tabPage9.Text = "Спектр";
             this.tabPage9.UseVisualStyleBackColor = true;
-            // 
-            // spectrumViewer
-            // 
-            this.spectrumViewer.Audio = null;
-            this.spectrumViewer.BackColor = System.Drawing.Color.Black;
-            this.spectrumViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spectrumViewer.Location = new System.Drawing.Point(0, 0);
-            this.spectrumViewer.Name = "spectrumViewer";
-            this.spectrumViewer.PenColor = System.Drawing.Color.Red;
-            this.spectrumViewer.PenWidth = 2;
-            this.spectrumViewer.Size = new System.Drawing.Size(848, 238);
-            this.spectrumViewer.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -607,20 +570,6 @@
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "Спектрограмма";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // originalSpectrogramViewer
-            // 
-            this.originalSpectrogramViewer.Area = null;
-            this.originalSpectrogramViewer.Audio = null;
-            this.originalSpectrogramViewer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(1)))));
-            this.originalSpectrogramViewer.Count = 0;
-            this.originalSpectrogramViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.originalSpectrogramViewer.Location = new System.Drawing.Point(3, 3);
-            this.originalSpectrogramViewer.MinimumSize = new System.Drawing.Size(0, 512);
-            this.originalSpectrogramViewer.Name = "originalSpectrogramViewer";
-            this.originalSpectrogramViewer.Size = new System.Drawing.Size(825, 512);
-            this.originalSpectrogramViewer.StartPosition = ((long)(0));
-            this.originalSpectrogramViewer.TabIndex = 0;
             // 
             // toolStrip2
             // 
@@ -673,7 +622,7 @@
             // 
             this.toolStripButton1.AutoSize = false;
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::Sound_Editor.Properties.Resources.player_play;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(38, 38);
@@ -684,7 +633,7 @@
             // toolStripButton3
             // 
             this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = global::Sound_Editor.Properties.Resources.player_pause;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(42, 47);
@@ -700,7 +649,7 @@
             // toolStripButton4
             // 
             this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton4.Image = global::Sound_Editor.Properties.Resources.player_start;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
             this.toolStripButton4.Size = new System.Drawing.Size(42, 47);
@@ -710,7 +659,7 @@
             // toolStripButton5
             // 
             this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton5.Image = global::Sound_Editor.Properties.Resources.player_rev;
+            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
             this.toolStripButton5.Size = new System.Drawing.Size(42, 47);
@@ -720,7 +669,7 @@
             // toolStripButton6
             // 
             this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton6.Image = global::Sound_Editor.Properties.Resources.player_fwd;
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
             this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton6.Name = "toolStripButton6";
             this.toolStripButton6.Size = new System.Drawing.Size(42, 47);
@@ -730,7 +679,7 @@
             // toolStripButton7
             // 
             this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton7.Image = global::Sound_Editor.Properties.Resources.player_end;
+            this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
             this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton7.Name = "toolStripButton7";
             this.toolStripButton7.Size = new System.Drawing.Size(42, 47);
@@ -777,7 +726,7 @@
             // toolStripButton8
             // 
             this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton8.Image = global::Sound_Editor.Properties.Resources.player_stop;
+            this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
             this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton8.Name = "toolStripButton8";
             this.toolStripButton8.Size = new System.Drawing.Size(42, 47);
@@ -788,7 +737,7 @@
             // 
             this.toolStripButton9.AutoSize = false;
             this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton9.Image = global::Sound_Editor.Properties.Resources.player_play;
+            this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
             this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton9.Name = "toolStripButton9";
             this.toolStripButton9.Size = new System.Drawing.Size(38, 38);
@@ -798,7 +747,7 @@
             // toolStripButton10
             // 
             this.toolStripButton10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton10.Image = global::Sound_Editor.Properties.Resources.player_pause;
+            this.toolStripButton10.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton10.Image")));
             this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton10.Name = "toolStripButton10";
             this.toolStripButton10.Size = new System.Drawing.Size(42, 47);
@@ -813,7 +762,7 @@
             // toolStripButton11
             // 
             this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton11.Image = global::Sound_Editor.Properties.Resources.player_start;
+            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
             this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton11.Name = "toolStripButton11";
             this.toolStripButton11.Size = new System.Drawing.Size(42, 47);
@@ -823,7 +772,7 @@
             // toolStripButton12
             // 
             this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton12.Image = global::Sound_Editor.Properties.Resources.player_rev;
+            this.toolStripButton12.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton12.Image")));
             this.toolStripButton12.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton12.Name = "toolStripButton12";
             this.toolStripButton12.Size = new System.Drawing.Size(42, 47);
@@ -833,7 +782,7 @@
             // toolStripButton13
             // 
             this.toolStripButton13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton13.Image = global::Sound_Editor.Properties.Resources.player_fwd;
+            this.toolStripButton13.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton13.Image")));
             this.toolStripButton13.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton13.Name = "toolStripButton13";
             this.toolStripButton13.Size = new System.Drawing.Size(42, 47);
@@ -843,7 +792,7 @@
             // toolStripButton14
             // 
             this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton14.Image = global::Sound_Editor.Properties.Resources.player_end;
+            this.toolStripButton14.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton14.Image")));
             this.toolStripButton14.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton14.Name = "toolStripButton14";
             this.toolStripButton14.Size = new System.Drawing.Size(42, 47);
@@ -885,7 +834,7 @@
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(-1, -1);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(926, 180);
+            this.pictureBox2.Size = new System.Drawing.Size(929, 163);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
@@ -950,9 +899,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.timePeriods.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem10,
-            listViewItem11,
-            listViewItem12});
+            listViewItem7,
+            listViewItem8,
+            listViewItem9});
             this.timePeriods.Location = new System.Drawing.Point(67, 6);
             this.timePeriods.Name = "timePeriods";
             this.timePeriods.Size = new System.Drawing.Size(268, 82);
@@ -1169,6 +1118,59 @@
             this.recordingTimer.Interval = 1;
             this.recordingTimer.Tick += new System.EventHandler(this.recordingTimer_Tick);
             // 
+            // deleteToolStripButton
+            // 
+            this.deleteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripButton.Image")));
+            this.deleteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteToolStripButton.Name = "deleteToolStripButton";
+            this.deleteToolStripButton.Size = new System.Drawing.Size(23, 27);
+            this.deleteToolStripButton.Text = "Удалить";
+            this.deleteToolStripButton.ToolTipText = "Delete";
+            this.deleteToolStripButton.Click += new System.EventHandler(this.deleteToolStripButton_Click);
+            // 
+            // originalWaveViewer
+            // 
+            this.originalWaveViewer.Audio = null;
+            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
+            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalWaveViewer.Location = new System.Drawing.Point(0, 0);
+            this.originalWaveViewer.Name = "originalWaveViewer";
+            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
+            this.originalWaveViewer.PenWidth = 1F;
+            this.originalWaveViewer.SamplesPerPixel = 128;
+            this.originalWaveViewer.Size = new System.Drawing.Size(848, 238);
+            this.originalWaveViewer.Spectrogram = null;
+            this.originalWaveViewer.StartPosition = ((long)(0));
+            this.originalWaveViewer.TabIndex = 0;
+            this.originalWaveViewer.WaveStream = null;
+            // 
+            // spectrumViewer
+            // 
+            this.spectrumViewer.Audio = null;
+            this.spectrumViewer.BackColor = System.Drawing.Color.Black;
+            this.spectrumViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spectrumViewer.Location = new System.Drawing.Point(0, 0);
+            this.spectrumViewer.Name = "spectrumViewer";
+            this.spectrumViewer.PenColor = System.Drawing.Color.Red;
+            this.spectrumViewer.PenWidth = 2;
+            this.spectrumViewer.Size = new System.Drawing.Size(848, 238);
+            this.spectrumViewer.TabIndex = 0;
+            // 
+            // originalSpectrogramViewer
+            // 
+            this.originalSpectrogramViewer.Area = null;
+            this.originalSpectrogramViewer.Audio = null;
+            this.originalSpectrogramViewer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(1)))));
+            this.originalSpectrogramViewer.Count = 0;
+            this.originalSpectrogramViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalSpectrogramViewer.Location = new System.Drawing.Point(3, 3);
+            this.originalSpectrogramViewer.MinimumSize = new System.Drawing.Size(0, 512);
+            this.originalSpectrogramViewer.Name = "originalSpectrogramViewer";
+            this.originalSpectrogramViewer.Size = new System.Drawing.Size(825, 512);
+            this.originalSpectrogramViewer.StartPosition = ((long)(0));
+            this.originalSpectrogramViewer.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1235,7 +1237,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.ToolStripButton cutToolStripButton;
         private System.Windows.Forms.ToolStripButton copyToolStripButton;
-        private System.Windows.Forms.ToolStripButton pasteToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.TabControl originalVizualizationTab;
@@ -1314,6 +1315,7 @@
         private System.Windows.Forms.Button stopRecordButton;
         private System.Windows.Forms.Label recordTimerLabel;
         private System.Windows.Forms.Timer recordingTimer;
+        private System.Windows.Forms.ToolStripButton deleteToolStripButton;
     }
 }
 

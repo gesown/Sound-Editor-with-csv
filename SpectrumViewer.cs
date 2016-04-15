@@ -27,11 +27,13 @@ namespace Sound_Editor {
                 return this.audio;
             }
             set {
-                if (value != null) {
+                this.audio = value;
+                if (this.audio != null) {
                     this.audio = value;
                     // Получаем шаг значений частот для спектра
                     freq = this.audio.SampleRate / 1024.0;
                 }
+                this.Invalidate();
             }
         }
 
@@ -216,8 +218,8 @@ namespace Sound_Editor {
                         x += columnWidth;
                     }
                 }
-                base.OnPaint(e);
             }
+            base.OnPaint(e);
         }
 
 
