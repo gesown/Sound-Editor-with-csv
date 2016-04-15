@@ -46,6 +46,9 @@ namespace Sound_Editor {
             viewPeriod = new TimePeriod(timePeriods.Items[2]);
             viewPeriod.StartTime = new TimeSpan(0);
             viewPeriod.EndTime = new TimeSpan(0);
+
+            output = new WaveOut();
+            output.Volume = 1f;
         }
 
         private void initAudio(AudioFile f) {
@@ -89,13 +92,6 @@ namespace Sound_Editor {
             listAudio.Items.Add(item);
         }
 
-        private void addFileToListView(List<AudioFile> fileList) {
-            listAudio.Items.Clear();
-            foreach (AudioFile f in fileList) {
-                this.addFileToListView(f);
-            }
-        }
-
         private void openToolStripButton_Click(object sender, EventArgs e) {
             AudioFile file = null;
             OpenFileDialog open = new OpenFileDialog();
@@ -115,8 +111,6 @@ namespace Sound_Editor {
             files.Add(file);
             this.addFileToListView(file);
             if (files.Count == 1) {
-                output = new WaveOut();
-                output.Volume = 1f;
                 this.initAudio(file);
             }
         }
@@ -219,7 +213,7 @@ namespace Sound_Editor {
 
         /* Методы обработки входного сигнала */
 
-            // Создание пустого wav файла на диске
+        // Создание пустого wav файла на диске
         private void newToolStripButton_Click(object sender, EventArgs e) {
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "Wave File (*.wav)|*.wav;";
@@ -241,6 +235,8 @@ namespace Sound_Editor {
             }
         }
 
+        private int selectedItemToWrite;
+
         private void startRecordButton_Click(object sender, EventArgs e) {
             try {
                 if (devicesListView.SelectedItems.Count == 0) {
@@ -256,6 +252,8 @@ namespace Sound_Editor {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            startRecordButton.Enabled = false;
+            this.selectedItemToWrite = listAudio.SelectedItems[0].Index;
             this.fileToWrite = listAudio.SelectedItems[0].SubItems[4].Text;
             int deviceNumber = devicesListView.SelectedItems[0].Index;
             this.sourceStream = new WaveIn();
@@ -278,6 +276,7 @@ namespace Sound_Editor {
 
         private void stopRecordButton_Click(object sender, EventArgs e) {
             recordingTimer.Stop();
+            startRecordButton.Enabled = true;
             if (this.sourceStream != null) {
                 this.sourceStream.StopRecording();
                 this.sourceStream.Dispose();
@@ -296,13 +295,18 @@ namespace Sound_Editor {
             BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
             AudioFile file = new WaveFile(reader, stream, this.fileToWrite);
             this.files.Add(file);
-            this.addFileToListView(this.files);
+            listAudio.Items[selectedItemToWrite].SubItems[1].Text = Position.getTimeString(file.Duration);
+            listAudio.Items[selectedItemToWrite].ForeColor = Color.Black;
             if (files.Count == 1) {
-                output = new WaveOut();
-                output.Volume = 1f;
+                MessageBox.Show("Аудиозапись успешно сохранена.", "Записано", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.initAudio(file);
+            } else {
+                DialogResult result = MessageBox.Show("Аудиозапись успешно сохранена. Открыть запись?", "Записано", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes) {
+                    this.initAudio(file);
+                }
             }
-            MessageBox.Show("Аудиозапись успешно сохранена. Открыть запись?", "Записано", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            recordTimerLabel.Text = "00:00:000";
         }
 
         private void recordingTimer_Tick(object sender, EventArgs e) {
