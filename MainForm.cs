@@ -26,6 +26,7 @@ namespace Sound_Editor {
         private WaveOut output = null;
 
         private WaveIn sourceStream = null;
+        private WaveFileWriter waveWriter = null;
 
         private void MainForm_Load(object sender, EventArgs e) {
             spectrumViewer.PenColor = Color.GreenYellow;
@@ -190,6 +191,17 @@ namespace Sound_Editor {
             spectrumViewer.Refresh();
         }
 
+        /* Методы обработки входного сигнала */
+        private string saveFileName; // tmp variable
+        // Создание пустого wav файла на диске
+        private void newToolStripButton_Click(object sender, EventArgs e) {
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "Wave File (*.wav)|*.wav;";
+            if (save.ShowDialog() != DialogResult.OK) return;
+            this.saveFileName = save.FileName;  // tmp operation
+        }
+
+        // Обновление списка доступных записывающих устройств
         private void refreshDeviceListButton_Click(object sender, EventArgs e) {
             List<WaveInCapabilities> sources = new List<WaveInCapabilities>();
             for (int i = 0; i < WaveIn.DeviceCount; i++) {
@@ -210,11 +222,16 @@ namespace Sound_Editor {
             this.sourceStream.DeviceNumber = deviceNumber;
             this.sourceStream.WaveFormat = new WaveFormat(44100, WaveIn.GetCapabilities(deviceNumber).Channels);
 
-            WaveInProvider waveIn = new WaveInProvider(this.sourceStream);
-            output.Init(waveIn);
+            this.sourceStream.DataAvailable += new EventHandler<WaveInEventArgs>(SourceStream_DataAvailable);
+            this.waveWriter = new WaveFileWriter(this.saveFileName, this.sourceStream.WaveFormat);
 
             this.sourceStream.StartRecording();
-            output.Play();
+        }
+
+        private void SourceStream_DataAvailable(object sender, WaveInEventArgs e) {
+            if (this.waveWriter == null) return;
+            this.waveWriter.Write(e.Buffer, 0, e.BytesRecorded);
+            this.waveWriter.Flush();
         }
 
         private void stopRecordButton_Click(object sender, EventArgs e) {
@@ -222,6 +239,10 @@ namespace Sound_Editor {
                 this.sourceStream.StopRecording();
                 this.sourceStream.Dispose();
                 this.sourceStream = null;
+            }
+            if (this.waveWriter != null) {
+                this.waveWriter.Dispose();
+                this.waveWriter = null;
             }
         }
     }

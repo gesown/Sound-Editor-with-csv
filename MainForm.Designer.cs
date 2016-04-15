@@ -408,6 +408,7 @@
             this.newToolStripButton.Name = "newToolStripButton";
             this.newToolStripButton.Size = new System.Drawing.Size(23, 27);
             this.newToolStripButton.Text = "&New";
+            this.newToolStripButton.Click += new System.EventHandler(this.newToolStripButton_Click);
             // 
             // openToolStripButton
             // 
@@ -1143,7 +1144,7 @@
             this.recordTimerLabel.Name = "recordTimerLabel";
             this.recordTimerLabel.Size = new System.Drawing.Size(99, 25);
             this.recordTimerLabel.TabIndex = 4;
-            this.recordTimerLabel.Text = "0:00:00";
+            this.recordTimerLabel.Text = "0:00:000";
             // 
             // originalWaveViewer
             // 
