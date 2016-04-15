@@ -230,7 +230,6 @@ namespace Sound_Editor {
             this.waveWriter = new WaveFileWriter(this.saveFileName, this.sourceStream.WaveFormat);
 
             this.sourceStream.StartRecording();
-
             this.startRecordTime = DateTime.Now;
             recordingTimer.Start();
         }

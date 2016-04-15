@@ -78,8 +78,11 @@
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.originalVizualizationTab = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.spectrumViewer = new Sound_Editor.SpectrumViewer();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.originalSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.originalCurrentTime = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -120,18 +123,15 @@
             this.deviceNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chanelsCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.refreshDeviceListButton = new System.Windows.Forms.Button();
+            this.startRecordButton = new System.Windows.Forms.Button();
+            this.stopRecordButton = new System.Windows.Forms.Button();
+            this.recordTimerLabel = new System.Windows.Forms.Label();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.trackBarOriginal = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.originalPlayTimer = new System.Windows.Forms.Timer(this.components);
             this.spectrumTimer = new System.Windows.Forms.Timer(this.components);
-            this.startRecordButton = new System.Windows.Forms.Button();
-            this.stopRecordButton = new System.Windows.Forms.Button();
-            this.recordTimerLabel = new System.Windows.Forms.Label();
             this.recordingTimer = new System.Windows.Forms.Timer(this.components);
-            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
-            this.spectrumViewer = new Sound_Editor.SpectrumViewer();
-            this.originalSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -582,6 +582,22 @@
             this.tabPage2.Text = "Редактор";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // originalWaveViewer
+            // 
+            this.originalWaveViewer.Audio = null;
+            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
+            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalWaveViewer.Location = new System.Drawing.Point(0, 0);
+            this.originalWaveViewer.Name = "originalWaveViewer";
+            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
+            this.originalWaveViewer.PenWidth = 1F;
+            this.originalWaveViewer.SamplesPerPixel = 128;
+            this.originalWaveViewer.Size = new System.Drawing.Size(848, 238);
+            this.originalWaveViewer.Spectrogram = null;
+            this.originalWaveViewer.StartPosition = ((long)(0));
+            this.originalWaveViewer.TabIndex = 0;
+            this.originalWaveViewer.WaveStream = null;
+            // 
             // tabPage9
             // 
             this.tabPage9.Controls.Add(this.spectrumViewer);
@@ -591,6 +607,18 @@
             this.tabPage9.TabIndex = 2;
             this.tabPage9.Text = "Спектр";
             this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // spectrumViewer
+            // 
+            this.spectrumViewer.Audio = null;
+            this.spectrumViewer.BackColor = System.Drawing.Color.Black;
+            this.spectrumViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spectrumViewer.Location = new System.Drawing.Point(0, 0);
+            this.spectrumViewer.Name = "spectrumViewer";
+            this.spectrumViewer.PenColor = System.Drawing.Color.Red;
+            this.spectrumViewer.PenWidth = 2;
+            this.spectrumViewer.Size = new System.Drawing.Size(848, 238);
+            this.spectrumViewer.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -604,6 +632,20 @@
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "Спектрограмма";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // originalSpectrogramViewer
+            // 
+            this.originalSpectrogramViewer.Area = null;
+            this.originalSpectrogramViewer.Audio = null;
+            this.originalSpectrogramViewer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(1)))));
+            this.originalSpectrogramViewer.Count = 0;
+            this.originalSpectrogramViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalSpectrogramViewer.Location = new System.Drawing.Point(3, 3);
+            this.originalSpectrogramViewer.MinimumSize = new System.Drawing.Size(0, 512);
+            this.originalSpectrogramViewer.Name = "originalSpectrogramViewer";
+            this.originalSpectrogramViewer.Size = new System.Drawing.Size(825, 512);
+            this.originalSpectrogramViewer.StartPosition = ((long)(0));
+            this.originalSpectrogramViewer.TabIndex = 0;
             // 
             // toolStrip2
             // 
@@ -1066,6 +1108,43 @@
             this.refreshDeviceListButton.UseVisualStyleBackColor = true;
             this.refreshDeviceListButton.Click += new System.EventHandler(this.refreshDeviceListButton_Click);
             // 
+            // startRecordButton
+            // 
+            this.startRecordButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.startRecordButton.Location = new System.Drawing.Point(236, 170);
+            this.startRecordButton.Name = "startRecordButton";
+            this.startRecordButton.Size = new System.Drawing.Size(99, 31);
+            this.startRecordButton.TabIndex = 2;
+            this.startRecordButton.Text = "Старт";
+            this.startRecordButton.UseVisualStyleBackColor = true;
+            this.startRecordButton.Click += new System.EventHandler(this.startRecordButton_Click);
+            // 
+            // stopRecordButton
+            // 
+            this.stopRecordButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.stopRecordButton.Location = new System.Drawing.Point(236, 207);
+            this.stopRecordButton.Name = "stopRecordButton";
+            this.stopRecordButton.Size = new System.Drawing.Size(99, 32);
+            this.stopRecordButton.TabIndex = 3;
+            this.stopRecordButton.Text = "Стоп";
+            this.stopRecordButton.UseVisualStyleBackColor = true;
+            this.stopRecordButton.Click += new System.EventHandler(this.stopRecordButton_Click);
+            // 
+            // recordTimerLabel
+            // 
+            this.recordTimerLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.recordTimerLabel.AutoSize = true;
+            this.recordTimerLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.recordTimerLabel.ForeColor = System.Drawing.Color.Blue;
+            this.recordTimerLabel.Location = new System.Drawing.Point(236, 246);
+            this.recordTimerLabel.Name = "recordTimerLabel";
+            this.recordTimerLabel.Size = new System.Drawing.Size(99, 25);
+            this.recordTimerLabel.TabIndex = 4;
+            this.recordTimerLabel.Text = "00:00:000";
+            // 
             // tabPage8
             // 
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
@@ -1110,89 +1189,10 @@
             this.spectrumTimer.Interval = 25;
             this.spectrumTimer.Tick += new System.EventHandler(this.spectrumTimer_Tick);
             // 
-            // startRecordButton
-            // 
-            this.startRecordButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.startRecordButton.Location = new System.Drawing.Point(236, 170);
-            this.startRecordButton.Name = "startRecordButton";
-            this.startRecordButton.Size = new System.Drawing.Size(99, 31);
-            this.startRecordButton.TabIndex = 2;
-            this.startRecordButton.Text = "Старт";
-            this.startRecordButton.UseVisualStyleBackColor = true;
-            this.startRecordButton.Click += new System.EventHandler(this.startRecordButton_Click);
-            // 
-            // stopRecordButton
-            // 
-            this.stopRecordButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.stopRecordButton.Location = new System.Drawing.Point(236, 207);
-            this.stopRecordButton.Name = "stopRecordButton";
-            this.stopRecordButton.Size = new System.Drawing.Size(99, 32);
-            this.stopRecordButton.TabIndex = 3;
-            this.stopRecordButton.Text = "Стоп";
-            this.stopRecordButton.UseVisualStyleBackColor = true;
-            this.stopRecordButton.Click += new System.EventHandler(this.stopRecordButton_Click);
-            // 
-            // recordTimerLabel
-            // 
-            this.recordTimerLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.recordTimerLabel.AutoSize = true;
-            this.recordTimerLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.recordTimerLabel.ForeColor = System.Drawing.Color.Blue;
-            this.recordTimerLabel.Location = new System.Drawing.Point(236, 246);
-            this.recordTimerLabel.Name = "recordTimerLabel";
-            this.recordTimerLabel.Size = new System.Drawing.Size(99, 25);
-            this.recordTimerLabel.TabIndex = 4;
-            this.recordTimerLabel.Text = "0:00:000";
-            // 
             // recordingTimer
             // 
             this.recordingTimer.Interval = 1;
             this.recordingTimer.Tick += new System.EventHandler(this.recordingTimer_Tick);
-            // 
-            // originalWaveViewer
-            // 
-            this.originalWaveViewer.Audio = null;
-            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
-            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.originalWaveViewer.Location = new System.Drawing.Point(0, 0);
-            this.originalWaveViewer.Name = "originalWaveViewer";
-            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
-            this.originalWaveViewer.PenWidth = 1F;
-            this.originalWaveViewer.SamplesPerPixel = 128;
-            this.originalWaveViewer.Size = new System.Drawing.Size(848, 238);
-            this.originalWaveViewer.Spectrogram = null;
-            this.originalWaveViewer.StartPosition = ((long)(0));
-            this.originalWaveViewer.TabIndex = 0;
-            this.originalWaveViewer.WaveStream = null;
-            // 
-            // spectrumViewer
-            // 
-            this.spectrumViewer.Audio = null;
-            this.spectrumViewer.BackColor = System.Drawing.Color.Black;
-            this.spectrumViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spectrumViewer.Location = new System.Drawing.Point(0, 0);
-            this.spectrumViewer.Name = "spectrumViewer";
-            this.spectrumViewer.PenColor = System.Drawing.Color.Red;
-            this.spectrumViewer.PenWidth = 2;
-            this.spectrumViewer.Size = new System.Drawing.Size(848, 238);
-            this.spectrumViewer.TabIndex = 0;
-            // 
-            // originalSpectrogramViewer
-            // 
-            this.originalSpectrogramViewer.Area = null;
-            this.originalSpectrogramViewer.Audio = null;
-            this.originalSpectrogramViewer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(1)))));
-            this.originalSpectrogramViewer.Count = 0;
-            this.originalSpectrogramViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.originalSpectrogramViewer.Location = new System.Drawing.Point(3, 3);
-            this.originalSpectrogramViewer.MinimumSize = new System.Drawing.Size(0, 512);
-            this.originalSpectrogramViewer.Name = "originalSpectrogramViewer";
-            this.originalSpectrogramViewer.Size = new System.Drawing.Size(825, 512);
-            this.originalSpectrogramViewer.StartPosition = ((long)(0));
-            this.originalSpectrogramViewer.TabIndex = 0;
             // 
             // MainForm
             // 
