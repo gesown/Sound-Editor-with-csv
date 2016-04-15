@@ -21,22 +21,28 @@ namespace Sound_Editor {
         public BlockAlignReductionStream Stream { get; set; }
 
         public AudioFile(BlockAlignReductionStream stream, string path) {
-            int startIndexOfName = path.LastIndexOf('\\') + 1;
-            int startIndexOfFormat = path.LastIndexOf('.') + 1;
-            int nameLength = startIndexOfFormat - startIndexOfName - 1;
-
-            this.Name = path.Substring(startIndexOfName, nameLength);
+            string tmpName, tmpFormat;
+            AudioFile.getNameAndFormatFromPath(path, out tmpName, out tmpFormat);
+            this.Name = tmpName;
             this.Duration = stream.TotalTime;
             this.SampleRate = stream.WaveFormat.SampleRate;
             this.bitDepth = stream.WaveFormat.BitsPerSample;
             this.Size = new FileInfo(path).Length * Math.Pow(10, -6);
-            this.Format = path.Substring(startIndexOfFormat);
+            this.Format = tmpFormat;
             this.Path = path;
             this.Stream = stream;
         }
 
         protected abstract void readBytes();
         protected abstract void readFloats();
+
+        public static void getNameAndFormatFromPath(string path, out string name, out string format) {
+            int startIndexOfName = path.LastIndexOf('\\') + 1;
+            int startIndexOfFormat = path.LastIndexOf('.') + 1;
+            int nameLength = startIndexOfFormat - startIndexOfName - 1;
+            name = path.Substring(startIndexOfName, nameLength);
+            format = path.Substring(startIndexOfFormat);
+        }
 
         protected void callRead() {
             this.readBytes();

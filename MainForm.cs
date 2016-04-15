@@ -28,6 +28,7 @@ namespace Sound_Editor {
         private WaveIn sourceStream = null;
         private WaveFileWriter waveWriter = null;
         private DateTime startRecordTime = new DateTime();
+        private string fileToWrite;
 
         private void MainForm_Load(object sender, EventArgs e) {
             spectrumViewer.PenColor = Color.GreenYellow;
@@ -65,6 +66,36 @@ namespace Sound_Editor {
             output.Init(f.Stream);
         }
 
+        private void addFileToListView(AudioFile f) {
+            ListViewItem item = new ListViewItem(f.Name);
+            item.SubItems.Add(Position.getTimeString(f.Duration));
+            item.SubItems.Add(f.SampleRate.ToString() + " Hz");
+            item.SubItems.Add(f.Format.ToString());
+            item.SubItems.Add(f.Path.ToString());
+            item.SubItems.Add(f.bitDepth.ToString() + " bit");
+            listAudio.Items.Add(item);
+        }
+
+        private void addFileToListView(string path) {
+            string name, format;
+            AudioFile.getNameAndFormatFromPath(path, out name, out format);
+            ListViewItem item = new ListViewItem(name);
+            item.SubItems.Add("00:00:000");
+            item.SubItems.Add("44100 Hz");
+            item.SubItems.Add(format);
+            item.SubItems.Add(path);
+            item.SubItems.Add("32 bit");
+            item.ForeColor = Color.Blue;
+            listAudio.Items.Add(item);
+        }
+
+        private void addFileToListView(List<AudioFile> fileList) {
+            listAudio.Items.Clear();
+            foreach (AudioFile f in fileList) {
+                this.addFileToListView(f);
+            }
+        }
+
         private void openToolStripButton_Click(object sender, EventArgs e) {
             AudioFile file = null;
             OpenFileDialog open = new OpenFileDialog();
@@ -82,13 +113,7 @@ namespace Sound_Editor {
                 file = new WaveFile(reader, stream, open.FileName);
             } else throw new InvalidOperationException("Неверный формат аудиофайла");
             files.Add(file);
-            ListViewItem item = new ListViewItem(file.Name);
-            item.SubItems.Add(Position.getTimeString(file.Duration));
-            item.SubItems.Add(file.SampleRate.ToString() + " Hz");
-            item.SubItems.Add(file.Format.ToString());
-            item.SubItems.Add(file.Path.ToString());
-            item.SubItems.Add(file.bitDepth.ToString() + " bit");
-            listAudio.Items.Add(item);
+            this.addFileToListView(file);
             if (files.Count == 1) {
                 output = new WaveOut();
                 output.Volume = 1f;
@@ -193,13 +218,13 @@ namespace Sound_Editor {
         }
 
         /* Методы обработки входного сигнала */
-        private string saveFileName; // tmp variable
-        // Создание пустого wav файла на диске
+
+            // Создание пустого wav файла на диске
         private void newToolStripButton_Click(object sender, EventArgs e) {
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "Wave File (*.wav)|*.wav;";
             if (save.ShowDialog() != DialogResult.OK) return;
-            this.saveFileName = save.FileName;  // tmp operation
+            this.addFileToListView(save.FileName);
         }
 
         // Обновление списка доступных записывающих устройств
@@ -217,17 +242,28 @@ namespace Sound_Editor {
         }
 
         private void startRecordButton_Click(object sender, EventArgs e) {
-            if (devicesListView.SelectedItems.Count == 0) {
-                MessageBox.Show("Вы не выбрали записывающее устройство.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            try {
+                if (devicesListView.SelectedItems.Count == 0) {
+                    throw new Exception("Вы не выбрали записывающее устройство.");
+                }
+                if (listAudio.SelectedItems.Count == 0) {
+                    throw new Exception("Вы не выбрали файл для записи. Выделите нужный вам файл в списке аудио.");
+                }
+                if (listAudio.SelectedItems[0].ForeColor != Color.Blue) {
+                    throw new Exception("Запись в этот файл невозможна.");
+                }
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            this.fileToWrite = listAudio.SelectedItems[0].SubItems[4].Text;
             int deviceNumber = devicesListView.SelectedItems[0].Index;
             this.sourceStream = new WaveIn();
             this.sourceStream.DeviceNumber = deviceNumber;
             this.sourceStream.WaveFormat = new WaveFormat(44100, WaveIn.GetCapabilities(deviceNumber).Channels);
 
             this.sourceStream.DataAvailable += new EventHandler<WaveInEventArgs>(SourceStream_DataAvailable);
-            this.waveWriter = new WaveFileWriter(this.saveFileName, this.sourceStream.WaveFormat);
+            this.waveWriter = new WaveFileWriter(this.fileToWrite, this.sourceStream.WaveFormat);
 
             this.sourceStream.StartRecording();
             this.startRecordTime = DateTime.Now;
@@ -250,7 +286,23 @@ namespace Sound_Editor {
             if (this.waveWriter != null) {
                 this.waveWriter.Dispose();
                 this.waveWriter = null;
+                this.openSavedFile();
             }
+        }
+
+        private void openSavedFile() {
+            WaveFileReader reader = new WaveFileReader(this.fileToWrite);
+            WaveStream pcm = new WaveChannel32(reader);
+            BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
+            AudioFile file = new WaveFile(reader, stream, this.fileToWrite);
+            this.files.Add(file);
+            this.addFileToListView(this.files);
+            if (files.Count == 1) {
+                output = new WaveOut();
+                output.Volume = 1f;
+                this.initAudio(file);
+            }
+            MessageBox.Show("Аудиозапись успешно сохранена. Открыть запись?", "Записано", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
 
         private void recordingTimer_Tick(object sender, EventArgs e) {
