@@ -128,6 +128,7 @@
             this.startRecordButton = new System.Windows.Forms.Button();
             this.stopRecordButton = new System.Windows.Forms.Button();
             this.recordTimerLabel = new System.Windows.Forms.Label();
+            this.recordingTimer = new System.Windows.Forms.Timer(this.components);
             this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.spectrumViewer = new Sound_Editor.SpectrumViewer();
             this.originalSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
@@ -1146,6 +1147,11 @@
             this.recordTimerLabel.TabIndex = 4;
             this.recordTimerLabel.Text = "0:00:000";
             // 
+            // recordingTimer
+            // 
+            this.recordingTimer.Interval = 1;
+            this.recordingTimer.Tick += new System.EventHandler(this.recordingTimer_Tick);
+            // 
             // originalWaveViewer
             // 
             this.originalWaveViewer.Audio = null;
@@ -1336,6 +1342,7 @@
         private System.Windows.Forms.Button startRecordButton;
         private System.Windows.Forms.Button stopRecordButton;
         private System.Windows.Forms.Label recordTimerLabel;
+        private System.Windows.Forms.Timer recordingTimer;
     }
 }
 

@@ -27,6 +27,7 @@ namespace Sound_Editor {
 
         private WaveIn sourceStream = null;
         private WaveFileWriter waveWriter = null;
+        private DateTime startRecordTime = new DateTime();
 
         private void MainForm_Load(object sender, EventArgs e) {
             spectrumViewer.PenColor = Color.GreenYellow;
@@ -226,6 +227,9 @@ namespace Sound_Editor {
             this.waveWriter = new WaveFileWriter(this.saveFileName, this.sourceStream.WaveFormat);
 
             this.sourceStream.StartRecording();
+
+            this.startRecordTime = DateTime.Now;
+            recordingTimer.Start();
         }
 
         private void SourceStream_DataAvailable(object sender, WaveInEventArgs e) {
@@ -235,6 +239,7 @@ namespace Sound_Editor {
         }
 
         private void stopRecordButton_Click(object sender, EventArgs e) {
+            recordingTimer.Stop();
             if (this.sourceStream != null) {
                 this.sourceStream.StopRecording();
                 this.sourceStream.Dispose();
@@ -244,6 +249,12 @@ namespace Sound_Editor {
                 this.waveWriter.Dispose();
                 this.waveWriter = null;
             }
+        }
+
+        private void recordingTimer_Tick(object sender, EventArgs e) {
+            DateTime dtn = DateTime.Now;
+            TimeSpan ts = dtn.Subtract(this.startRecordTime);
+            recordTimerLabel.Text = Position.getTimeString(ts);
         }
     }
 }
