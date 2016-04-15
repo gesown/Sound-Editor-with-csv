@@ -217,7 +217,10 @@ namespace Sound_Editor {
         }
 
         private void startRecordButton_Click(object sender, EventArgs e) {
-            if (devicesListView.SelectedItems.Count == 0) return;
+            if (devicesListView.SelectedItems.Count == 0) {
+                MessageBox.Show("Вы не выбрали записывающее устройство.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             int deviceNumber = devicesListView.SelectedItems[0].Index;
             this.sourceStream = new WaveIn();
             this.sourceStream.DeviceNumber = deviceNumber;
