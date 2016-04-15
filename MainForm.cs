@@ -97,6 +97,11 @@ namespace Sound_Editor {
             OpenFileDialog open = new OpenFileDialog();
             open.Filter = "Audio File (*.mp3;*.wav)|*.mp3;*.wav;";
             if (open.ShowDialog() != DialogResult.OK) return;
+            AudioFile searchFile = files.Find(x => x.Path == open.FileName);
+            if (searchFile != null) {
+                MessageBox.Show("Этот файл уже добавлен в список.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (open.FileName.EndsWith(".mp3")) {
                 Mp3FileReader reader = new Mp3FileReader(open.FileName);
                 WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(reader);
@@ -115,17 +120,19 @@ namespace Sound_Editor {
             }
         }
 
-        private void редактироватьToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (listAudio.SelectedItems.Count > 0) {
-                AudioFile file = files.Find(audio => audio.Name == listAudio.SelectedItems[0].Text && audio.Format == listAudio.SelectedItems[0].SubItems[3].Text);
-                if (output.PlaybackState == PlaybackState.Playing) {
-                    output.Pause();
-                    audioStatus.Text = "Приостановлено: " + currentAudio.Name + "." + currentAudio.Format;
-                }
-                this.initAudio(file);
-            } else {
-                MessageBox.Show("Вы не выбрали аудио файл.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        private void listAudio_MouseDoubleClick(object sender, MouseEventArgs e) {
+            if (listAudio.SelectedItems.Count == 0) return;
+            if (listAudio.SelectedItems[0].ForeColor == Color.Blue) {
+                MessageBox.Show("Запишите данные в файл, перед тем как открыть.", "Пустой файл", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+            if (listAudio.SelectedItems[0].Text == this.currentAudio.Name) return;
+            AudioFile file = files.Find(audio => audio.Name == listAudio.SelectedItems[0].Text && audio.Format == listAudio.SelectedItems[0].SubItems[3].Text);
+            if (output.PlaybackState == PlaybackState.Playing) {
+                output.Pause();
+                audioStatus.Text = "Приостановлено: " + currentAudio.Name + "." + currentAudio.Format;
+            }
+            this.initAudio(file);
         }
 
         // Pause

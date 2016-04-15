@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
@@ -73,9 +73,6 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.audioContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.редактироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.originalVizualizationTab = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
@@ -138,7 +135,6 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.audioContextMenuStrip.SuspendLayout();
             this.originalVizualizationTab.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage9.SuspendLayout();
@@ -489,7 +485,6 @@
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader9});
-            this.listAudio.ContextMenuStrip = this.audioContextMenuStrip;
             this.listAudio.ForeColor = System.Drawing.SystemColors.WindowText;
             this.listAudio.FullRowSelect = true;
             this.listAudio.GridLines = true;
@@ -501,6 +496,7 @@
             this.listAudio.TabIndex = 0;
             this.listAudio.UseCompatibleStateImageBehavior = false;
             this.listAudio.View = System.Windows.Forms.View.Details;
+            this.listAudio.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listAudio_MouseDoubleClick);
             // 
             // columnHeader1
             // 
@@ -533,27 +529,6 @@
             this.columnHeader9.DisplayIndex = 3;
             this.columnHeader9.Text = "Разрядность";
             this.columnHeader9.Width = 80;
-            // 
-            // audioContextMenuStrip
-            // 
-            this.audioContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.редактироватьToolStripMenuItem,
-            this.удалитьToolStripMenuItem});
-            this.audioContextMenuStrip.Name = "audioContextMenuStrip";
-            this.audioContextMenuStrip.Size = new System.Drawing.Size(155, 48);
-            // 
-            // редактироватьToolStripMenuItem
-            // 
-            this.редактироватьToolStripMenuItem.Name = "редактироватьToolStripMenuItem";
-            this.редактироватьToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.редактироватьToolStripMenuItem.Text = "Редактировать";
-            this.редактироватьToolStripMenuItem.Click += new System.EventHandler(this.редактироватьToolStripMenuItem_Click);
-            // 
-            // удалитьToolStripMenuItem
-            // 
-            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.удалитьToolStripMenuItem.Text = "Удалить";
             // 
             // originalVizualizationTab
             // 
@@ -975,9 +950,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.timePeriods.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
+            listViewItem10,
+            listViewItem11,
+            listViewItem12});
             this.timePeriods.Location = new System.Drawing.Point(67, 6);
             this.timePeriods.Name = "timePeriods";
             this.timePeriods.Size = new System.Drawing.Size(268, 82);
@@ -1216,7 +1191,6 @@
             this.tabPage1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.audioContextMenuStrip.ResumeLayout(false);
             this.originalVizualizationTab.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage9.ResumeLayout(false);
@@ -1323,9 +1297,6 @@
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.TabPage tabPage8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.ContextMenuStrip audioContextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem редактироватьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
         private System.Windows.Forms.TrackBar trackBarOriginal;
         private System.Windows.Forms.TrackBar trackBar2;
         private SEWaveViewer originalWaveViewer;
