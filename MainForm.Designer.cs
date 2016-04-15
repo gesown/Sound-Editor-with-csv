@@ -1062,6 +1062,7 @@
             this.refreshDeviceListButton.TabIndex = 1;
             this.refreshDeviceListButton.Text = "Обновить";
             this.refreshDeviceListButton.UseVisualStyleBackColor = true;
+            this.refreshDeviceListButton.Click += new System.EventHandler(this.refreshDeviceListButton_Click);
             // 
             // tabPage8
             // 

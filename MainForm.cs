@@ -187,5 +187,18 @@ namespace Sound_Editor {
         private void spectrumTimer_Tick(object sender, EventArgs e) {
             spectrumViewer.Refresh();
         }
+
+        private void refreshDeviceListButton_Click(object sender, EventArgs e) {
+            List<WaveInCapabilities> sources = new List<WaveInCapabilities>();
+            for (int i = 0; i < WaveIn.DeviceCount; i++) {
+                sources.Add(WaveIn.GetCapabilities(i));
+            }
+            devicesListView.Items.Clear();
+            foreach (var source in sources) {
+                ListViewItem item = new ListViewItem(source.ProductName);
+                item.SubItems.Add(new ListViewItem.ListViewSubItem(item, source.Channels.ToString()));
+                devicesListView.Items.Add(item);
+            }
+        }
     }
 }
