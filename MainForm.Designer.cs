@@ -78,11 +78,8 @@
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.originalVizualizationTab = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.spectrumViewer = new Sound_Editor.SpectrumViewer();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.originalSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.originalCurrentTime = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -118,11 +115,22 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl5 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.devicesListView = new System.Windows.Forms.ListView();
+            this.deviceNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chanelsCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.refreshDeviceListButton = new System.Windows.Forms.Button();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.trackBarOriginal = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.originalPlayTimer = new System.Windows.Forms.Timer(this.components);
             this.spectrumTimer = new System.Windows.Forms.Timer(this.components);
+            this.startRecordButton = new System.Windows.Forms.Button();
+            this.stopRecordButton = new System.Windows.Forms.Button();
+            this.recordTimerLabel = new System.Windows.Forms.Label();
+            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
+            this.spectrumViewer = new Sound_Editor.SpectrumViewer();
+            this.originalSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -144,6 +152,8 @@
             this.tabControl4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabControl5.SuspendLayout();
+            this.tabPage7.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarOriginal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.SuspendLayout();
@@ -570,22 +580,6 @@
             this.tabPage2.Text = "Редактор";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // originalWaveViewer
-            // 
-            this.originalWaveViewer.Audio = null;
-            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
-            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.originalWaveViewer.Location = new System.Drawing.Point(0, 0);
-            this.originalWaveViewer.Name = "originalWaveViewer";
-            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
-            this.originalWaveViewer.PenWidth = 1F;
-            this.originalWaveViewer.SamplesPerPixel = 128;
-            this.originalWaveViewer.Size = new System.Drawing.Size(848, 238);
-            this.originalWaveViewer.Spectrogram = null;
-            this.originalWaveViewer.StartPosition = ((long)(0));
-            this.originalWaveViewer.TabIndex = 0;
-            this.originalWaveViewer.WaveStream = null;
-            // 
             // tabPage9
             // 
             this.tabPage9.Controls.Add(this.spectrumViewer);
@@ -595,18 +589,6 @@
             this.tabPage9.TabIndex = 2;
             this.tabPage9.Text = "Спектр";
             this.tabPage9.UseVisualStyleBackColor = true;
-            // 
-            // spectrumViewer
-            // 
-            this.spectrumViewer.Audio = null;
-            this.spectrumViewer.BackColor = System.Drawing.Color.Black;
-            this.spectrumViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spectrumViewer.Location = new System.Drawing.Point(0, 0);
-            this.spectrumViewer.Name = "spectrumViewer";
-            this.spectrumViewer.PenColor = System.Drawing.Color.Red;
-            this.spectrumViewer.PenWidth = 2;
-            this.spectrumViewer.Size = new System.Drawing.Size(848, 238);
-            this.spectrumViewer.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -620,19 +602,6 @@
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "Спектрограмма";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // originalSpectrogramViewer
-            // 
-            this.originalSpectrogramViewer.Area = null;
-            this.originalSpectrogramViewer.Audio = null;
-            this.originalSpectrogramViewer.Count = 0;
-            this.originalSpectrogramViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.originalSpectrogramViewer.Location = new System.Drawing.Point(3, 3);
-            this.originalSpectrogramViewer.MinimumSize = new System.Drawing.Size(0, 512);
-            this.originalSpectrogramViewer.Name = "originalSpectrogramViewer";
-            this.originalSpectrogramViewer.Size = new System.Drawing.Size(825, 512);
-            this.originalSpectrogramViewer.StartPosition = ((long)(0));
-            this.originalSpectrogramViewer.TabIndex = 0;
             // 
             // toolStrip2
             // 
@@ -897,7 +866,7 @@
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(-1, -1);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(923, 197);
+            this.pictureBox2.Size = new System.Drawing.Size(926, 180);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
@@ -1022,13 +991,77 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.tableLayoutPanel2);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage7.Size = new System.Drawing.Size(341, 284);
             this.tabPage7.TabIndex = 0;
-            this.tabPage7.Text = "tabPage7";
+            this.tabPage7.Text = "Запись звука";
             this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.93491F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.06509F));
+            this.tableLayoutPanel2.Controls.Add(this.devicesListView, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.refreshDeviceListButton, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.startRecordButton, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.stopRecordButton, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.recordTimerLabel, 1, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 4;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(338, 278);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // devicesListView
+            // 
+            this.devicesListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.devicesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.deviceNameColumnHeader,
+            this.chanelsCountColumnHeader});
+            this.devicesListView.FullRowSelect = true;
+            this.devicesListView.GridLines = true;
+            this.devicesListView.Location = new System.Drawing.Point(3, 3);
+            this.devicesListView.MultiSelect = false;
+            this.devicesListView.Name = "devicesListView";
+            this.tableLayoutPanel2.SetRowSpan(this.devicesListView, 4);
+            this.devicesListView.Size = new System.Drawing.Size(227, 272);
+            this.devicesListView.TabIndex = 0;
+            this.devicesListView.UseCompatibleStateImageBehavior = false;
+            this.devicesListView.View = System.Windows.Forms.View.Details;
+            // 
+            // deviceNameColumnHeader
+            // 
+            this.deviceNameColumnHeader.Text = "Устройство";
+            this.deviceNameColumnHeader.Width = 154;
+            // 
+            // chanelsCountColumnHeader
+            // 
+            this.chanelsCountColumnHeader.Text = "Каналы";
+            this.chanelsCountColumnHeader.Width = 68;
+            // 
+            // refreshDeviceListButton
+            // 
+            this.refreshDeviceListButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.refreshDeviceListButton.Location = new System.Drawing.Point(236, 3);
+            this.refreshDeviceListButton.Name = "refreshDeviceListButton";
+            this.refreshDeviceListButton.Size = new System.Drawing.Size(99, 32);
+            this.refreshDeviceListButton.TabIndex = 1;
+            this.refreshDeviceListButton.Text = "Обновить";
+            this.refreshDeviceListButton.UseVisualStyleBackColor = true;
             // 
             // tabPage8
             // 
@@ -1074,6 +1107,83 @@
             this.spectrumTimer.Interval = 25;
             this.spectrumTimer.Tick += new System.EventHandler(this.spectrumTimer_Tick);
             // 
+            // startRecordButton
+            // 
+            this.startRecordButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.startRecordButton.Location = new System.Drawing.Point(236, 170);
+            this.startRecordButton.Name = "startRecordButton";
+            this.startRecordButton.Size = new System.Drawing.Size(99, 31);
+            this.startRecordButton.TabIndex = 2;
+            this.startRecordButton.Text = "Старт";
+            this.startRecordButton.UseVisualStyleBackColor = true;
+            // 
+            // stopRecordButton
+            // 
+            this.stopRecordButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.stopRecordButton.Location = new System.Drawing.Point(236, 207);
+            this.stopRecordButton.Name = "stopRecordButton";
+            this.stopRecordButton.Size = new System.Drawing.Size(99, 32);
+            this.stopRecordButton.TabIndex = 3;
+            this.stopRecordButton.Text = "Стоп";
+            this.stopRecordButton.UseVisualStyleBackColor = true;
+            // 
+            // recordTimerLabel
+            // 
+            this.recordTimerLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.recordTimerLabel.AutoSize = true;
+            this.recordTimerLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.recordTimerLabel.ForeColor = System.Drawing.Color.Blue;
+            this.recordTimerLabel.Location = new System.Drawing.Point(236, 246);
+            this.recordTimerLabel.Name = "recordTimerLabel";
+            this.recordTimerLabel.Size = new System.Drawing.Size(99, 25);
+            this.recordTimerLabel.TabIndex = 4;
+            this.recordTimerLabel.Text = "0:00:00";
+            // 
+            // originalWaveViewer
+            // 
+            this.originalWaveViewer.Audio = null;
+            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
+            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalWaveViewer.Location = new System.Drawing.Point(0, 0);
+            this.originalWaveViewer.Name = "originalWaveViewer";
+            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
+            this.originalWaveViewer.PenWidth = 1F;
+            this.originalWaveViewer.SamplesPerPixel = 128;
+            this.originalWaveViewer.Size = new System.Drawing.Size(848, 238);
+            this.originalWaveViewer.Spectrogram = null;
+            this.originalWaveViewer.StartPosition = ((long)(0));
+            this.originalWaveViewer.TabIndex = 0;
+            this.originalWaveViewer.WaveStream = null;
+            // 
+            // spectrumViewer
+            // 
+            this.spectrumViewer.Audio = null;
+            this.spectrumViewer.BackColor = System.Drawing.Color.Black;
+            this.spectrumViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spectrumViewer.Location = new System.Drawing.Point(0, 0);
+            this.spectrumViewer.Name = "spectrumViewer";
+            this.spectrumViewer.PenColor = System.Drawing.Color.Red;
+            this.spectrumViewer.PenWidth = 2;
+            this.spectrumViewer.Size = new System.Drawing.Size(848, 238);
+            this.spectrumViewer.TabIndex = 0;
+            // 
+            // originalSpectrogramViewer
+            // 
+            this.originalSpectrogramViewer.Area = null;
+            this.originalSpectrogramViewer.Audio = null;
+            this.originalSpectrogramViewer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(1)))));
+            this.originalSpectrogramViewer.Count = 0;
+            this.originalSpectrogramViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalSpectrogramViewer.Location = new System.Drawing.Point(3, 3);
+            this.originalSpectrogramViewer.MinimumSize = new System.Drawing.Size(0, 512);
+            this.originalSpectrogramViewer.Name = "originalSpectrogramViewer";
+            this.originalSpectrogramViewer.Size = new System.Drawing.Size(825, 512);
+            this.originalSpectrogramViewer.StartPosition = ((long)(0));
+            this.originalSpectrogramViewer.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1114,6 +1224,9 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             this.tabControl5.ResumeLayout(false);
+            this.tabPage7.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarOriginal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             this.ResumeLayout(false);
@@ -1211,6 +1324,14 @@
         private SpectrumViewer spectrumViewer;
         private System.Windows.Forms.Timer spectrumTimer;
         private SpectrogramViewer originalSpectrogramViewer;
+        private System.Windows.Forms.ColumnHeader deviceNameColumnHeader;
+        private System.Windows.Forms.ColumnHeader chanelsCountColumnHeader;
+        private System.Windows.Forms.Button refreshDeviceListButton;
+        private System.Windows.Forms.ListView devicesListView;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Button startRecordButton;
+        private System.Windows.Forms.Button stopRecordButton;
+        private System.Windows.Forms.Label recordTimerLabel;
     }
 }
 
