@@ -238,12 +238,9 @@ namespace Sound_Editor {
 
         // Back
         private void back() {
-            long position = 0;
+            long position = this.currentAudio.Stream.Position;
             if (currentAudio.Format == "mp3") {
                 MP3File file = currentAudio as MP3File;
-                position = file.Reader.Position;
-            } else if (currentAudio.Format == "wav") {
-                WaveFile file = currentAudio as WaveFile;
                 position = file.Reader.Position;
             }
             position = position - this.currentAudio.Stream.WaveFormat.AverageBytesPerSecond;
@@ -272,12 +269,9 @@ namespace Sound_Editor {
 
         // Forward
         private void forward() {
-            long position = 0;
+            long position = this.currentAudio.Stream.Position;
             if (currentAudio.Format == "mp3") {
                 MP3File file = currentAudio as MP3File;
-                position = file.Reader.Position;
-            } else if (currentAudio.Format == "wav") {
-                WaveFile file = currentAudio as WaveFile;
                 position = file.Reader.Position;
             }
             if (position + this.currentAudio.Stream.WaveFormat.AverageBytesPerSecond > this.currentAudio.Stream.Length) return;
@@ -399,7 +393,7 @@ namespace Sound_Editor {
             int deviceNumber = devicesListView.SelectedItems[0].Index;
             this.sourceStream = new WaveIn();
             this.sourceStream.DeviceNumber = deviceNumber;
-            this.sourceStream.WaveFormat = new WaveFormat(44100, WaveIn.GetCapabilities(deviceNumber).Channels);
+            this.sourceStream.WaveFormat = new WaveFormat(44100, 16, WaveIn.GetCapabilities(deviceNumber).Channels);
 
             this.sourceStream.DataAvailable += new EventHandler<WaveInEventArgs>(SourceStream_DataAvailable);
             this.waveWriter = new WaveFileWriter(this.fileToWrite, this.sourceStream.WaveFormat);
