@@ -146,6 +146,7 @@ namespace Sound_Editor {
                     output.Stop();
                     originalCurrentTime.Text = "00:00:000";
                 }
+                currentAudio = null;
                 originalWaveViewer.WaveStream = null;
                 spectrumViewer.Audio = null;
                 originalSpectrogramViewer.Count = 0;
@@ -164,7 +165,7 @@ namespace Sound_Editor {
 
         // Pause
         private void toolStripButton3_Click(object sender, EventArgs e) {
-            if (output != null) {
+            if (output != null && currentAudio != null) {
                 if (output.PlaybackState == PlaybackState.Playing) {
                     output.Pause();
                     originalPlayTimer.Enabled = false;
@@ -188,7 +189,7 @@ namespace Sound_Editor {
 
         // Stop
         private void toolStripButton2_Click(object sender, EventArgs e) {
-            if (output != null) {
+            if (output != null && currentAudio != null) {
                 if (output.PlaybackState != PlaybackState.Stopped) {
                     currentAudio.Stream.Position = 0;
                     output.Stop();
