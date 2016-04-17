@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
@@ -404,7 +404,7 @@
             this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripButton.Name = "newToolStripButton";
             this.newToolStripButton.Size = new System.Drawing.Size(23, 27);
-            this.newToolStripButton.Text = "&New";
+            this.newToolStripButton.Text = "Создать";
             this.newToolStripButton.Click += new System.EventHandler(this.newToolStripButton_Click);
             // 
             // openToolStripButton
@@ -414,7 +414,7 @@
             this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripButton.Name = "openToolStripButton";
             this.openToolStripButton.Size = new System.Drawing.Size(23, 27);
-            this.openToolStripButton.Text = "&Open";
+            this.openToolStripButton.Text = "Открыть";
             this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
             // 
             // saveToolStripButton
@@ -424,7 +424,7 @@
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Size = new System.Drawing.Size(23, 27);
-            this.saveToolStripButton.Text = "&Save";
+            this.saveToolStripButton.Text = "Сохранить";
             // 
             // toolStripSeparator
             // 
@@ -439,7 +439,7 @@
             this.deleteToolStripButton.Name = "deleteToolStripButton";
             this.deleteToolStripButton.Size = new System.Drawing.Size(23, 27);
             this.deleteToolStripButton.Text = "Удалить";
-            this.deleteToolStripButton.ToolTipText = "Delete";
+            this.deleteToolStripButton.ToolTipText = "Удалить";
             this.deleteToolStripButton.Click += new System.EventHandler(this.deleteToolStripButton_Click);
             // 
             // cutToolStripButton
@@ -706,7 +706,7 @@
             this.toolStripButton4.Name = "toolStripButton4";
             this.toolStripButton4.Size = new System.Drawing.Size(42, 47);
             this.toolStripButton4.Text = "toolStripButton4";
-            this.toolStripButton4.ToolTipText = "Перемотать к началу";
+            this.toolStripButton4.ToolTipText = "Предыдущий трэк";
             // 
             // toolStripButton5
             // 
@@ -736,7 +736,7 @@
             this.toolStripButton7.Name = "toolStripButton7";
             this.toolStripButton7.Size = new System.Drawing.Size(42, 47);
             this.toolStripButton7.Text = "toolStripButton7";
-            this.toolStripButton7.ToolTipText = "Перемотать в конец";
+            this.toolStripButton7.ToolTipText = "Следующий трэк";
             // 
             // toolStrip3
             // 
@@ -951,9 +951,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.timePeriods.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
+            listViewItem4,
+            listViewItem5,
+            listViewItem6});
             this.timePeriods.Location = new System.Drawing.Point(67, 6);
             this.timePeriods.Name = "timePeriods";
             this.timePeriods.Size = new System.Drawing.Size(268, 82);

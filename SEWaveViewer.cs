@@ -46,7 +46,13 @@ namespace Sound_Editor {
             startPosition = leftSample * bytesPerSample;
             int samples = (rightSample - leftSample);
             SamplesPerPixel = samples / this.Width;
-            MainForm.viewPeriod.EndTime = new TimeSpan(0, 0, 0, 0, (int)(startPosition / bytesPerSample / millisecondsPerSample + samples / millisecondsPerSample));
+            if (this.inverseMouseDrag) {
+                MainForm.viewPeriod.StartTime = new TimeSpan(0, 0, 0, 0, (int)(startPosition / bytesPerSample / millisecondsPerSample));
+                MainForm.viewPeriod.EndTime = clickPosition;
+            } else {
+                MainForm.viewPeriod.StartTime = clickPosition;
+                MainForm.viewPeriod.EndTime = new TimeSpan(0, 0, 0, 0, (int)(startPosition / bytesPerSample / millisecondsPerSample + samples / millisecondsPerSample));
+            }
             // Указываем контролу спектрограммы начальный сэмпл и их количество для отображения
             Spectrogram.StartPosition = startPosition / 2;
             Spectrogram.Count = (samples * 2) / 1024;
@@ -54,6 +60,7 @@ namespace Sound_Editor {
 
         private Point mousePos, startPos;
         private bool mouseDrag = false;
+        private bool inverseMouseDrag = false;
         private TimeSpan clickPosition = new TimeSpan();
 
         protected override void OnMouseDown(MouseEventArgs e) {
@@ -103,9 +110,8 @@ namespace Sound_Editor {
                 mouseDrag = false;
                 DrawVerticalLine(startPos.X);
                 if (mousePos.X == -1) return;
-                MainForm.viewPeriod.StartTime = clickPosition;
+                this.inverseMouseDrag = (mousePos.X < startPos.X) ? true : false;
                 DrawVerticalLine(mousePos.X);
-
                 int leftSample = (int)(StartPosition / bytesPerSample + samplesPerPixel * Math.Min(startPos.X, mousePos.X));
                 int rightSample = (int)(StartPosition / bytesPerSample + samplesPerPixel * Math.Max(startPos.X, mousePos.X));
                 Zoom(leftSample, rightSample);
