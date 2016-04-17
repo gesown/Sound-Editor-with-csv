@@ -176,7 +176,7 @@ namespace Sound_Editor {
 
         // Play
         private void toolStripButton1_Click(object sender, EventArgs e) {
-            if (output != null) {
+            if (output != null && currentAudio != null) {
                 if (output.PlaybackState != PlaybackState.Playing) {
                     output.Play();
                     originalPlayTimer.Enabled = true;

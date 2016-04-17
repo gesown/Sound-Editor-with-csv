@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
@@ -61,6 +61,7 @@
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -125,7 +126,6 @@
             this.originalPlayTimer = new System.Windows.Forms.Timer(this.components);
             this.spectrumTimer = new System.Windows.Forms.Timer(this.components);
             this.recordingTimer = new System.Windows.Forms.Timer(this.components);
-            this.deleteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.spectrumViewer = new Sound_Editor.SpectrumViewer();
             this.originalSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
@@ -431,6 +431,17 @@
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 30);
             // 
+            // deleteToolStripButton
+            // 
+            this.deleteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripButton.Image")));
+            this.deleteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteToolStripButton.Name = "deleteToolStripButton";
+            this.deleteToolStripButton.Size = new System.Drawing.Size(23, 27);
+            this.deleteToolStripButton.Text = "Удалить";
+            this.deleteToolStripButton.ToolTipText = "Delete";
+            this.deleteToolStripButton.Click += new System.EventHandler(this.deleteToolStripButton_Click);
+            // 
             // cutToolStripButton
             // 
             this.cutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -565,7 +576,6 @@
             this.tabPage3.Controls.Add(this.originalSpectrogramViewer);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(848, 238);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "Спектрограмма";
@@ -834,7 +844,7 @@
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(-1, -1);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(929, 163);
+            this.pictureBox2.Size = new System.Drawing.Size(932, 146);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
@@ -899,9 +909,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.timePeriods.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem7,
-            listViewItem8,
-            listViewItem9});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3});
             this.timePeriods.Location = new System.Drawing.Point(67, 6);
             this.timePeriods.Name = "timePeriods";
             this.timePeriods.Size = new System.Drawing.Size(268, 82);
@@ -1118,17 +1128,6 @@
             this.recordingTimer.Interval = 1;
             this.recordingTimer.Tick += new System.EventHandler(this.recordingTimer_Tick);
             // 
-            // deleteToolStripButton
-            // 
-            this.deleteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripButton.Image")));
-            this.deleteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteToolStripButton.Name = "deleteToolStripButton";
-            this.deleteToolStripButton.Size = new System.Drawing.Size(23, 27);
-            this.deleteToolStripButton.Text = "Удалить";
-            this.deleteToolStripButton.ToolTipText = "Delete";
-            this.deleteToolStripButton.Click += new System.EventHandler(this.deleteToolStripButton_Click);
-            // 
             // originalWaveViewer
             // 
             this.originalWaveViewer.Audio = null;
@@ -1164,10 +1163,10 @@
             this.originalSpectrogramViewer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(1)))));
             this.originalSpectrogramViewer.Count = 0;
             this.originalSpectrogramViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.originalSpectrogramViewer.Location = new System.Drawing.Point(3, 3);
+            this.originalSpectrogramViewer.Location = new System.Drawing.Point(0, 0);
             this.originalSpectrogramViewer.MinimumSize = new System.Drawing.Size(0, 512);
             this.originalSpectrogramViewer.Name = "originalSpectrogramViewer";
-            this.originalSpectrogramViewer.Size = new System.Drawing.Size(825, 512);
+            this.originalSpectrogramViewer.Size = new System.Drawing.Size(831, 512);
             this.originalSpectrogramViewer.StartPosition = ((long)(0));
             this.originalSpectrogramViewer.TabIndex = 0;
             // 

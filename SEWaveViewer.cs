@@ -57,6 +57,7 @@ namespace Sound_Editor {
         private TimeSpan clickPosition = new TimeSpan();
 
         protected override void OnMouseDown(MouseEventArgs e) {
+            if (this.Audio == null) return;
             if (e.Button == MouseButtons.Left) {
                 startPos = e.Location;
                 WaveStream.Position = StartPosition + startPos.X * bytesPerSample * samplesPerPixel;
@@ -70,7 +71,7 @@ namespace Sound_Editor {
         }
 
         protected override void OnMouseMove(MouseEventArgs e) {
-            if (mouseDrag) {
+            if (mouseDrag && e.Location.X <= this.Width && e.Location.X >= 0) {
                 DrawVerticalLine(e.X);
                 if (mousePos.X != -1) {
                     DrawVerticalLine(mousePos.X);
