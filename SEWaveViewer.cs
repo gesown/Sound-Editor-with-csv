@@ -64,7 +64,7 @@ namespace Sound_Editor {
         private TimeSpan clickPosition = new TimeSpan();
 
         protected override void OnMouseDown(MouseEventArgs e) {
-            if (this.Audio == null) return;
+            if (this.WaveStream == null) return;
             if (e.Button == MouseButtons.Left) {
                 startPos = e.Location;
                 WaveStream.Position = StartPosition + startPos.X * bytesPerSample * samplesPerPixel;

@@ -24,6 +24,7 @@ namespace Sound_Editor {
         private List<AudioFile> files = new List<AudioFile>();
         private AudioFile currentAudio = null;
         private WaveOut output = null;
+        private int currentAudioIndex = -1;
 
         private WaveIn sourceStream = null;
         private WaveFileWriter waveWriter = null;
@@ -116,6 +117,7 @@ namespace Sound_Editor {
             files.Add(file);
             this.addFileToListView(file);
             if (files.Count == 1) {
+                this.currentAudioIndex = 0;
                 this.initAudio(file);
             }
         }
@@ -126,12 +128,13 @@ namespace Sound_Editor {
                 MessageBox.Show("Запишите данные в файл, перед тем как открыть.", "Пустой файл", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (listAudio.SelectedItems[0].Text == this.currentAudio.Name) return;
+            if (this.currentAudio != null && listAudio.SelectedItems[0].Text == this.currentAudio.Name) return;
             AudioFile file = files.Find(audio => audio.Path == listAudio.SelectedItems[0].SubItems[4].Text);
             if (output.PlaybackState == PlaybackState.Playing) {
                 output.Pause();
                 audioStatus.Text = "Приостановлено: " + currentAudio.Name + "." + currentAudio.Format;
             }
+            this.currentAudioIndex = listAudio.SelectedItems[0].Index;
             this.initAudio(file);
         }
 
@@ -158,6 +161,7 @@ namespace Sound_Editor {
                 WaveFile deleteFile = file as WaveFile;
                 deleteFile.Reader.Dispose();
             }
+            currentAudioIndex = -1;
             file.Stream.Dispose();
             files.Remove(file);
             file = null;
@@ -198,6 +202,30 @@ namespace Sound_Editor {
                     spectrumTimer.Enabled = false;
                     audioStatus.Text = "Остановлено: " + currentAudio.Name + "." + currentAudio.Format;
                 }
+            }
+        }
+
+        // Previous audio
+        private void toolStripButton4_Click(object sender, EventArgs e) {
+            if (output != null && this.files.Count > 1) {
+                this.listAudio.Items[this.currentAudioIndex].Selected = false;
+                if (this.currentAudioIndex == 0) {
+                    this.currentAudioIndex = this.listAudio.Items.Count;
+                }
+                this.listAudio.Items[this.currentAudioIndex - 1].Selected = true;
+                this.listAudio_MouseDoubleClick(sender, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+            }
+        }
+
+        // Next audio
+        private void toolStripButton7_Click(object sender, EventArgs e) {
+            if (output != null && this.files.Count > 1) {
+                this.listAudio.Items[this.currentAudioIndex].Selected = false;
+                if (this.currentAudioIndex == this.listAudio.Items.Count - 1) {
+                    this.currentAudioIndex = -1;
+                }
+                this.listAudio.Items[this.currentAudioIndex + 1].Selected = true;
+                this.listAudio_MouseDoubleClick(sender, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
             }
         }
 
