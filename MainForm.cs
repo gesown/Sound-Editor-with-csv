@@ -237,7 +237,6 @@ namespace Sound_Editor {
         /* Методы перемотки */
 
         // Back
-
         private void back() {
             long position = 0;
             if (currentAudio.Format == "mp3") {
@@ -247,9 +246,14 @@ namespace Sound_Editor {
                 WaveFile file = currentAudio as WaveFile;
                 position = file.Reader.Position;
             }
-            if (position - this.currentAudio.Stream.WaveFormat.AverageBytesPerSecond < 0) return;
-            this.currentAudio.Stream.Position = position - this.currentAudio.Stream.WaveFormat.AverageBytesPerSecond;
-            this.currentAudio.Stream.CurrentTime.Subtract(new TimeSpan(0, 0, 1));
+            position = position - this.currentAudio.Stream.WaveFormat.AverageBytesPerSecond;
+            if (position < 0) {
+                position = 0;
+                this.currentAudio.Stream.CurrentTime = new TimeSpan(0);
+            } else {
+                this.currentAudio.Stream.CurrentTime.Subtract(new TimeSpan(0, 0, 1));
+            }
+            this.currentAudio.Stream.Position = position;
             if (output.PlaybackState != PlaybackState.Playing) {
                 originalPosition.CurrentTime = this.currentAudio.Stream.CurrentTime;
             }
@@ -266,9 +270,40 @@ namespace Sound_Editor {
             changePositionTimer.Stop();
         }
 
+        // Forward
+        private void forward() {
+            long position = 0;
+            if (currentAudio.Format == "mp3") {
+                MP3File file = currentAudio as MP3File;
+                position = file.Reader.Position;
+            } else if (currentAudio.Format == "wav") {
+                WaveFile file = currentAudio as WaveFile;
+                position = file.Reader.Position;
+            }
+            if (position + this.currentAudio.Stream.WaveFormat.AverageBytesPerSecond > this.currentAudio.Stream.Length) return;
+            this.currentAudio.Stream.Position = position + this.currentAudio.Stream.WaveFormat.AverageBytesPerSecond;
+            this.currentAudio.Stream.CurrentTime.Add(new TimeSpan(0, 0, 1));
+            if (output.PlaybackState != PlaybackState.Playing) {
+                originalPosition.CurrentTime = this.currentAudio.Stream.CurrentTime;
+            }
+        }
+
+        private void toolStripButton6_MouseDown(object sender, MouseEventArgs e) {
+            if (output != null && this.currentAudio != null) {
+                this.direction = Direction.FORWARD;
+                changePositionTimer.Start();
+            }
+        }
+
+        private void toolStripButton6_MouseUp(object sender, MouseEventArgs e) {
+            changePositionTimer.Stop();
+        }
+
         private void changePositionTimer_Tick(object sender, EventArgs e) {
             if (this.direction == Direction.BACK) {
                 this.back();
+            } else if (this.direction == Direction.FORWARD) {
+                this.forward();
             }
         }
 
