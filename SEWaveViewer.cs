@@ -31,7 +31,7 @@ namespace Sound_Editor {
         }
 
         public void FitToScreen() {
-            if (waveStream == null) return;
+            if (waveStream == null || this.Width == 0) return;
             int samples = (int)(waveStream.Length / bytesPerSample);
             startPosition = 0;
             SamplesPerPixel = samples / this.Width;
