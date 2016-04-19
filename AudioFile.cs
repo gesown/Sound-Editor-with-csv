@@ -16,6 +16,7 @@ namespace Sound_Editor {
         public string Format { get; set; }
         public string Path { get; set; }
         public byte[] Samples { get; set; }
+        public short[] ShortSamples { get; set; }
         public float[] FloatSamples { get; set; }
         public float Avg { get; set; }
         public BlockAlignReductionStream Stream { get; set; }
@@ -34,7 +35,7 @@ namespace Sound_Editor {
         }
 
         protected abstract void readBytes();
-        protected abstract void readFloats();
+        protected abstract void readShorts();
 
         public static void getNameAndFormatFromPath(string path, out string name, out string format) {
             int startIndexOfName = path.LastIndexOf('\\') + 1;
@@ -46,24 +47,25 @@ namespace Sound_Editor {
 
         protected void callRead() {
             this.readBytes();
-            this.readFloats();
-            this.normalize();
+            this.readShorts();
+            this.getFloats();
         }
 
-        private void normalize() {
+        private void getFloats() {
             this.getAvg();
+            this.FloatSamples = new float[this.ShortSamples.Length];
             float koef = 1f / this.Avg;
             this.Avg *= koef / 32;
             for (int i = 0; i < this.FloatSamples.Length; i++) {
-                this.FloatSamples[i] *= koef;
+                this.FloatSamples[i] = koef * this.ShortSamples[i];
             }
         }
 
         private void getAvg() {
             this.Avg = 0;
-            for (int i = 0; i < this.FloatSamples.Length; i++) {
-                if (this.Avg < this.FloatSamples[i]) {
-                    this.Avg = this.FloatSamples[i];
+            for (int i = 0; i < this.ShortSamples.Length; i++) {
+                if (this.Avg < this.ShortSamples[i]) {
+                    this.Avg = this.ShortSamples[i];
                 }
             }
         }

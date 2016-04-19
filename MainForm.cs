@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using NAudio;
 using NAudio.Wave;
 using NAudio.Dsp;
+using NAudio.Codecs;
 
 namespace Sound_Editor {
     public enum Direction {
@@ -73,6 +74,27 @@ namespace Sound_Editor {
             audioSize.Text = Math.Round(f.Size, 1).ToString() + " MB";
             audioLength.Text = Position.getTimeString(f.Duration);
             output.Init(f.Stream);
+
+            //test();
+        }
+
+        private void test() {
+            byte[] samples = new byte[this.currentAudio.ShortSamples.Length];
+            for (int i = 0; i < this.currentAudio.ShortSamples.Length; i++) {
+                samples[i] = ALawEncoder.LinearToALawSample(this.currentAudio.ShortSamples[i]);
+            }
+
+            WaveFormat format = new WaveFormat(8000, 8, 1);
+            WaveFileWriter writer = new WaveFileWriter(@"D:\test2.wav", format);
+
+            short[] buffer = new short[samples.Length];
+            for (int i = 0; i < buffer.Length; i++) {
+                buffer[i] = ALawDecoder.ALawToLinearSample(samples[i]);
+            }
+
+            writer.WriteData(samples, 0, samples.Length);
+            writer.Close();
+            MessageBox.Show("OK");
         }
 
         private void addFileToListView(AudioFile f) {
@@ -93,7 +115,7 @@ namespace Sound_Editor {
             item.SubItems.Add("44100 Hz");
             item.SubItems.Add(format);
             item.SubItems.Add(path);
-            item.SubItems.Add("32 bit");
+            item.SubItems.Add("16 bit");
             item.ForeColor = Color.Blue;
             listAudio.Items.Add(item);
         }

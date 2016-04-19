@@ -20,10 +20,10 @@ namespace Sound_Editor {
             this.Reader.Position = 0;
         }
 
-        protected override void readFloats() {
-            this.FloatSamples = new float[this.Reader.Length / 2];
+        protected override void readShorts() {
+            this.ShortSamples = new short[this.Reader.Length / 2];
             for (int i = 0; i < this.Reader.Length - 1; i++) {
-                this.FloatSamples[i / 2] = (short)((this.Samples[i] << 8) | this.Samples[i + 1]);
+                this.ShortSamples[i / 2] = (short)((this.Samples[i] << 8) | this.Samples[i + 1]);
             }
         }
     }
