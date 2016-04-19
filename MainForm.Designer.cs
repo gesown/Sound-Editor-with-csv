@@ -1174,9 +1174,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel6.ColumnCount = 3;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.31953F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.95266F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.43195F));
             this.tableLayoutPanel6.Controls.Add(this.label11, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.button3, 2, 1);
             this.tableLayoutPanel6.Controls.Add(this.label12, 0, 1);
@@ -1189,7 +1189,7 @@
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.20635F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.79365F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(341, 67);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(338, 67);
             this.tableLayoutPanel6.TabIndex = 7;
             // 
             // label11
@@ -1207,9 +1207,9 @@
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(229, 37);
+            this.button3.Location = new System.Drawing.Point(227, 37);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(109, 27);
+            this.button3.Size = new System.Drawing.Size(108, 27);
             this.button3.TabIndex = 6;
             this.button3.Text = "Открыть";
             this.button3.UseVisualStyleBackColor = true;
@@ -1229,9 +1229,9 @@
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(229, 7);
+            this.button2.Location = new System.Drawing.Point(227, 7);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(109, 24);
+            this.button2.Size = new System.Drawing.Size(108, 24);
             this.button2.TabIndex = 5;
             this.button2.Text = "Сохранить";
             this.button2.UseVisualStyleBackColor = true;
@@ -1246,10 +1246,10 @@
             this.comboBox2.Items.AddRange(new object[] {
             "A-Law",
             "Mu-Law"});
-            this.comboBox2.Location = new System.Drawing.Point(116, 8);
+            this.comboBox2.Location = new System.Drawing.Point(119, 8);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(107, 21);
+            this.comboBox2.Size = new System.Drawing.Size(102, 21);
             this.comboBox2.TabIndex = 1;
             // 
             // comboBox3
@@ -1262,10 +1262,10 @@
             this.comboBox3.Items.AddRange(new object[] {
             "A-Law",
             "Mu-Law"});
-            this.comboBox3.Location = new System.Drawing.Point(116, 40);
+            this.comboBox3.Location = new System.Drawing.Point(119, 40);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(107, 21);
+            this.comboBox3.Size = new System.Drawing.Size(102, 21);
             this.comboBox3.TabIndex = 2;
             // 
             // groupBox1
