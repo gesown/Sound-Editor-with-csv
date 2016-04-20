@@ -532,12 +532,12 @@ namespace Sound_Editor {
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "Wave File (*.wav)|*.wav;";
             if (save.ShowDialog() != DialogResult.OK) return;
-
+            Codecs codec = (codecToEncode.SelectedIndex == 0) ? Codecs.ALAW : Codecs.MULAW;
             byte[] samples = new byte[this.currentAudio.ShortSamples.Length];
             for (int i = 0; i < this.currentAudio.ShortSamples.Length; i++) {
-                if (codecToEncode.SelectedIndex == 0) {
+                if (codec == Codecs.ALAW) {
                     samples[i] = ALawEncoder.LinearToALawSample(this.currentAudio.ShortSamples[i]);
-                } else if (codecToEncode.SelectedIndex == 1) {
+                } else {
                     samples[i] = MuLawEncoder.LinearToMuLawSample(this.currentAudio.ShortSamples[i]);
                 }
             }
@@ -547,7 +547,7 @@ namespace Sound_Editor {
             writer.Close();
             DialogResult dres = MessageBox.Show("Аудиофайл успешно сохранен. Открыть файл?", "Файл сохранен", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dres == DialogResult.Yes) {
-                this.decodeG711(save.FileName);
+                this.decodeG711(save.FileName, codec);
             }
         }
 
@@ -567,18 +567,19 @@ namespace Sound_Editor {
                 MessageBox.Show("Этот файл уже добавлен в список.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            this.decodeG711(open.FileName);
+            Codecs codec = (codecToDecode.SelectedIndex == 0) ? Codecs.ALAW : Codecs.MULAW;
+            this.decodeG711(open.FileName, codec);
         }
 
-        private void decodeG711(string filename) {
+        private void decodeG711(string filename, Codecs codec) {
             WaveFileReader reader = new WaveFileReader(filename);
             byte[] buffer = new byte[reader.Length];
             short[] samples = new short[buffer.Length];
             reader.Read(buffer, 0, buffer.Length);
             for (int i = 0; i < buffer.Length; i++) {
-                if (codecToDecode.SelectedIndex == 0) {
+                if (codec == Codecs.ALAW) {
                     samples[i] = ALawDecoder.ALawToLinearSample(buffer[i]);
-                } else if (codecToDecode.SelectedIndex == 1) {
+                } else {
                     samples[i] = MuLawDecoder.MuLawToLinearSample(buffer[i]);
                 }
             }

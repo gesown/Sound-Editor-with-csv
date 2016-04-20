@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 using NAudio.Wave;
 
 namespace Sound_Editor {
-    public enum Codecs {
-        ALAW, MULAW
-    }
-
     class WaveFile : AudioFile {
         public WaveFileReader Reader { get; set; }
 
