@@ -9,6 +9,7 @@ using NAudio.Wave;
 namespace Sound_Editor {
     public class SEWaveViewer : System.Windows.Forms.UserControl {
         public SpectrogramViewer Spectrogram { get; set; }
+        public SpectrumViewer Spectrum { get; set; }
         public Color penColor { get; set; }
         public float PenWidth { get; set; }
 
@@ -73,6 +74,7 @@ namespace Sound_Editor {
                 mousePos = new Point(-1, -1);
                 mouseDrag = true;
                 DrawVerticalLine(e.X);
+                this.Spectrum.Refresh();
             }
             base.OnMouseDown(e);
         }

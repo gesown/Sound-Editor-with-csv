@@ -41,7 +41,7 @@ namespace Sound_Editor {
             spectrumViewer.PenColor = Color.GreenYellow;
             spectrumViewer.PenWidth = 2;
 
-            originalSpectrogramViewer.Area = spectrogramVisualizationTab.TabPages[0];
+            originalSpectrogramViewer.Area = spectrogramVisualizationTab.TabPages[1];
 
             originalPosition = new Position(originalCurrentTime);
             originalPosition.CurrentTime = new TimeSpan(0);
@@ -76,6 +76,7 @@ namespace Sound_Editor {
             originalSpectrogramViewer.Audio = f;
 
             originalWaveViewer.Spectrogram = originalSpectrogramViewer;
+            originalWaveViewer.Spectrum = spectrumViewer;
             originalWaveViewer.Audio = f;
             originalWaveViewer.FitToScreen();
 
@@ -90,9 +91,6 @@ namespace Sound_Editor {
             output.Init(f.Stream);
 
             //test();
-        }
-
-        private void initAudio(AudioFile f, bool compressed) {
         }
 
         private void test() {
@@ -508,12 +506,16 @@ namespace Sound_Editor {
                 convertedStream = new WaveFormatConversionStream(format, afile.Reader);
             }
             WaveFileWriter.CreateWaveFile(save.FileName, convertedStream);
-            MessageBox.Show("Аудиофайл успешно сохранен.", "Файл сохранен");
-            WaveFileReader reader = new WaveFileReader(save.FileName);
-            WaveStream pcm = new WaveChannel32(reader);
-            BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
-            AudioFile file = new WaveFile(reader, stream, save.FileName);
-            this.initAudio(file, true);
+            DialogResult dres = MessageBox.Show("Аудиофайл успешно сохранен. Открыть файл?", "Файл сохранен", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dres == DialogResult.Yes) {
+                WaveFileReader reader = new WaveFileReader(save.FileName);
+                WaveStream pcm = new WaveChannel32(reader);
+                BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
+                AudioFile file = new WaveFile(reader, stream, save.FileName);
+                this.files.Add(file);
+                this.addFileToListView(file);
+                this.initAudio(file);
+            }
         }
     }
 }
