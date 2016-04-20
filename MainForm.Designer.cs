@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
@@ -116,12 +116,12 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.audioSizeLabel = new System.Windows.Forms.Label();
+            this.audioNameLabel = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.audioCodecLabel = new System.Windows.Forms.Label();
+            this.audioFormatLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
@@ -133,10 +133,10 @@
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.audioBitDepthInfo = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.audioSampleRateInfo = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -885,7 +885,7 @@
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(-1, -1);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(938, 112);
+            this.pictureBox2.Size = new System.Drawing.Size(941, 95);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
@@ -950,9 +950,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.timePeriods.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
+            listViewItem4,
+            listViewItem5,
+            listViewItem6});
             this.timePeriods.Location = new System.Drawing.Point(67, 6);
             this.timePeriods.Name = "timePeriods";
             this.timePeriods.Size = new System.Drawing.Size(268, 82);
@@ -1062,12 +1062,12 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.87538F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.12462F));
             this.tableLayoutPanel4.Controls.Add(this.label5, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.label14, 1, 3);
-            this.tableLayoutPanel4.Controls.Add(this.label8, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.audioSizeLabel, 1, 3);
+            this.tableLayoutPanel4.Controls.Add(this.audioNameLabel, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.label13, 0, 3);
             this.tableLayoutPanel4.Controls.Add(this.label6, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.label10, 1, 2);
-            this.tableLayoutPanel4.Controls.Add(this.label9, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.audioCodecLabel, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.audioFormatLabel, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.label7, 0, 2);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(-3, 19);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -1089,23 +1089,21 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "Имя файла:";
             // 
-            // label14
+            // audioSizeLabel
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(100, 63);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(45, 13);
-            this.label14.TabIndex = 7;
-            this.label14.Text = "8400 bit";
+            this.audioSizeLabel.AutoSize = true;
+            this.audioSizeLabel.Location = new System.Drawing.Point(100, 63);
+            this.audioSizeLabel.Name = "audioSizeLabel";
+            this.audioSizeLabel.Size = new System.Drawing.Size(0, 13);
+            this.audioSizeLabel.TabIndex = 7;
             // 
-            // label8
+            // audioNameLabel
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(100, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(102, 13);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Рэм Дигга - На Юг";
+            this.audioNameLabel.AutoSize = true;
+            this.audioNameLabel.Location = new System.Drawing.Point(100, 0);
+            this.audioNameLabel.Name = "audioNameLabel";
+            this.audioNameLabel.Size = new System.Drawing.Size(0, 13);
+            this.audioNameLabel.TabIndex = 3;
             // 
             // label13
             // 
@@ -1127,23 +1125,21 @@
             this.label6.TabIndex = 1;
             this.label6.Text = "Формат:";
             // 
-            // label10
+            // audioCodecLabel
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(100, 42);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(37, 13);
-            this.label10.TabIndex = 5;
-            this.label10.Text = "A-Law";
+            this.audioCodecLabel.AutoSize = true;
+            this.audioCodecLabel.Location = new System.Drawing.Point(100, 42);
+            this.audioCodecLabel.Name = "audioCodecLabel";
+            this.audioCodecLabel.Size = new System.Drawing.Size(0, 13);
+            this.audioCodecLabel.TabIndex = 5;
             // 
-            // label9
+            // audioFormatLabel
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(100, 21);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(27, 13);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "mp3";
+            this.audioFormatLabel.AutoSize = true;
+            this.audioFormatLabel.Location = new System.Drawing.Point(100, 21);
+            this.audioFormatLabel.Name = "audioFormatLabel";
+            this.audioFormatLabel.Size = new System.Drawing.Size(0, 13);
+            this.audioFormatLabel.TabIndex = 4;
             // 
             // label7
             // 
@@ -1290,10 +1286,10 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.33735F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.92771F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.Controls.Add(this.comboBox1, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.audioBitDepthInfo, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.button1, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.textBox1, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.audioSampleRateInfo, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(-3, 10);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -1303,6 +1299,24 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(338, 71);
             this.tableLayoutPanel5.TabIndex = 7;
+            // 
+            // audioBitDepthInfo
+            // 
+            this.audioBitDepthInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.audioBitDepthInfo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.audioBitDepthInfo.FormattingEnabled = true;
+            this.audioBitDepthInfo.Items.AddRange(new object[] {
+            "8 bit",
+            "16 bit",
+            "24 bit",
+            "32 bit"});
+            this.audioBitDepthInfo.Location = new System.Drawing.Point(119, 43);
+            this.audioBitDepthInfo.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
+            this.audioBitDepthInfo.Name = "audioBitDepthInfo";
+            this.audioBitDepthInfo.Size = new System.Drawing.Size(102, 21);
+            this.audioBitDepthInfo.TabIndex = 5;
             // 
             // button1
             // 
@@ -1317,24 +1331,6 @@
             this.button1.Text = "Сохранить wav";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
-            // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "8 bit",
-            "16 bit",
-            "24 bit",
-            "32 bit"});
-            this.comboBox1.Location = new System.Drawing.Point(119, 43);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(102, 21);
-            this.comboBox1.TabIndex = 5;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -1345,16 +1341,16 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "Битовая глубина:";
             // 
-            // textBox1
+            // audioSampleRateInfo
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.audioSampleRateInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(119, 10);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(102, 20);
-            this.textBox1.TabIndex = 1;
+            this.audioSampleRateInfo.Location = new System.Drawing.Point(119, 10);
+            this.audioSampleRateInfo.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
+            this.audioSampleRateInfo.Name = "audioSampleRateInfo";
+            this.audioSampleRateInfo.Size = new System.Drawing.Size(102, 20);
+            this.audioSampleRateInfo.TabIndex = 1;
             // 
             // label3
             // 
@@ -1723,11 +1719,11 @@
         private System.Windows.Forms.Timer changePositionTimer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label audioSizeLabel;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label audioCodecLabel;
+        private System.Windows.Forms.Label audioFormatLabel;
+        private System.Windows.Forms.Label audioNameLabel;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
@@ -1740,10 +1736,10 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox audioBitDepthInfo;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox audioSampleRateInfo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;

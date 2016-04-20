@@ -58,8 +58,20 @@ namespace Sound_Editor {
             output.Volume = 1f;
         }
 
+        private void initAudioInfo() {
+            audioNameLabel.Text = this.currentAudio.Name;
+            audioFormatLabel.Text = this.currentAudio.Format;
+            //audioCodecLabel.Text = 
+            audioSizeLabel.Text = (this.currentAudio.Size * Math.Pow(10, 6)).ToString() + " bit";
+            audioSampleRateInfo.Text = this.currentAudio.SampleRate.ToString();
+            int index = audioBitDepthInfo.Items.IndexOf(this.currentAudio.bitDepth.ToString() + " bit");
+            if (index != -1) {
+                audioBitDepthInfo.SelectedIndex = index;
+            }
+        }
+
         private void initAudio(AudioFile f) {
-            currentAudio = f;
+            this.currentAudio = f;
 
             originalSpectrogramViewer.Audio = f;
 
@@ -68,6 +80,8 @@ namespace Sound_Editor {
             originalWaveViewer.FitToScreen();
 
             spectrumViewer.Audio = f;
+
+            this.initAudioInfo();
 
             originalVizualizationTab.TabPages[0].Text = "Редактор: " + f.Name + "." + f.Format;
             audioRate.Text = f.SampleRate + " Hz";
