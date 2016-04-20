@@ -134,7 +134,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.audioBitDepthInfo = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.saveWavButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.audioSampleRateInfo = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -1287,7 +1287,7 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.92771F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel5.Controls.Add(this.audioBitDepthInfo, 1, 1);
-            this.tableLayoutPanel5.Controls.Add(this.button1, 2, 0);
+            this.tableLayoutPanel5.Controls.Add(this.saveWavButton, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.label4, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.audioSampleRateInfo, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.label3, 0, 0);
@@ -1308,28 +1308,29 @@
             this.audioBitDepthInfo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.audioBitDepthInfo.FormattingEnabled = true;
             this.audioBitDepthInfo.Items.AddRange(new object[] {
-            "8 bit",
-            "16 bit",
-            "24 bit",
-            "32 bit"});
+            "8",
+            "16",
+            "24",
+            "32"});
             this.audioBitDepthInfo.Location = new System.Drawing.Point(119, 43);
             this.audioBitDepthInfo.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.audioBitDepthInfo.Name = "audioBitDepthInfo";
             this.audioBitDepthInfo.Size = new System.Drawing.Size(102, 21);
             this.audioBitDepthInfo.TabIndex = 5;
             // 
-            // button1
+            // saveWavButton
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.saveWavButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(227, 7);
-            this.button1.Name = "button1";
-            this.tableLayoutPanel5.SetRowSpan(this.button1, 2);
-            this.button1.Size = new System.Drawing.Size(108, 61);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Сохранить wav";
-            this.button1.UseVisualStyleBackColor = true;
+            this.saveWavButton.Location = new System.Drawing.Point(227, 7);
+            this.saveWavButton.Name = "saveWavButton";
+            this.tableLayoutPanel5.SetRowSpan(this.saveWavButton, 2);
+            this.saveWavButton.Size = new System.Drawing.Size(108, 61);
+            this.saveWavButton.TabIndex = 6;
+            this.saveWavButton.Text = "Сохранить wav";
+            this.saveWavButton.UseVisualStyleBackColor = true;
+            this.saveWavButton.Click += new System.EventHandler(this.saveWavButton_Click);
             // 
             // label4
             // 
@@ -1337,9 +1338,9 @@
             this.label4.Location = new System.Drawing.Point(14, 45);
             this.label4.Margin = new System.Windows.Forms.Padding(14, 8, 3, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(95, 13);
+            this.label4.Size = new System.Drawing.Size(97, 13);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Битовая глубина:";
+            this.label4.Text = "Разрядность (Bit):";
             // 
             // audioSampleRateInfo
             // 
@@ -1735,7 +1736,7 @@
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button saveWavButton;
         private System.Windows.Forms.ComboBox audioBitDepthInfo;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;

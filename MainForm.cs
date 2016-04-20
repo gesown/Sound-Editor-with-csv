@@ -64,7 +64,7 @@ namespace Sound_Editor {
             //audioCodecLabel.Text = 
             audioSizeLabel.Text = (this.currentAudio.Size * Math.Pow(10, 6)).ToString() + " bit";
             audioSampleRateInfo.Text = this.currentAudio.SampleRate.ToString();
-            int index = audioBitDepthInfo.Items.IndexOf(this.currentAudio.bitDepth.ToString() + " bit");
+            int index = audioBitDepthInfo.Items.IndexOf(this.currentAudio.bitDepth.ToString());
             if (index != -1) {
                 audioBitDepthInfo.SelectedIndex = index;
             }
@@ -484,6 +484,34 @@ namespace Sound_Editor {
             DateTime dtn = DateTime.Now;
             TimeSpan ts = dtn.Subtract(this.startRecordTime);
             recordTimerLabel.Text = Position.getTimeString(ts);
+        }
+
+        private void saveWavButton_Click(object sender, EventArgs e) {
+            if (this.currentAudio == null) return;
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "Wave File (*.wav)|*.wav;";
+            if (save.ShowDialog() != DialogResult.OK) return;
+
+            WaveFormat format = new WaveFormat(int.Parse(audioSampleRateInfo.Text), int.Parse(audioBitDepthInfo.Text), 2);
+            WaveFormatConversionStream convertedStream = null;
+            if (this.currentAudio.Format == "mp3") {
+                MP3File afile = this.currentAudio as MP3File;
+                convertedStream = new WaveFormatConversionStream(format, afile.Reader);
+            } else {
+                WaveFile afile = this.currentAudio as WaveFile;
+                convertedStream = new WaveFormatConversionStream(format, afile.Reader);
+            }
+            WaveFileWriter.CreateWaveFile(save.FileName, convertedStream);
+            DialogResult dres = MessageBox.Show("Аудиофайл успешно сохранен. Открыть файл?", "Файл сохранен", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dres == DialogResult.Yes) {
+                WaveFileReader reader = new WaveFileReader(save.FileName);
+                WaveStream pcm = new WaveChannel32(reader);
+                BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
+                AudioFile file = new WaveFile(reader, stream, save.FileName);
+                this.files.Add(file);
+                this.addFileToListView(file);
+                this.initAudio(file);
+            }
         }
     }
 }
