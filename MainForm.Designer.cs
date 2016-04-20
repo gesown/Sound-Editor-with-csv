@@ -1362,6 +1362,7 @@
             this.originalWaveViewer.SamplesPerPixel = 128;
             this.originalWaveViewer.Size = new System.Drawing.Size(848, 238);
             this.originalWaveViewer.Spectrogram = null;
+            this.originalWaveViewer.Spectrum = null;
             this.originalWaveViewer.StartPosition = ((long)(0));
             this.originalWaveViewer.TabIndex = 0;
             this.originalWaveViewer.WaveStream = null;
@@ -1376,6 +1377,7 @@
             this.MinimumSize = new System.Drawing.Size(715, 540);
             this.Name = "MainForm";
             this.Text = "Sound Editor";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
