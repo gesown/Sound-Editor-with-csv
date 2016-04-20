@@ -17,10 +17,6 @@ namespace Sound_Editor {
         BACK, FORWARD
     }
 
-    public enum CompressionTypes {
-        NONE, WAV, ALAW, MULAW
-    }
-
     public partial class MainForm : Form {
         public MainForm() {
             InitializeComponent();
@@ -96,26 +92,20 @@ namespace Sound_Editor {
             audioLength.Text = Position.getTimeString(f.Duration);
             output.Init(f.Stream);
 
+            if (compressedWaveViewer.Audio != null) {
+                compressedWaveViewer.WaveStream = null;
+                compressedSpectrumViewer.Audio = null;
+                compressedSpectrogramViewer.Count = 0;
+            }
             //test();
         }
 
         private void initAudio(AudioFile f, bool compressed) {
-            this.currentAudio = f;
-
             compressedSpectrogramViewer.Audio = f;
-
             compressedWaveViewer.Spectrogram = compressedSpectrogramViewer;
             compressedWaveViewer.Audio = f;
             compressedWaveViewer.FitToScreen();
-
             compressedSpectrumViewer.Audio = f;
-
-            this.initAudioInfo();
-            compressedVizualizationTab.TabPages[0].Text = "Редактор: " + f.Name + "." + f.Format;
-            audioRate.Text = f.SampleRate + " Hz";
-            audioSize.Text = Math.Round(f.Size, 1).ToString() + " MB";
-            audioLength.Text = Position.getTimeString(f.Duration);
-            output.Init(f.Stream);
         }
 
         private void test() {
@@ -144,12 +134,6 @@ namespace Sound_Editor {
             item.SubItems.Add(f.Format.ToString());
             item.SubItems.Add(f.Path.ToString());
             item.SubItems.Add(f.bitDepth.ToString() + " bit");
-            Color color;
-            switch (f.Compression) {
-                case CompressionTypes.WAV: color = Color.Green; break;
-                default: color = Color.Black; break;
-            }
-            item.ForeColor = color;
             listAudio.Items.Add(item);
         }
 
@@ -217,27 +201,15 @@ namespace Sound_Editor {
             listAudio.Items.Remove(listAudio.SelectedItems[0]);
             if (file == null) return;
             if (this.currentAudio == file) {
-                if (this.currentAudio.Compression == CompressionTypes.NONE) {
-                    if (output.PlaybackState == PlaybackState.Playing) {
-                        originalPlayTimer.Stop();
-                        output.Stop();
-                        originalCurrentTime.Text = "00:00:000";
-                    }
-                    currentAudio = null;
-                    originalWaveViewer.WaveStream = null;
-                    spectrumViewer.Audio = null;
-                    originalSpectrogramViewer.Count = 0;
-                } else {
-                    if (output.PlaybackState == PlaybackState.Playing) {
-                        //originalPlayTimer.Stop();
-                        output.Stop();
-                        //originalCurrentTime.Text = "00:00:000";
-                    }
-                    currentAudio = null;
-                    compressedWaveViewer.WaveStream = null;
-                    compressedSpectrumViewer.Audio = null;
-                    compressedSpectrogramViewer.Count = 0;
+                if (output.PlaybackState == PlaybackState.Playing) {
+                    originalPlayTimer.Stop();
+                    output.Stop();
+                    originalCurrentTime.Text = "00:00:000";
                 }
+                currentAudio = null;
+                originalWaveViewer.WaveStream = null;
+                spectrumViewer.Audio = null;
+                originalSpectrogramViewer.Count = 0;
             }
             if (file.Format == "mp3") {
                 MP3File deleteFile = file as MP3File;
@@ -426,6 +398,10 @@ namespace Sound_Editor {
             spectrumViewer.Refresh();
         }
 
+        private void compressedSpectrumTimer_Tick(object sender, EventArgs e) {
+            compressedSpectrumViewer.Refresh();
+        }
+
         /* Методы обработки входного сигнала */
 
         // Создание пустого wav файла на диске
@@ -546,17 +522,12 @@ namespace Sound_Editor {
                 convertedStream = new WaveFormatConversionStream(format, afile.Reader);
             }
             WaveFileWriter.CreateWaveFile(save.FileName, convertedStream);
-            DialogResult dres = MessageBox.Show("Аудиофайл успешно сохранен. Открыть файл?", "Файл сохранен", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dres == DialogResult.Yes) {
-                WaveFileReader reader = new WaveFileReader(save.FileName);
-                WaveStream pcm = new WaveChannel32(reader);
-                BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
-                AudioFile file = new WaveFile(reader, stream, save.FileName);
-                file.Compression = CompressionTypes.WAV;
-                this.files.Add(file);
-                this.addFileToListView(file);
-                this.initAudio(file, true);
-            }
+            MessageBox.Show("Аудиофайл успешно сохранен.", "Файл сохранен");
+            WaveFileReader reader = new WaveFileReader(save.FileName);
+            WaveStream pcm = new WaveChannel32(reader);
+            BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
+            AudioFile file = new WaveFile(reader, stream, save.FileName);
+            this.initAudio(file, true);
         }
     }
 }

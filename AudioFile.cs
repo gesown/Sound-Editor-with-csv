@@ -20,7 +20,6 @@ namespace Sound_Editor {
         public float[] FloatSamples { get; set; }
         public float Avg { get; set; }
         public BlockAlignReductionStream Stream { get; set; }
-        public CompressionTypes Compression { get; set; }
 
         public AudioFile(BlockAlignReductionStream stream, string path) {
             string tmpName, tmpFormat;
@@ -33,7 +32,6 @@ namespace Sound_Editor {
             this.Format = tmpFormat;
             this.Path = path;
             this.Stream = stream;
-            this.Compression = CompressionTypes.NONE;
         }
 
         protected abstract void readBytes();
