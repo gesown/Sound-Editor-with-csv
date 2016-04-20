@@ -194,7 +194,11 @@ namespace Sound_Editor {
         }
 
         protected override void OnPaint(PaintEventArgs e) {
-            if (waveStream != null) {
+            if (waveStream == null) {
+                base.OnPaint(e);
+                return;
+            }
+            try {
                 int bytesToRead = samplesPerPixel * bytesPerSample;
                 byte[] waveData = new byte[bytesToRead];
                 long position = startPosition + (e.ClipRectangle.Left * bytesPerSample * samplesPerPixel);
@@ -216,8 +220,12 @@ namespace Sound_Editor {
                         e.Graphics.DrawLine(linePen, x, this.Height * lowPercent, x, this.Height * highPercent);
                     }
                 }
+            } catch (Exception) {
+                MessageBox.Show("Невозможно отобразить уровнеграмму", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            } finally {
+                base.OnPaint(e);
             }
-            base.OnPaint(e);
         }
 
         #region Component Designer generated code

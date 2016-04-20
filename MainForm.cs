@@ -429,6 +429,7 @@ namespace Sound_Editor {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            audioStatus.Text = "Запись звука: " + listAudio.SelectedItems[0].Text + ".wav";
             startRecordButton.Enabled = false;
             this.selectedItemToWrite = listAudio.SelectedItems[0].Index;
             this.fileToWrite = listAudio.SelectedItems[0].SubItems[4].Text;
@@ -452,6 +453,7 @@ namespace Sound_Editor {
         }
 
         private void stopRecordButton_Click(object sender, EventArgs e) {
+            audioStatus.Text = "Готово";
             recordingTimer.Stop();
             startRecordButton.Enabled = true;
             if (this.sourceStream != null) {
