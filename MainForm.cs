@@ -17,6 +17,10 @@ namespace Sound_Editor {
         BACK, FORWARD
     }
 
+    public enum CompressionTypes {
+        NONE, WAV, ALAW, MULAW
+    }
+
     public partial class MainForm : Form {
         public MainForm() {
             InitializeComponent();
@@ -40,8 +44,11 @@ namespace Sound_Editor {
         private void MainForm_Load(object sender, EventArgs e) {
             spectrumViewer.PenColor = Color.GreenYellow;
             spectrumViewer.PenWidth = 2;
+            compressedSpectrumViewer.PenColor = Color.LawnGreen;
+            compressedSpectrumViewer.PenWidth = 2;
 
             originalSpectrogramViewer.Area = originalVizualizationTab.TabPages[2];
+            compressedSpectrogramViewer.Area = compressedVizualizationTab.TabPages[2];
 
             originalPosition = new Position(originalCurrentTime);
             originalPosition.CurrentTime = new TimeSpan(0);
@@ -137,6 +144,12 @@ namespace Sound_Editor {
             item.SubItems.Add(f.Format.ToString());
             item.SubItems.Add(f.Path.ToString());
             item.SubItems.Add(f.bitDepth.ToString() + " bit");
+            Color color;
+            switch (f.Compression) {
+                case CompressionTypes.WAV: color = Color.Green; break;
+                default: color = Color.Black; break;
+            }
+            item.ForeColor = color;
             listAudio.Items.Add(item);
         }
 
@@ -204,15 +217,27 @@ namespace Sound_Editor {
             listAudio.Items.Remove(listAudio.SelectedItems[0]);
             if (file == null) return;
             if (this.currentAudio == file) {
-                if (output.PlaybackState == PlaybackState.Playing) {
-                    originalPlayTimer.Stop();
-                    output.Stop();
-                    originalCurrentTime.Text = "00:00:000";
+                if (this.currentAudio.Compression == CompressionTypes.NONE) {
+                    if (output.PlaybackState == PlaybackState.Playing) {
+                        originalPlayTimer.Stop();
+                        output.Stop();
+                        originalCurrentTime.Text = "00:00:000";
+                    }
+                    currentAudio = null;
+                    originalWaveViewer.WaveStream = null;
+                    spectrumViewer.Audio = null;
+                    originalSpectrogramViewer.Count = 0;
+                } else {
+                    if (output.PlaybackState == PlaybackState.Playing) {
+                        //originalPlayTimer.Stop();
+                        output.Stop();
+                        //originalCurrentTime.Text = "00:00:000";
+                    }
+                    currentAudio = null;
+                    compressedWaveViewer.WaveStream = null;
+                    compressedSpectrumViewer.Audio = null;
+                    compressedSpectrogramViewer.Count = 0;
                 }
-                currentAudio = null;
-                originalWaveViewer.WaveStream = null;
-                spectrumViewer.Audio = null;
-                originalSpectrogramViewer.Count = 0;
             }
             if (file.Format == "mp3") {
                 MP3File deleteFile = file as MP3File;
@@ -527,6 +552,7 @@ namespace Sound_Editor {
                 WaveStream pcm = new WaveChannel32(reader);
                 BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
                 AudioFile file = new WaveFile(reader, stream, save.FileName);
+                file.Compression = CompressionTypes.WAV;
                 this.files.Add(file);
                 this.addFileToListView(file);
                 this.initAudio(file, true);
