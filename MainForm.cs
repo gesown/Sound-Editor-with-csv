@@ -12,12 +12,9 @@ using NAudio;
 using NAudio.Wave;
 using NAudio.Dsp;
 using NAudio.Codecs;
+using Sound_Editor.Enums;
 
 namespace Sound_Editor {
-    public enum Direction {
-        BACK, FORWARD
-    }
-
     public partial class MainForm : Form {
         public MainForm() {
             InitializeComponent();
@@ -31,7 +28,7 @@ namespace Sound_Editor {
         private AudioFile currentAudio = null;
         private WaveOut output = null;
         private int currentAudioIndex = -1;
-        private Direction direction;
+        private Directions direction;
         private int tmpCount = 0;
 
         private WaveIn sourceStream = null;
@@ -62,11 +59,17 @@ namespace Sound_Editor {
 
         private void initAudioInfo() {
             audioNameLabel.Text = this.currentAudio.Name;
-            audioFormatLabel.Text = this.currentAudio.Format;
-            //audioCodecLabel.Text = 
+            audioFormatLabel.Text = this.currentAudio.Format.ToString();
+            string codec = "";
+            if (this.currentAudio.Codec == Codecs.ALAW) {
+                codec = "a-law";
+            } else if (this.currentAudio.Codec == Codecs.MULAW) {
+                codec = "mu-law";
+            }
+            audioCodecLabel.Text = codec;
             audioSizeLabel.Text = (this.currentAudio.Size * Math.Pow(10, 6)).ToString() + " bit";
             audioSampleRateInfo.Text = this.currentAudio.SampleRate.ToString();
-            int index = audioBitDepthInfo.Items.IndexOf(this.currentAudio.bitDepth.ToString());
+            int index = audioBitDepthInfo.Items.IndexOf(this.currentAudio.BitDepth.ToString());
             if (index != -1) {
                 audioBitDepthInfo.SelectedIndex = index;
             }
@@ -74,7 +77,14 @@ namespace Sound_Editor {
 
         private void initAudio(AudioFile f) {
             this.currentAudio = f;
-
+            try {
+                output.Init(f.Stream);
+            } catch (Exception) {
+                MessageBox.Show("Невозможно воспроизвести файл.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.files.Remove(f);
+                listAudio.Items.RemoveAt(listAudio.Items.Count - 1);
+                return;
+            }
             originalSpectrogramViewer.Audio = f;
 
             originalWaveViewer.Spectrogram = originalSpectrogramViewer;
@@ -90,7 +100,6 @@ namespace Sound_Editor {
             audioRate.Text = f.SampleRate + " Hz";
             audioSize.Text = Math.Round(f.Size, 1).ToString() + " MB";
             audioLength.Text = Position.getTimeString(f.Duration);
-            output.Init(f.Stream);
         }
 
         private void addFileToListView(AudioFile f) {
@@ -99,7 +108,7 @@ namespace Sound_Editor {
             item.SubItems.Add(f.SampleRate.ToString() + " Hz");
             item.SubItems.Add(f.Format.ToString());
             item.SubItems.Add(f.Path.ToString());
-            item.SubItems.Add(f.bitDepth.ToString() + " bit");
+            item.SubItems.Add(f.BitDepth.ToString() + " bit");
             listAudio.Items.Add(item);
         }
 
@@ -177,10 +186,10 @@ namespace Sound_Editor {
                 spectrumViewer.Audio = null;
                 originalSpectrogramViewer.Count = 0;
             }
-            if (file.Format == "mp3") {
+            if (file.Format == AudioFormats.MP3) {
                 MP3File deleteFile = file as MP3File;
                 deleteFile.Reader.Dispose();
-            } else if (file.Format == "wav") {
+            } else if (file.Format == AudioFormats.WAV) {
                 WaveFile deleteFile = file as WaveFile;
                 deleteFile.Reader.Dispose();
             }
@@ -257,7 +266,7 @@ namespace Sound_Editor {
         // Back
         private void back() {
             long position = this.currentAudio.Stream.Position;
-            if (currentAudio.Format == "mp3") {
+            if (currentAudio.Format == AudioFormats.MP3) {
                 MP3File file = currentAudio as MP3File;
                 position = file.Reader.Position;
             }
@@ -276,7 +285,7 @@ namespace Sound_Editor {
 
         private void toolStripButton5_MouseDown(object sender, MouseEventArgs e) {
             if (output != null && this.currentAudio != null) {
-                this.direction = Direction.BACK;
+                this.direction = Directions.BACK;
                 changePositionTimer.Start();
             }
         }
@@ -288,7 +297,7 @@ namespace Sound_Editor {
         // Forward
         private void forward() {
             long position = this.currentAudio.Stream.Position;
-            if (currentAudio.Format == "mp3") {
+            if (currentAudio.Format == AudioFormats.MP3) {
                 MP3File file = currentAudio as MP3File;
                 position = file.Reader.Position;
             }
@@ -302,7 +311,7 @@ namespace Sound_Editor {
 
         private void toolStripButton6_MouseDown(object sender, MouseEventArgs e) {
             if (output != null && this.currentAudio != null) {
-                this.direction = Direction.FORWARD;
+                this.direction = Directions.FORWARD;
                 changePositionTimer.Start();
             }
         }
@@ -312,9 +321,9 @@ namespace Sound_Editor {
         }
 
         private void changePositionTimer_Tick(object sender, EventArgs e) {
-            if (this.direction == Direction.BACK) {
+            if (this.direction == Directions.BACK) {
                 this.back();
-            } else if (this.direction == Direction.FORWARD) {
+            } else if (this.direction == Directions.FORWARD) {
                 this.forward();
             }
         }
@@ -334,7 +343,7 @@ namespace Sound_Editor {
             foreach (AudioFile file in this.files) {
                 file.Stream.Dispose();
                 file.Stream = null;
-                if (file.Format == "mp3") {
+                if (file.Format == AudioFormats.MP3) {
                     MP3File mp3file = file as MP3File;
                     mp3file.Reader.Close();
                     mp3file.Reader = null;
@@ -352,10 +361,10 @@ namespace Sound_Editor {
         private void originalPlayTimer_Tick(object sender, EventArgs e) {
             if (currentAudio == null) return;
             TimeSpan currentTime = new TimeSpan();
-            if (currentAudio.Format == "mp3") {
+            if (currentAudio.Format == AudioFormats.MP3) {
                 MP3File file = currentAudio as MP3File;
                 currentTime = file.Reader.CurrentTime;
-            } else if (currentAudio.Format == "wav") {
+            } else if (currentAudio.Format == AudioFormats.WAV) {
                 WaveFile file = currentAudio as WaveFile;
                 currentTime = file.Reader.CurrentTime;
             }
@@ -500,12 +509,17 @@ namespace Sound_Editor {
             if (save.ShowDialog() != DialogResult.OK) return;
             WaveFormat format = new WaveFormat(sampleRate, bitDepth, 2);
             WaveFormatConversionStream convertedStream = null;
-            if (this.currentAudio.Format == "mp3") {
-                MP3File afile = this.currentAudio as MP3File;
-                convertedStream = new WaveFormatConversionStream(format, afile.Reader);
-            } else {
-                WaveFile afile = this.currentAudio as WaveFile;
-                convertedStream = new WaveFormatConversionStream(format, afile.Reader);
+            try {
+                if (this.currentAudio.Format == AudioFormats.MP3) {
+                    MP3File afile = this.currentAudio as MP3File;
+                    convertedStream = new WaveFormatConversionStream(format, afile.Reader);
+                } else {
+                    WaveFile afile = this.currentAudio as WaveFile;
+                    convertedStream = new WaveFormatConversionStream(format, afile.Reader);
+                }
+            } catch (Exception) {
+                MessageBox.Show("Невозможно сконвертировать в данный формат.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             WaveFileWriter.CreateWaveFile(save.FileName, convertedStream);
             DialogResult dres = MessageBox.Show("Аудиофайл успешно сохранен. Открыть файл?", "Файл сохранен", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -537,7 +551,7 @@ namespace Sound_Editor {
             for (int i = 0; i < this.currentAudio.ShortSamples.Length; i++) {
                 if (codec == Codecs.ALAW) {
                     samples[i] = ALawEncoder.LinearToALawSample(this.currentAudio.ShortSamples[i]);
-                } else {
+                } else if (codec == Codecs.MULAW) {
                     samples[i] = MuLawEncoder.LinearToMuLawSample(this.currentAudio.ShortSamples[i]);
                 }
             }
@@ -579,7 +593,7 @@ namespace Sound_Editor {
             for (int i = 0; i < buffer.Length; i++) {
                 if (codec == Codecs.ALAW) {
                     samples[i] = ALawDecoder.ALawToLinearSample(buffer[i]);
-                } else {
+                } else if (codec == Codecs.MULAW) {
                     samples[i] = MuLawDecoder.MuLawToLinearSample(buffer[i]);
                 }
             }
@@ -592,7 +606,7 @@ namespace Sound_Editor {
             WaveStream pcm = new WaveChannel32(tmpReader);
             BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
             AudioFile file = new WaveFile(tmpReader, stream, filename);
-
+            file.Codec = codec;
             this.files.Add(file);
             this.addFileToListView(file);
             this.initAudio(file);

@@ -5,15 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using NAudio.Wave;
+using Sound_Editor.Enums;
 
 namespace Sound_Editor {
     public abstract class AudioFile {
         public string Name { get; set; }
         public TimeSpan Duration { get; set; }
         public int SampleRate { get; set; }
-        public int bitDepth { get; set; }
+        public int BitDepth { get; set; }
         public double Size { get; set; }
-        public string Format { get; set; }
+        public AudioFormats Format { get; set; }
+        public Codecs Codec { get; set; }
         public string Path { get; set; }
         public byte[] Samples { get; set; }
         public short[] ShortSamples { get; set; }
@@ -27,11 +29,15 @@ namespace Sound_Editor {
             this.Name = tmpName;
             this.Duration = stream.TotalTime;
             this.SampleRate = stream.WaveFormat.SampleRate;
-            this.bitDepth = stream.WaveFormat.BitsPerSample;
+            this.BitDepth = stream.WaveFormat.BitsPerSample;
             this.Size = new FileInfo(path).Length * Math.Pow(10, -6);
-            this.Format = tmpFormat;
+            switch (tmpFormat) {
+                case "mp3": this.Format = AudioFormats.MP3; break;
+                case "wav": this.Format = AudioFormats.WAV; break;
+            }
             this.Path = path;
             this.Stream = stream;
+            this.Codec = Codecs.NONE;
         }
 
         protected abstract void readBytes();

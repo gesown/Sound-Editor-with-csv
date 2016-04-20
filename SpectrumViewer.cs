@@ -113,10 +113,10 @@ namespace Sound_Editor {
         protected override void OnPaint(PaintEventArgs e) {
             if (this.Audio != null) {
                 long position = 0;
-                if (audio.Format == "mp3") {
+                if (audio.Format == Enums.AudioFormats.MP3) {
                     MP3File file = audio as MP3File;
                     position = file.Reader.Position / 2;
-                } else if (audio.Format == "wav") {
+                } else if (audio.Format == Enums.AudioFormats.WAV) {
                     WaveFile file = audio as WaveFile;
                     position = file.Reader.Position / 2;
                 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Sound_Editor.Enums {
-    public enum Codecs {
-        ALAW, MULAW, NONE
+    public enum AudioFormats {
+        MP3, WAV
     }
 }

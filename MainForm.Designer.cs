@@ -25,17 +25,18 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.spectrogramVisualizationTab = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.audioStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -137,12 +138,12 @@
             this.spectrumTimer = new System.Windows.Forms.Timer(this.components);
             this.recordingTimer = new System.Windows.Forms.Timer(this.components);
             this.changePositionTimer = new System.Windows.Forms.Timer(this.components);
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.spectrumViewer = new Sound_Editor.SpectrumViewer();
             this.originalSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
             this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.tableLayoutPanel1.SuspendLayout();
             this.spectrogramVisualizationTab.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.tabPage10.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -166,7 +167,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarOriginal)).BeginInit();
             this.originalVizualizationTab.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -215,6 +215,16 @@
             this.spectrogramVisualizationTab.SelectedIndex = 0;
             this.spectrogramVisualizationTab.Size = new System.Drawing.Size(856, 394);
             this.spectrogramVisualizationTab.TabIndex = 14;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.spectrumViewer);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(848, 368);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Спектр";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPage10
             // 
@@ -731,9 +741,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.timePeriods.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4,
-            listViewItem5,
-            listViewItem6});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3});
             this.timePeriods.Location = new System.Drawing.Point(67, 6);
             this.timePeriods.Name = "timePeriods";
             this.timePeriods.Size = new System.Drawing.Size(268, 82);
@@ -1092,9 +1102,7 @@
             this.audioBitDepthInfo.FormattingEnabled = true;
             this.audioBitDepthInfo.Items.AddRange(new object[] {
             "8",
-            "16",
-            "24",
-            "32"});
+            "16"});
             this.audioBitDepthInfo.Location = new System.Drawing.Point(119, 43);
             this.audioBitDepthInfo.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.audioBitDepthInfo.Name = "audioBitDepthInfo";
@@ -1316,16 +1324,6 @@
             this.changePositionTimer.Interval = 1;
             this.changePositionTimer.Tick += new System.EventHandler(this.changePositionTimer_Tick);
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.spectrumViewer);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(848, 368);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Спектр";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
             // spectrumViewer
             // 
             this.spectrumViewer.Audio = null;
@@ -1385,6 +1383,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.spectrogramVisualizationTab.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.tabPage10.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -1417,7 +1416,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarOriginal)).EndInit();
             this.originalVizualizationTab.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

@@ -68,6 +68,7 @@ namespace Sound_Editor {
             if (this.WaveStream == null) return;
             if (e.Button == MouseButtons.Left) {
                 startPos = e.Location;
+                if (startPos.X < 0 || startPos.X > this.Width) return;
                 WaveStream.Position = StartPosition + startPos.X * bytesPerSample * samplesPerPixel;
                 MainForm.originalPosition.CurrentTime = WaveStream.CurrentTime;
                 clickPosition = new TimeSpan(WaveStream.CurrentTime.Days, WaveStream.CurrentTime.Hours, WaveStream.CurrentTime.Minutes, WaveStream.CurrentTime.Seconds, WaveStream.CurrentTime.Milliseconds);
@@ -80,6 +81,7 @@ namespace Sound_Editor {
         }
 
         protected override void OnMouseMove(MouseEventArgs e) {
+            if (e.Button != MouseButtons.Left) return;
             if (mouseDrag && e.Location.X <= this.Width && e.Location.X >= 0) {
                 DrawVerticalLine(e.X);
                 if (mousePos.X != -1) {
@@ -139,10 +141,10 @@ namespace Sound_Editor {
             set {
                 audio = value;
                 if (audio != null) {
-                    if (audio.Format == "mp3") {
+                    if (audio.Format == Enums.AudioFormats.MP3) {
                         MP3File file = audio as MP3File;
                         WaveStream = file.Reader;
-                    } else if (audio.Format == "wav") {
+                    } else if (audio.Format == Enums.AudioFormats.WAV) {
                         WaveFile file = audio as WaveFile;
                         WaveStream = file.Reader;
                     }
