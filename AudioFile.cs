@@ -52,22 +52,21 @@ namespace Sound_Editor {
         }
 
         private void getFloats() {
-            this.getAvg();
             this.FloatSamples = new float[this.ShortSamples.Length];
-            float koef = 1f / this.Avg;
-            this.Avg *= koef / 32;
             for (int i = 0; i < this.FloatSamples.Length; i++) {
-                this.FloatSamples[i] = koef * this.ShortSamples[i];
+                this.FloatSamples[i] = this.ShortSamples[i] / 32768f;
             }
+            this.getAvg();
         }
 
         private void getAvg() {
             this.Avg = 0;
-            for (int i = 0; i < this.ShortSamples.Length; i++) {
-                if (this.Avg < this.ShortSamples[i]) {
-                    this.Avg = this.ShortSamples[i];
+            for (int i = 0; i < this.FloatSamples.Length; i++) {
+                if (this.Avg < this.FloatSamples[i]) {
+                    this.Avg = this.FloatSamples[i];
                 }
             }
+            this.Avg /= 32;
         }
     }
 }
