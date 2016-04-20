@@ -546,6 +546,9 @@ namespace Sound_Editor {
             writer.Write(samples, 0, samples.Length);
             writer.Close();
             DialogResult dres = MessageBox.Show("Аудиофайл успешно сохранен. Открыть файл?", "Файл сохранен", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dres == DialogResult.Yes) {
+                this.decodeG711(save.FileName);
+            }
         }
 
         // Decode G.711
@@ -564,7 +567,11 @@ namespace Sound_Editor {
                 MessageBox.Show("Этот файл уже добавлен в список.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            WaveFileReader reader = new WaveFileReader(open.FileName);
+            this.decodeG711(open.FileName);
+        }
+
+        private void decodeG711(string filename) {
+            WaveFileReader reader = new WaveFileReader(filename);
             byte[] buffer = new byte[reader.Length];
             short[] samples = new short[buffer.Length];
             reader.Read(buffer, 0, buffer.Length);
@@ -583,7 +590,7 @@ namespace Sound_Editor {
             WaveFileReader tmpReader = new WaveFileReader("tmp_" + this.tmpCount + ".wav");
             WaveStream pcm = new WaveChannel32(tmpReader);
             BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
-            AudioFile file = new WaveFile(tmpReader, stream, open.FileName);
+            AudioFile file = new WaveFile(tmpReader, stream, filename);
 
             this.files.Add(file);
             this.addFileToListView(file);
