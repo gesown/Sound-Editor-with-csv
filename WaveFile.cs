@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using NAudio.Wave;
 
 namespace Sound_Editor {
+    public enum Codecs {
+        ALAW, MULAW
+    }
+
     class WaveFile : AudioFile {
         public WaveFileReader Reader { get; set; }
 
@@ -14,7 +18,7 @@ namespace Sound_Editor {
             this.Samples = new byte[this.Reader.Length];
             this.callRead();
         }
-        
+
         protected override void readBytes() {
             this.Reader.Read(this.Samples, 0, (int)this.Reader.Length);
             this.Reader.Position = 0;

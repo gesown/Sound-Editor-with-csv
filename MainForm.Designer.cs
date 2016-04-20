@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
@@ -112,8 +112,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.codecToEncode = new System.Windows.Forms.ComboBox();
+            this.codecToDecode = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.audioBitDepthInfo = new System.Windows.Forms.ComboBox();
@@ -731,9 +731,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.timePeriods.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
+            listViewItem4,
+            listViewItem5,
+            listViewItem6});
             this.timePeriods.Location = new System.Drawing.Point(67, 6);
             this.timePeriods.Name = "timePeriods";
             this.timePeriods.Size = new System.Drawing.Size(268, 82);
@@ -958,8 +958,8 @@
             this.tableLayoutPanel6.Controls.Add(this.button3, 2, 1);
             this.tableLayoutPanel6.Controls.Add(this.label12, 0, 1);
             this.tableLayoutPanel6.Controls.Add(this.button2, 2, 0);
-            this.tableLayoutPanel6.Controls.Add(this.comboBox2, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.comboBox3, 1, 1);
+            this.tableLayoutPanel6.Controls.Add(this.codecToEncode, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.codecToDecode, 1, 1);
             this.tableLayoutPanel6.Location = new System.Drawing.Point(-3, 13);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
@@ -990,6 +990,7 @@
             this.button3.TabIndex = 6;
             this.button3.Text = "Открыть";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label12
             // 
@@ -1012,38 +1013,39 @@
             this.button2.TabIndex = 5;
             this.button2.Text = "Сохранить";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // comboBox2
+            // codecToEncode
             // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.codecToEncode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.codecToEncode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.codecToEncode.FormattingEnabled = true;
+            this.codecToEncode.Items.AddRange(new object[] {
             "A-Law",
             "Mu-Law"});
-            this.comboBox2.Location = new System.Drawing.Point(119, 8);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(102, 21);
-            this.comboBox2.TabIndex = 1;
+            this.codecToEncode.Location = new System.Drawing.Point(119, 8);
+            this.codecToEncode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
+            this.codecToEncode.Name = "codecToEncode";
+            this.codecToEncode.Size = new System.Drawing.Size(102, 21);
+            this.codecToEncode.TabIndex = 1;
             // 
-            // comboBox3
+            // codecToDecode
             // 
-            this.comboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.codecToDecode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.codecToDecode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.codecToDecode.FormattingEnabled = true;
+            this.codecToDecode.Items.AddRange(new object[] {
             "A-Law",
             "Mu-Law"});
-            this.comboBox3.Location = new System.Drawing.Point(119, 40);
-            this.comboBox3.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(102, 21);
-            this.comboBox3.TabIndex = 2;
+            this.codecToDecode.Location = new System.Drawing.Point(119, 40);
+            this.codecToDecode.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
+            this.codecToDecode.Name = "codecToDecode";
+            this.codecToDecode.Size = new System.Drawing.Size(102, 21);
+            this.codecToDecode.TabIndex = 2;
             // 
             // groupBox1
             // 
@@ -1513,8 +1515,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox codecToDecode;
+        private System.Windows.Forms.ComboBox codecToEncode;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button saveWavButton;
         private System.Windows.Forms.ComboBox audioBitDepthInfo;

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 using NAudio;
 using NAudio.Wave;
 using NAudio.Dsp;
@@ -31,6 +32,7 @@ namespace Sound_Editor {
         private WaveOut output = null;
         private int currentAudioIndex = -1;
         private Direction direction;
+        private int tmpCount = 0;
 
         private WaveIn sourceStream = null;
         private WaveFileWriter waveWriter = null;
@@ -89,27 +91,6 @@ namespace Sound_Editor {
             audioSize.Text = Math.Round(f.Size, 1).ToString() + " MB";
             audioLength.Text = Position.getTimeString(f.Duration);
             output.Init(f.Stream);
-
-            //test();
-        }
-
-        private void test() {
-            byte[] samples = new byte[this.currentAudio.ShortSamples.Length];
-            for (int i = 0; i < this.currentAudio.ShortSamples.Length; i++) {
-                samples[i] = ALawEncoder.LinearToALawSample(this.currentAudio.ShortSamples[i]);
-            }
-
-            WaveFormat format = new WaveFormat(8000, 8, 1);
-            WaveFileWriter writer = new WaveFileWriter(@"D:\test2.wav", format);
-
-            short[] buffer = new short[samples.Length];
-            for (int i = 0; i < buffer.Length; i++) {
-                buffer[i] = ALawDecoder.ALawToLinearSample(samples[i]);
-            }
-
-            writer.WriteData(samples, 0, samples.Length);
-            writer.Close();
-            MessageBox.Show("OK");
         }
 
         private void addFileToListView(AudioFile f) {
@@ -346,14 +327,26 @@ namespace Sound_Editor {
                 output.Dispose();
                 output = null;
             }
-            if (currentAudio.Stream != null) {
-                currentAudio.Stream.Dispose();
-                currentAudio.Stream = null;
-            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
-            //DisposeWave();
+            DisposeWave();
+            foreach (AudioFile file in this.files) {
+                file.Stream.Dispose();
+                file.Stream = null;
+                if (file.Format == "mp3") {
+                    MP3File mp3file = file as MP3File;
+                    mp3file.Reader.Close();
+                    mp3file.Reader = null;
+                } else {
+                    WaveFile wavfile = file as WaveFile;
+                    wavfile.Reader.Dispose();
+                    wavfile.Reader = null;
+                }
+            }
+            for (int i = this.tmpCount; i > 0; i--) {
+                File.Delete("tmp_" + i + ".wav");
+            }
         }
 
         private void originalPlayTimer_Tick(object sender, EventArgs e) {
@@ -490,13 +483,22 @@ namespace Sound_Editor {
             recordTimerLabel.Text = Position.getTimeString(ts);
         }
 
+        // Resample
+
         private void saveWavButton_Click(object sender, EventArgs e) {
-            if (this.currentAudio == null) return;
+            int sampleRate, bitDepth;
+            try {
+                if (this.currentAudio == null) throw new Exception("Вы не выбрали файл для ресэмплинга.");
+                sampleRate = int.Parse(audioSampleRateInfo.Text);
+                bitDepth = int.Parse(audioBitDepthInfo.Text);
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "Wave File (*.wav)|*.wav;";
             if (save.ShowDialog() != DialogResult.OK) return;
-
-            WaveFormat format = new WaveFormat(int.Parse(audioSampleRateInfo.Text), int.Parse(audioBitDepthInfo.Text), 2);
+            WaveFormat format = new WaveFormat(sampleRate, bitDepth, 2);
             WaveFormatConversionStream convertedStream = null;
             if (this.currentAudio.Format == "mp3") {
                 MP3File afile = this.currentAudio as MP3File;
@@ -516,6 +518,76 @@ namespace Sound_Editor {
                 this.addFileToListView(file);
                 this.initAudio(file);
             }
+        }
+
+        // Encode G.711
+        private void button2_Click(object sender, EventArgs e) {
+            try {
+                if (this.currentAudio == null) throw new Exception("Вы не выбрали файл для кодирования.");
+                if (codecToEncode.SelectedItem == null) throw new Exception("Вы не выбрали кодэк.");
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "Wave File (*.wav)|*.wav;";
+            if (save.ShowDialog() != DialogResult.OK) return;
+
+            byte[] samples = new byte[this.currentAudio.ShortSamples.Length];
+            for (int i = 0; i < this.currentAudio.ShortSamples.Length; i++) {
+                if (codecToEncode.SelectedIndex == 0) {
+                    samples[i] = ALawEncoder.LinearToALawSample(this.currentAudio.ShortSamples[i]);
+                } else if (codecToEncode.SelectedIndex == 1) {
+                    samples[i] = MuLawEncoder.LinearToMuLawSample(this.currentAudio.ShortSamples[i]);
+                }
+            }
+            WaveFormat format = new WaveFormat(8000, 8, 1);
+            WaveFileWriter writer = new WaveFileWriter(save.FileName, format);
+            writer.Write(samples, 0, samples.Length);
+            writer.Close();
+            DialogResult dres = MessageBox.Show("Аудиофайл успешно сохранен. Открыть файл?", "Файл сохранен", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
+
+        // Decode G.711
+        private void button3_Click(object sender, EventArgs e) {
+            try {
+                if (codecToDecode.SelectedItem == null) throw new Exception("Вы не выбрали кодэк.");
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "Wave File (*.wav)|*.wav;";
+            if (open.ShowDialog() != DialogResult.OK) return;
+            AudioFile searchFile = files.Find(x => x.Path == open.FileName);
+            if (searchFile != null) {
+                MessageBox.Show("Этот файл уже добавлен в список.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            WaveFileReader reader = new WaveFileReader(open.FileName);
+            byte[] buffer = new byte[reader.Length];
+            short[] samples = new short[buffer.Length];
+            reader.Read(buffer, 0, buffer.Length);
+            for (int i = 0; i < buffer.Length; i++) {
+                if (codecToDecode.SelectedIndex == 0) {
+                    samples[i] = ALawDecoder.ALawToLinearSample(buffer[i]);
+                } else if (codecToDecode.SelectedIndex == 1) {
+                    samples[i] = MuLawDecoder.MuLawToLinearSample(buffer[i]);
+                }
+            }
+
+            WaveFileWriter writer = new WaveFileWriter("tmp_" + (++this.tmpCount) + ".wav", new WaveFormat(44100, 16, 2));
+            writer.WriteSamples(samples, 0, samples.Length);
+            writer.Close();
+
+            WaveFileReader tmpReader = new WaveFileReader("tmp_" + this.tmpCount + ".wav");
+            WaveStream pcm = new WaveChannel32(tmpReader);
+            BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
+            AudioFile file = new WaveFile(tmpReader, stream, open.FileName);
+
+            this.files.Add(file);
+            this.addFileToListView(file);
+            this.initAudio(file);
         }
     }
 }
