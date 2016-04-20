@@ -40,11 +40,8 @@ namespace Sound_Editor {
         private void MainForm_Load(object sender, EventArgs e) {
             spectrumViewer.PenColor = Color.GreenYellow;
             spectrumViewer.PenWidth = 2;
-            compressedSpectrumViewer.PenColor = Color.LawnGreen;
-            compressedSpectrumViewer.PenWidth = 2;
 
-            originalSpectrogramViewer.Area = originalVizualizationTab.TabPages[2];
-            compressedSpectrogramViewer.Area = compressedVizualizationTab.TabPages[2];
+            originalSpectrogramViewer.Area = spectrogramVisualizationTab.TabPages[0];
 
             originalPosition = new Position(originalCurrentTime);
             originalPosition.CurrentTime = new TimeSpan(0);
@@ -92,20 +89,10 @@ namespace Sound_Editor {
             audioLength.Text = Position.getTimeString(f.Duration);
             output.Init(f.Stream);
 
-            if (compressedWaveViewer.Audio != null) {
-                compressedWaveViewer.WaveStream = null;
-                compressedSpectrumViewer.Audio = null;
-                compressedSpectrogramViewer.Count = 0;
-            }
             //test();
         }
 
         private void initAudio(AudioFile f, bool compressed) {
-            compressedSpectrogramViewer.Audio = f;
-            compressedWaveViewer.Spectrogram = compressedSpectrogramViewer;
-            compressedWaveViewer.Audio = f;
-            compressedWaveViewer.FitToScreen();
-            compressedSpectrumViewer.Audio = f;
         }
 
         private void test() {
@@ -399,7 +386,6 @@ namespace Sound_Editor {
         }
 
         private void compressedSpectrumTimer_Tick(object sender, EventArgs e) {
-            compressedSpectrumViewer.Refresh();
         }
 
         /* Методы обработки входного сигнала */
