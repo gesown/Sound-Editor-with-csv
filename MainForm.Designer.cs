@@ -25,12 +25,12 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
             "0:00:000",
             "0:00:000",
             "0:00:000"}, -1, System.Drawing.Color.Indigo, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204))));
@@ -97,11 +97,6 @@
             this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton13 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton14 = new System.Windows.Forms.ToolStripButton();
-            this.tabControl3 = new System.Windows.Forms.TabControl();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.tabControl4 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.timePeriods = new System.Windows.Forms.ListView();
@@ -156,6 +151,13 @@
             this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.spectrumViewer = new Sound_Editor.SpectrumViewer();
             this.originalSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
+            this.compressedVizualizationTab = new System.Windows.Forms.TabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.compressedWaveViewer = new Sound_Editor.SEWaveViewer();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.compressedSpectrumViewer = new Sound_Editor.SpectrumViewer();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.compressedSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -168,11 +170,6 @@
             this.tabPage3.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
-            this.tabControl3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.tabControl4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabControl5.SuspendLayout();
@@ -188,6 +185,10 @@
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarOriginal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            this.compressedVizualizationTab.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.tabPage10.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -199,26 +200,27 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tableLayoutPanel1.Controls.Add(this.compressedVizualizationTab, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.statusStrip1, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.menuStrip1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tabControl1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.originalVizualizationTab, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.toolStrip2, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.toolStrip3, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.tabControl3, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.tabControl4, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.tabControl5, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.trackBarOriginal, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.trackBar2, 2, 4);
+            this.tableLayoutPanel1.Controls.Add(this.originalVizualizationTab, 1, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1231, 766);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -850,68 +852,6 @@
             this.toolStripButton14.Text = "toolStripButton7";
             this.toolStripButton14.ToolTipText = "Перемотать в конец";
             // 
-            // tabControl3
-            // 
-            this.tabControl3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.tabControl3, 2);
-            this.tabControl3.Controls.Add(this.tabPage4);
-            this.tabControl3.Controls.Add(this.tabPage5);
-            this.tabControl3.Location = new System.Drawing.Point(372, 348);
-            this.tabControl3.Name = "tabControl3";
-            this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(856, 264);
-            this.tabControl3.TabIndex = 4;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.AutoScroll = true;
-            this.tabPage4.AutoScrollMinSize = new System.Drawing.Size(848, 0);
-            this.tabPage4.Controls.Add(this.pictureBox2);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(848, 238);
-            this.tabPage4.TabIndex = 0;
-            this.tabPage4.Text = "Редактор: SoundFile1.mp3";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(-1, -1);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(941, 95);
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.pictureBox4);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(848, 238);
-            this.tabPage5.TabIndex = 1;
-            this.tabPage5.Text = "Спектрограмма";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(-6, -2);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(861, 233);
-            this.pictureBox4.TabIndex = 2;
-            this.pictureBox4.TabStop = false;
-            // 
             // tabControl4
             // 
             this.tabControl4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -950,9 +890,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.timePeriods.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4,
-            listViewItem5,
-            listViewItem6});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3});
             this.timePeriods.Location = new System.Drawing.Point(67, 6);
             this.timePeriods.Name = "timePeriods";
             this.timePeriods.Size = new System.Drawing.Size(268, 82);
@@ -1561,6 +1501,97 @@
             this.originalSpectrogramViewer.StartPosition = ((long)(0));
             this.originalSpectrogramViewer.TabIndex = 0;
             // 
+            // compressedVizualizationTab
+            // 
+            this.compressedVizualizationTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.compressedVizualizationTab, 2);
+            this.compressedVizualizationTab.Controls.Add(this.tabPage4);
+            this.compressedVizualizationTab.Controls.Add(this.tabPage5);
+            this.compressedVizualizationTab.Controls.Add(this.tabPage10);
+            this.compressedVizualizationTab.Location = new System.Drawing.Point(372, 348);
+            this.compressedVizualizationTab.Name = "compressedVizualizationTab";
+            this.compressedVizualizationTab.SelectedIndex = 0;
+            this.compressedVizualizationTab.Size = new System.Drawing.Size(856, 264);
+            this.compressedVizualizationTab.TabIndex = 14;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.AutoScroll = true;
+            this.tabPage4.AutoScrollMinSize = new System.Drawing.Size(848, 0);
+            this.tabPage4.Controls.Add(this.compressedWaveViewer);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(848, 238);
+            this.tabPage4.TabIndex = 0;
+            this.tabPage4.Text = "Редактор";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // compressedWaveViewer
+            // 
+            this.compressedWaveViewer.Audio = null;
+            this.compressedWaveViewer.BackColor = System.Drawing.Color.Black;
+            this.compressedWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.compressedWaveViewer.Location = new System.Drawing.Point(0, 0);
+            this.compressedWaveViewer.Name = "compressedWaveViewer";
+            this.compressedWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
+            this.compressedWaveViewer.PenWidth = 1F;
+            this.compressedWaveViewer.SamplesPerPixel = 128;
+            this.compressedWaveViewer.Size = new System.Drawing.Size(848, 238);
+            this.compressedWaveViewer.Spectrogram = null;
+            this.compressedWaveViewer.StartPosition = ((long)(0));
+            this.compressedWaveViewer.TabIndex = 0;
+            this.compressedWaveViewer.WaveStream = null;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.compressedSpectrumViewer);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(848, 238);
+            this.tabPage5.TabIndex = 2;
+            this.tabPage5.Text = "Спектр";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // compressedSpectrumViewer
+            // 
+            this.compressedSpectrumViewer.Audio = null;
+            this.compressedSpectrumViewer.BackColor = System.Drawing.Color.Black;
+            this.compressedSpectrumViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.compressedSpectrumViewer.Location = new System.Drawing.Point(0, 0);
+            this.compressedSpectrumViewer.Name = "compressedSpectrumViewer";
+            this.compressedSpectrumViewer.PenColor = System.Drawing.Color.Red;
+            this.compressedSpectrumViewer.PenWidth = 2;
+            this.compressedSpectrumViewer.Size = new System.Drawing.Size(848, 238);
+            this.compressedSpectrumViewer.TabIndex = 0;
+            // 
+            // tabPage10
+            // 
+            this.tabPage10.AutoScroll = true;
+            this.tabPage10.AutoScrollMinSize = new System.Drawing.Size(0, 512);
+            this.tabPage10.Controls.Add(this.compressedSpectrogramViewer);
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Size = new System.Drawing.Size(848, 238);
+            this.tabPage10.TabIndex = 1;
+            this.tabPage10.Text = "Спектрограмма";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // compressedSpectrogramViewer
+            // 
+            this.compressedSpectrogramViewer.Area = null;
+            this.compressedSpectrogramViewer.Audio = null;
+            this.compressedSpectrogramViewer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(1)))));
+            this.compressedSpectrogramViewer.Count = 0;
+            this.compressedSpectrogramViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.compressedSpectrogramViewer.Location = new System.Drawing.Point(0, 0);
+            this.compressedSpectrogramViewer.MinimumSize = new System.Drawing.Size(0, 512);
+            this.compressedSpectrogramViewer.Name = "compressedSpectrogramViewer";
+            this.compressedSpectrogramViewer.Size = new System.Drawing.Size(831, 512);
+            this.compressedSpectrogramViewer.StartPosition = ((long)(0));
+            this.compressedSpectrogramViewer.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1591,11 +1622,6 @@
             this.toolStrip2.PerformLayout();
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
-            this.tabControl3.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.tabPage5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.tabControl4.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
@@ -1616,6 +1642,10 @@
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarOriginal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            this.compressedVizualizationTab.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage10.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1643,10 +1673,6 @@
         private System.Windows.Forms.TabControl originalVizualizationTab;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabControl tabControl3;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
@@ -1686,7 +1712,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton12;
         private System.Windows.Forms.ToolStripButton toolStripButton13;
         private System.Windows.Forms.ToolStripButton toolStripButton14;
-        private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.TabControl tabControl4;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.ListView timePeriods;
@@ -1744,6 +1769,13 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.TabControl compressedVizualizationTab;
+        private System.Windows.Forms.TabPage tabPage4;
+        private SEWaveViewer compressedWaveViewer;
+        private System.Windows.Forms.TabPage tabPage5;
+        private SpectrumViewer compressedSpectrumViewer;
+        private System.Windows.Forms.TabPage tabPage10;
+        private SpectrogramViewer compressedSpectrogramViewer;
     }
 }
 

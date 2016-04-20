@@ -92,6 +92,25 @@ namespace Sound_Editor {
             //test();
         }
 
+        private void initAudio(AudioFile f, bool compressed) {
+            this.currentAudio = f;
+
+            compressedSpectrogramViewer.Audio = f;
+
+            compressedWaveViewer.Spectrogram = compressedSpectrogramViewer;
+            compressedWaveViewer.Audio = f;
+            compressedWaveViewer.FitToScreen();
+
+            compressedSpectrumViewer.Audio = f;
+
+            this.initAudioInfo();
+            compressedVizualizationTab.TabPages[0].Text = "Редактор: " + f.Name + "." + f.Format;
+            audioRate.Text = f.SampleRate + " Hz";
+            audioSize.Text = Math.Round(f.Size, 1).ToString() + " MB";
+            audioLength.Text = Position.getTimeString(f.Duration);
+            output.Init(f.Stream);
+        }
+
         private void test() {
             byte[] samples = new byte[this.currentAudio.ShortSamples.Length];
             for (int i = 0; i < this.currentAudio.ShortSamples.Length; i++) {
@@ -510,7 +529,7 @@ namespace Sound_Editor {
                 AudioFile file = new WaveFile(reader, stream, save.FileName);
                 this.files.Add(file);
                 this.addFileToListView(file);
-                this.initAudio(file);
+                this.initAudio(file, true);
             }
         }
     }
