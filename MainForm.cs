@@ -60,19 +60,14 @@ namespace Sound_Editor {
         private void initAudioInfo() {
             audioNameLabel.Text = this.currentAudio.Name;
             audioFormatLabel.Text = this.currentAudio.Format.ToString();
-            string codec = "";
-            if (this.currentAudio.Codec == Codecs.ALAW) {
-                codec = "a-law";
-            } else if (this.currentAudio.Codec == Codecs.MULAW) {
-                codec = "mu-law";
-            }
-            audioDurationLabel.Text = codec;
             audioSizeLabel.Text = (this.currentAudio.Size * Math.Pow(10, 6)).ToString() + " bit";
             audioSampleRateInfo.Text = this.currentAudio.SampleRate.ToString();
-            int index = audioBitDepthInfo.Items.IndexOf(this.currentAudio.BitDepth.ToString());
-            if (index != -1) {
-                audioBitDepthInfo.SelectedIndex = index;
+            int bitDepthIndex = audioBitDepthInfo.Items.IndexOf(this.currentAudio.BitDepth.ToString());
+            if (bitDepthIndex != -1) {
+                audioBitDepthInfo.SelectedIndex = bitDepthIndex;
             }
+            int channelsIndex = (this.currentAudio.Channels == 1) ? 0 : 1;
+            audioChannelsInfo.SelectedIndex = channelsIndex;
         }
 
         private void initAudio(AudioFile f) {
@@ -135,17 +130,22 @@ namespace Sound_Editor {
                 MessageBox.Show("Этот файл уже добавлен в список.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (open.FileName.EndsWith(".mp3")) {
-                Mp3FileReader reader = new Mp3FileReader(open.FileName);
-                WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(reader);
-                BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
-                file = new MP3File(reader, stream, open.FileName);
-            } else if (open.FileName.EndsWith(".wav")) {
-                WaveFileReader reader = new WaveFileReader(open.FileName);
-                WaveStream pcm = new WaveChannel32(reader);
-                BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
-                file = new WaveFile(reader, stream, open.FileName);
-            } else throw new InvalidOperationException("Неверный формат аудиофайла");
+            try {
+                if (open.FileName.EndsWith(".mp3")) {
+                    Mp3FileReader reader = new Mp3FileReader(open.FileName);
+                    WaveStream pcm = WaveFormatConversionStream.CreatePcmStream(reader);
+                    BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
+                    file = new MP3File(reader, stream, open.FileName);
+                } else if (open.FileName.EndsWith(".wav")) {
+                    WaveFileReader reader = new WaveFileReader(open.FileName);
+                    WaveStream pcm = new WaveChannel32(reader);
+                    BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
+                    file = new WaveFile(reader, stream, open.FileName);
+                } else throw new InvalidOperationException("Неверный формат аудиофайла");
+            } catch (Exception) {
+                MessageBox.Show("Невозможно открыть файл. Возможно вы пытаетесь открыть закодированный файл. Попробуйте воспользоваться декодером G.711", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             files.Add(file);
             this.addFileToListView(file);
             if (files.Count == 1) {
@@ -345,7 +345,7 @@ namespace Sound_Editor {
                 file.Stream = null;
                 if (file.Format == AudioFormats.MP3) {
                     MP3File mp3file = file as MP3File;
-                    mp3file.Reader.Close();
+                    mp3file.Reader.Dispose();
                     mp3file.Reader = null;
                 } else {
                     WaveFile wavfile = file as WaveFile;
@@ -497,19 +497,20 @@ namespace Sound_Editor {
         // Resample
 
         private void saveWavButton_Click(object sender, EventArgs e) {
-            int sampleRate, bitDepth;
+            int sampleRate, bitDepth, channels;
             try {
                 if (this.currentAudio == null) throw new Exception("Вы не выбрали файл для ресэмплинга.");
                 sampleRate = int.Parse(audioSampleRateInfo.Text);
-                bitDepth = int.Parse(audioBitDepthInfo.Text);
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            bitDepth = int.Parse(audioBitDepthInfo.Text);
+            channels = (audioChannelsInfo.SelectedIndex == 0) ? 1 : 2;
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "Wave File (*.wav)|*.wav;";
             if (save.ShowDialog() != DialogResult.OK) return;
-            WaveFormat format = new WaveFormat(sampleRate, bitDepth, 2);
+            WaveFormat format = new WaveFormat(sampleRate, bitDepth, 1);
             WaveFormatConversionStream convertedStream = null;
             try {
                 if (this.currentAudio.Format == AudioFormats.MP3) {
@@ -557,18 +558,23 @@ namespace Sound_Editor {
                     samples[i] = MuLawEncoder.LinearToMuLawSample(this.currentAudio.ShortSamples[i]);
                 }
             }
-            WaveFormat format = new WaveFormat(8000, 8, 1);
+            WaveFormat format = null;
+            if (codec == Codecs.ALAW) {
+                format = WaveFormat.CreateALawFormat(this.currentAudio.SampleRate, this.currentAudio.Stream.WaveFormat.Channels);
+            } else if (codec == Codecs.MULAW) {
+                format = WaveFormat.CreateMuLawFormat(this.currentAudio.SampleRate, this.currentAudio.Stream.WaveFormat.Channels);
+            }
             WaveFileWriter writer = new WaveFileWriter(save.FileName, format);
             writer.Write(samples, 0, samples.Length);
             writer.Close();
             DialogResult dres = MessageBox.Show("Аудиофайл успешно сохранен. Открыть файл?", "Файл сохранен", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dres == DialogResult.Yes) {
-                //this.decodeG711(save.FileName, codec);
+                this.decodeG711(save.FileName, codec);
             }
         }
 
         // Decode G.711
-        /*private void button3_Click(object sender, EventArgs e) {
+        private void button1_Click(object sender, EventArgs e) {
             try {
                 if (codecToDecode.SelectedItem == null) throw new Exception("Вы не выбрали кодэк.");
             } catch (Exception ex) {
@@ -608,10 +614,9 @@ namespace Sound_Editor {
             WaveStream pcm = new WaveChannel32(tmpReader);
             BlockAlignReductionStream stream = new BlockAlignReductionStream(pcm);
             AudioFile file = new WaveFile(tmpReader, stream, filename);
-            file.Codec = codec;
             this.files.Add(file);
             this.addFileToListView(file);
             this.initAudio(file);
-        }*/
+        }
     }
 }

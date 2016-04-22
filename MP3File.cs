@@ -12,6 +12,7 @@ namespace Sound_Editor {
         public MP3File(Mp3FileReader reader, BlockAlignReductionStream stream, string path) : base(stream, path) {
             this.Reader = reader;
             this.Samples = new byte[this.Reader.Length];
+            this.Channels = reader.WaveFormat.Channels;
             this.callRead();
         }
 

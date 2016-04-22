@@ -13,9 +13,9 @@ namespace Sound_Editor {
         public TimeSpan Duration { get; set; }
         public int SampleRate { get; set; }
         public int BitDepth { get; set; }
+        public int Channels { get; set; }
         public double Size { get; set; }
         public AudioFormats Format { get; set; }
-        public Codecs Codec { get; set; }
         public string Path { get; set; }
         public byte[] Samples { get; set; }
         public short[] ShortSamples { get; set; }
@@ -37,7 +37,6 @@ namespace Sound_Editor {
             }
             this.Path = path;
             this.Stream = stream;
-            this.Codec = Codecs.NONE;
         }
 
         protected abstract void readBytes();
