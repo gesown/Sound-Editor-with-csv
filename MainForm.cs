@@ -55,6 +55,7 @@ namespace Sound_Editor {
 
             output = new WaveOut();
             output.Volume = 1f;
+            output.PlaybackStopped += Output_PlaybackStopped; 
         }
 
         private void initAudioInfo() {
@@ -178,6 +179,7 @@ namespace Sound_Editor {
             if (this.currentAudio == file) {
                 if (output.PlaybackState == PlaybackState.Playing) {
                     originalPlayTimer.Stop();
+                    spectrumTimer.Stop();
                     output.Stop();
                     originalCurrentTime.Text = "00:00:000";
                     audioStatus.Text = "Готово";
@@ -247,6 +249,13 @@ namespace Sound_Editor {
                     audioStatus.Text = "Остановлено: " + currentAudio.Name + "." + currentAudio.Format;
                 }
             }
+        }
+
+        private void Output_PlaybackStopped(object sender, StoppedEventArgs e) {
+            originalPlayTimer.Stop();
+            spectrumTimer.Stop();
+            audioStatus.Text = "Остановлено: " + currentAudio.Name + "." + currentAudio.Format;
+            currentAudio.Stream.Position = 0;
         }
 
         // Previous audio
@@ -380,10 +389,6 @@ namespace Sound_Editor {
                 WaveFile file = currentAudio as WaveFile;
                 currentTime = file.Reader.CurrentTime;
             }
-            if (currentAudio.Duration == currentTime) {
-                toolStripButton2_Click(sender, e);
-            }
-
             originalPosition.CurrentTime = currentTime;
         }
 
