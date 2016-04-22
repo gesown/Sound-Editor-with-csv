@@ -180,7 +180,19 @@ namespace Sound_Editor {
                     originalPlayTimer.Stop();
                     output.Stop();
                     originalCurrentTime.Text = "00:00:000";
+                    audioStatus.Text = "Готово";
                 }
+                audioNameLabel.Text = "";
+                audioFormatLabel.Text = "";
+                audioSizeLabel.Text = "";
+                audioSampleRateInfo.Text = "";
+                audioBitDepthInfo.SelectedIndex = -1;
+                audioChannelsInfo.SelectedIndex = -1;
+                viewPeriod.StartTime = new TimeSpan(0);
+                viewPeriod.EndTime = new TimeSpan(0);
+                audioRate.Text = "0 Hz";
+                audioSize.Text = "0 MB";
+                audioLength.Text = "00:00:000";
                 currentAudio = null;
                 originalWaveViewer.WaveStream = null;
                 spectrumViewer.Audio = null;

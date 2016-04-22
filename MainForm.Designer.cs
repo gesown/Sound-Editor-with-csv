@@ -286,7 +286,7 @@
             this.audioLength.AutoSize = false;
             this.audioLength.Name = "audioLength";
             this.audioLength.Size = new System.Drawing.Size(70, 16);
-            this.audioLength.Text = "00:00:00";
+            this.audioLength.Text = "00:00:000";
             this.audioLength.ToolTipText = "Длительность";
             // 
             // menuStrip1
