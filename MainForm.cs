@@ -66,7 +66,7 @@ namespace Sound_Editor {
             } else if (this.currentAudio.Codec == Codecs.MULAW) {
                 codec = "mu-law";
             }
-            audioCodecLabel.Text = codec;
+            audioDurationLabel.Text = codec;
             audioSizeLabel.Text = (this.currentAudio.Size * Math.Pow(10, 6)).ToString() + " bit";
             audioSampleRateInfo.Text = this.currentAudio.SampleRate.ToString();
             int index = audioBitDepthInfo.Items.IndexOf(this.currentAudio.BitDepth.ToString());
@@ -563,12 +563,12 @@ namespace Sound_Editor {
             writer.Close();
             DialogResult dres = MessageBox.Show("Аудиофайл успешно сохранен. Открыть файл?", "Файл сохранен", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dres == DialogResult.Yes) {
-                this.decodeG711(save.FileName, codec);
+                //this.decodeG711(save.FileName, codec);
             }
         }
 
         // Decode G.711
-        private void button3_Click(object sender, EventArgs e) {
+        /*private void button3_Click(object sender, EventArgs e) {
             try {
                 if (codecToDecode.SelectedItem == null) throw new Exception("Вы не выбрали кодэк.");
             } catch (Exception ex) {
@@ -612,6 +612,6 @@ namespace Sound_Editor {
             this.files.Add(file);
             this.addFileToListView(file);
             this.initAudio(file);
-        }
+        }*/
     }
 }

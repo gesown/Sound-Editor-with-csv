@@ -493,13 +493,13 @@
 </value>
   </data>
   <metadata name="originalPlayTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>694, 26</value>
+    <value>592, 32</value>
   </metadata>
   <metadata name="spectrumTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>846, 28</value>
+    <value>741, 35</value>
   </metadata>
   <metadata name="recordingTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>553, 25</value>
+    <value>457, 30</value>
   </metadata>
   <metadata name="changePositionTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 67</value>
