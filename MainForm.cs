@@ -197,8 +197,10 @@ namespace Sound_Editor {
                 audioLength.Text = "00:00:000";
                 currentAudio = null;
                 originalWaveViewer.WaveStream = null;
+                originalWaveViewer.Audio = null;
                 spectrumViewer.Audio = null;
                 originalSpectrogramViewer.Count = 0;
+                originalSpectrogramViewer.Audio = null;
             }
             if (file.Format == AudioFormats.MP3) {
                 MP3File deleteFile = file as MP3File;
@@ -211,6 +213,7 @@ namespace Sound_Editor {
             file.Stream.Dispose();
             files.Remove(file);
             file = null;
+            GC.Collect();
         }
 
         // Pause
