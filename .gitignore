@@ -1,6 +1,7 @@
-/bin/*
-/obj/*
-/Properties/*
-App.config
+Sound Editor/bin/*
+Sound Editor/obj/*
+Sound Editor/Properties/*
+Sound Editor/App.config
+.vs/*
 *.csproj
 *.user
