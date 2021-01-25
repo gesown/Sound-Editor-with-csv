@@ -1,9 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 14 for Windows Desktop
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sound Editor", "Sound Editor\Sound Editor.csproj", "{C0C393C2-6C37-49D9-9F9C-1E7821DD893C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DEDE9F45-E520-4903-8B5B-AEC9FC8B1206}"
+	ProjectSection(SolutionItems) = preProject
+		Sound Editor\AudioFile.cs = Sound Editor\AudioFile.cs
+		Sound Editor\MainForm.cs = Sound Editor\MainForm.cs
+		Sound Editor\MainForm.Designer.cs = Sound Editor\MainForm.Designer.cs
+		Sound Editor\MainForm.resx = Sound Editor\MainForm.resx
+		Sound Editor\MP3File.cs = Sound Editor\MP3File.cs
+		Sound Editor\Position.cs = Sound Editor\Position.cs
+		Sound Editor\Program.cs = Sound Editor\Program.cs
+		README.md = README.md
+		Sound Editor\Sound Editor.ico = Sound Editor\Sound Editor.ico
+		Sound Editor\TimePeriod.cs = Sound Editor\TimePeriod.cs
+		Sound Editor\WaveFile.cs = Sound Editor\WaveFile.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,5 +34,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2C0AE9B-3BF3-45CB-B5C3-3B6B6B91906D}
 	EndGlobalSection
 EndGlobal

@@ -37,7 +37,9 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.spectrogramVisualizationTab = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.spectrumViewer = new Sound_Editor.SpectrumViewer();
             this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.originalSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.audioStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.audioRate = new System.Windows.Forms.ToolStripStatusLabel();
@@ -107,9 +109,12 @@
             this.audioFormatLabel = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.label7 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.codecToEncode = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.codecToDecode = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.audioBitDepthInfo = new System.Windows.Forms.ComboBox();
@@ -131,16 +136,11 @@
             this.trackBarOriginal = new System.Windows.Forms.TrackBar();
             this.originalVizualizationTab = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.originalPlayTimer = new System.Windows.Forms.Timer(this.components);
             this.spectrumTimer = new System.Windows.Forms.Timer(this.components);
             this.recordingTimer = new System.Windows.Forms.Timer(this.components);
             this.changePositionTimer = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.codecToDecode = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.spectrumViewer = new Sound_Editor.SpectrumViewer();
-            this.originalSpectrogramViewer = new Sound_Editor.SpectrogramViewer();
-            this.originalWaveViewer = new Sound_Editor.SEWaveViewer();
             this.tableLayoutPanel1.SuspendLayout();
             this.spectrogramVisualizationTab.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -188,17 +188,18 @@
             this.tableLayoutPanel1.Controls.Add(this.trackBarOriginal, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.originalVizualizationTab, 1, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 62F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 62F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 98F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1231, 766);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1641, 943);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // spectrogramVisualizationTab
@@ -209,47 +210,80 @@
             this.tableLayoutPanel1.SetColumnSpan(this.spectrogramVisualizationTab, 2);
             this.spectrogramVisualizationTab.Controls.Add(this.tabPage3);
             this.spectrogramVisualizationTab.Controls.Add(this.tabPage10);
-            this.spectrogramVisualizationTab.Location = new System.Drawing.Point(372, 348);
+            this.spectrogramVisualizationTab.Location = new System.Drawing.Point(496, 429);
+            this.spectrogramVisualizationTab.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.spectrogramVisualizationTab.Name = "spectrogramVisualizationTab";
             this.tableLayoutPanel1.SetRowSpan(this.spectrogramVisualizationTab, 3);
             this.spectrogramVisualizationTab.SelectedIndex = 0;
-            this.spectrogramVisualizationTab.Size = new System.Drawing.Size(856, 394);
+            this.spectrogramVisualizationTab.Size = new System.Drawing.Size(1141, 484);
             this.spectrogramVisualizationTab.TabIndex = 14;
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.spectrumViewer);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(848, 368);
+            this.tabPage3.Size = new System.Drawing.Size(1133, 455);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Спектр";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // spectrumViewer
+            // 
+            this.spectrumViewer.Audio = null;
+            this.spectrumViewer.BackColor = System.Drawing.Color.Black;
+            this.spectrumViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spectrumViewer.Location = new System.Drawing.Point(0, 0);
+            this.spectrumViewer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.spectrumViewer.Name = "spectrumViewer";
+            this.spectrumViewer.PenColor = System.Drawing.Color.Red;
+            this.spectrumViewer.PenWidth = 2;
+            this.spectrumViewer.Size = new System.Drawing.Size(1133, 455);
+            this.spectrumViewer.TabIndex = 1;
             // 
             // tabPage10
             // 
             this.tabPage10.AutoScroll = true;
             this.tabPage10.AutoScrollMinSize = new System.Drawing.Size(0, 512);
             this.tabPage10.Controls.Add(this.originalSpectrogramViewer);
-            this.tabPage10.Location = new System.Drawing.Point(4, 22);
+            this.tabPage10.Location = new System.Drawing.Point(4, 25);
+            this.tabPage10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Size = new System.Drawing.Size(848, 368);
+            this.tabPage10.Size = new System.Drawing.Size(1133, 456);
             this.tabPage10.TabIndex = 1;
             this.tabPage10.Text = "Спектрограмма";
             this.tabPage10.UseVisualStyleBackColor = true;
             // 
+            // originalSpectrogramViewer
+            // 
+            this.originalSpectrogramViewer.Area = null;
+            this.originalSpectrogramViewer.Audio = null;
+            this.originalSpectrogramViewer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(1)))));
+            this.originalSpectrogramViewer.Count = 0;
+            this.originalSpectrogramViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalSpectrogramViewer.Location = new System.Drawing.Point(0, 0);
+            this.originalSpectrogramViewer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.originalSpectrogramViewer.MinimumSize = new System.Drawing.Size(0, 630);
+            this.originalSpectrogramViewer.Name = "originalSpectrogramViewer";
+            this.originalSpectrogramViewer.Size = new System.Drawing.Size(1112, 630);
+            this.originalSpectrogramViewer.StartPosition = ((long)(0));
+            this.originalSpectrogramViewer.TabIndex = 1;
+            // 
             // statusStrip1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.statusStrip1, 3);
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.audioStatus,
             this.audioRate,
             this.audioSize,
             this.audioLength});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 745);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 917);
             this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
             this.statusStrip1.ShowItemToolTips = true;
-            this.statusStrip1.Size = new System.Drawing.Size(1231, 21);
+            this.statusStrip1.Size = new System.Drawing.Size(1641, 26);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -257,7 +291,7 @@
             // 
             this.audioStatus.Name = "audioStatus";
             this.audioStatus.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.audioStatus.Size = new System.Drawing.Size(977, 16);
+            this.audioStatus.Size = new System.Drawing.Size(1382, 20);
             this.audioStatus.Spring = true;
             this.audioStatus.Text = "Готово";
             this.audioStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -268,7 +302,7 @@
             this.audioRate.AutoSize = false;
             this.audioRate.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
             this.audioRate.Name = "audioRate";
-            this.audioRate.Size = new System.Drawing.Size(94, 16);
+            this.audioRate.Size = new System.Drawing.Size(94, 20);
             this.audioRate.Text = "0 Hz";
             this.audioRate.ToolTipText = "Частота дискретизации";
             // 
@@ -277,7 +311,7 @@
             this.audioSize.AutoSize = false;
             this.audioSize.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.audioSize.Name = "audioSize";
-            this.audioSize.Size = new System.Drawing.Size(75, 16);
+            this.audioSize.Size = new System.Drawing.Size(75, 20);
             this.audioSize.Text = "0 MB";
             this.audioSize.ToolTipText = "Размер аудио";
             // 
@@ -285,7 +319,7 @@
             // 
             this.audioLength.AutoSize = false;
             this.audioLength.Name = "audioLength";
-            this.audioLength.Size = new System.Drawing.Size(70, 16);
+            this.audioLength.Size = new System.Drawing.Size(70, 20);
             this.audioLength.Text = "00:00:000";
             this.audioLength.ToolTipText = "Длительность";
             // 
@@ -296,13 +330,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.menuStrip1, 3);
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
             this.правкаToolStripMenuItem,
             this.видToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1231, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1641, 31);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -321,33 +356,33 @@
             this.выходToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 21);
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 27);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
             // новыйToolStripMenuItem
             // 
             this.новыйToolStripMenuItem.Name = "новыйToolStripMenuItem";
             this.новыйToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(280, 26);
             this.новыйToolStripMenuItem.Text = "Новый";
             // 
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
             this.открытьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(280, 26);
             this.открытьToolStripMenuItem.Text = "Открыть";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(222, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(277, 6);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             this.сохранитьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(280, 26);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             // 
             // сохранитьКакToolStripMenuItem
@@ -355,49 +390,49 @@
             this.сохранитьКакToolStripMenuItem.Name = "сохранитьКакToolStripMenuItem";
             this.сохранитьКакToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.S)));
-            this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(280, 26);
             this.сохранитьКакToolStripMenuItem.Text = "Сохранить как...";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(222, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(277, 6);
             // 
             // закрытьToolStripMenuItem
             // 
             this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
             this.закрытьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(280, 26);
             this.закрытьToolStripMenuItem.Text = "Закрыть";
             // 
             // закрытьВсеToolStripMenuItem
             // 
             this.закрытьВсеToolStripMenuItem.Name = "закрытьВсеToolStripMenuItem";
-            this.закрытьВсеToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.закрытьВсеToolStripMenuItem.Size = new System.Drawing.Size(280, 26);
             this.закрытьВсеToolStripMenuItem.Text = "Закрыть все";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(222, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(277, 6);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             this.выходToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(280, 26);
             this.выходToolStripMenuItem.Text = "Выход";
             // 
             // правкаToolStripMenuItem
             // 
             this.правкаToolStripMenuItem.Name = "правкаToolStripMenuItem";
-            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
+            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(74, 27);
             this.правкаToolStripMenuItem.Text = "Правка";
             // 
             // видToolStripMenuItem
             // 
             this.видToolStripMenuItem.Name = "видToolStripMenuItem";
-            this.видToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
+            this.видToolStripMenuItem.Size = new System.Drawing.Size(49, 27);
             this.видToolStripMenuItem.Text = "Вид";
             // 
             // tabControl1
@@ -406,21 +441,22 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(15, 30);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(15, 5, 5, 5);
+            this.tabControl1.Location = new System.Drawing.Point(20, 37);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(20, 6, 7, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(349, 260);
+            this.tabControl1.Size = new System.Drawing.Size(465, 320);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.toolStrip1);
             this.tabPage1.Controls.Add(this.listAudio);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(341, 234);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Size = new System.Drawing.Size(457, 291);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Файлы";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -429,6 +465,7 @@
             // 
             this.toolStrip1.AutoSize = false;
             this.toolStrip1.BackColor = System.Drawing.SystemColors.Window;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripButton,
             this.openToolStripButton,
@@ -440,10 +477,10 @@
             this.toolStripSeparator1,
             this.toolStripTextBox1});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip1.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip1.Location = new System.Drawing.Point(4, 4);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(335, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(449, 37);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -453,7 +490,7 @@
             this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
             this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripButton.Name = "newToolStripButton";
-            this.newToolStripButton.Size = new System.Drawing.Size(23, 27);
+            this.newToolStripButton.Size = new System.Drawing.Size(29, 34);
             this.newToolStripButton.Text = "Создать";
             this.newToolStripButton.Click += new System.EventHandler(this.newToolStripButton_Click);
             // 
@@ -463,7 +500,7 @@
             this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
             this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(23, 27);
+            this.openToolStripButton.Size = new System.Drawing.Size(29, 34);
             this.openToolStripButton.Text = "Открыть";
             this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
             // 
@@ -473,13 +510,13 @@
             this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(23, 27);
+            this.saveToolStripButton.Size = new System.Drawing.Size(29, 34);
             this.saveToolStripButton.Text = "Сохранить";
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(6, 30);
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 37);
             // 
             // deleteToolStripButton
             // 
@@ -487,7 +524,7 @@
             this.deleteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripButton.Image")));
             this.deleteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteToolStripButton.Name = "deleteToolStripButton";
-            this.deleteToolStripButton.Size = new System.Drawing.Size(23, 27);
+            this.deleteToolStripButton.Size = new System.Drawing.Size(29, 34);
             this.deleteToolStripButton.Text = "Удалить";
             this.deleteToolStripButton.ToolTipText = "Удалить";
             this.deleteToolStripButton.Click += new System.EventHandler(this.deleteToolStripButton_Click);
@@ -498,7 +535,7 @@
             this.cutToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripButton.Image")));
             this.cutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cutToolStripButton.Name = "cutToolStripButton";
-            this.cutToolStripButton.Size = new System.Drawing.Size(23, 27);
+            this.cutToolStripButton.Size = new System.Drawing.Size(29, 34);
             this.cutToolStripButton.Text = "C&ut";
             // 
             // copyToolStripButton
@@ -507,18 +544,19 @@
             this.copyToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripButton.Image")));
             this.copyToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyToolStripButton.Name = "copyToolStripButton";
-            this.copyToolStripButton.Size = new System.Drawing.Size(23, 27);
+            this.copyToolStripButton.Size = new System.Drawing.Size(29, 34);
             this.copyToolStripButton.Text = "&Copy";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 30);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 37);
             // 
             // toolStripTextBox1
             // 
             this.toolStripTextBox1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripTextBox1.AutoSize = false;
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.Margin = new System.Windows.Forms.Padding(2, 0, 1, 0);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(150, 25);
@@ -540,11 +578,13 @@
             this.listAudio.ForeColor = System.Drawing.SystemColors.WindowText;
             this.listAudio.FullRowSelect = true;
             this.listAudio.GridLines = true;
-            this.listAudio.Location = new System.Drawing.Point(0, 36);
+            this.listAudio.HideSelection = false;
+            this.listAudio.Location = new System.Drawing.Point(0, 44);
+            this.listAudio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listAudio.MultiSelect = false;
             this.listAudio.Name = "listAudio";
             this.listAudio.ShowItemToolTips = true;
-            this.listAudio.Size = new System.Drawing.Size(345, 200);
+            this.listAudio.Size = new System.Drawing.Size(460, 246);
             this.listAudio.TabIndex = 0;
             this.listAudio.UseCompatibleStateImageBehavior = false;
             this.listAudio.View = System.Windows.Forms.View.Details;
@@ -601,10 +641,10 @@
             this.toolStripButton5,
             this.toolStripButton6,
             this.toolStripButton7});
-            this.toolStrip2.Location = new System.Drawing.Point(369, 295);
+            this.toolStrip2.Location = new System.Drawing.Point(492, 363);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip2.Size = new System.Drawing.Size(713, 50);
+            this.toolStrip2.Size = new System.Drawing.Size(951, 62);
             this.toolStrip2.TabIndex = 7;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -624,7 +664,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(42, 47);
+            this.toolStripButton2.Size = new System.Drawing.Size(42, 59);
             this.toolStripButton2.Text = "toolStripButton2";
             this.toolStripButton2.ToolTipText = "Остановить";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
@@ -647,7 +687,7 @@
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(42, 47);
+            this.toolStripButton3.Size = new System.Drawing.Size(42, 59);
             this.toolStripButton3.Text = "toolStripButton3";
             this.toolStripButton3.ToolTipText = "Приостановить";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
@@ -655,7 +695,7 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 50);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 62);
             // 
             // toolStripButton4
             // 
@@ -663,7 +703,7 @@
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(42, 47);
+            this.toolStripButton4.Size = new System.Drawing.Size(42, 59);
             this.toolStripButton4.Text = "toolStripButton4";
             this.toolStripButton4.ToolTipText = "Предыдущий трэк";
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
@@ -674,7 +714,7 @@
             this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(42, 47);
+            this.toolStripButton5.Size = new System.Drawing.Size(42, 59);
             this.toolStripButton5.Text = "toolStripButton5";
             this.toolStripButton5.ToolTipText = "Перемотать назад";
             this.toolStripButton5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripButton5_MouseDown);
@@ -686,7 +726,7 @@
             this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
             this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(42, 47);
+            this.toolStripButton6.Size = new System.Drawing.Size(42, 59);
             this.toolStripButton6.Text = "toolStripButton6";
             this.toolStripButton6.ToolTipText = "Перемотать вперед";
             this.toolStripButton6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripButton6_MouseDown);
@@ -698,7 +738,7 @@
             this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
             this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(42, 47);
+            this.toolStripButton7.Size = new System.Drawing.Size(42, 59);
             this.toolStripButton7.Text = "toolStripButton7";
             this.toolStripButton7.ToolTipText = "Следующий трэк";
             this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
@@ -709,12 +749,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl4.Controls.Add(this.tabPage6);
-            this.tabControl4.Location = new System.Drawing.Point(15, 620);
-            this.tabControl4.Margin = new System.Windows.Forms.Padding(15, 5, 5, 5);
+            this.tabControl4.Location = new System.Drawing.Point(20, 763);
+            this.tabControl4.Margin = new System.Windows.Forms.Padding(20, 6, 7, 6);
             this.tabControl4.Name = "tabControl4";
             this.tableLayoutPanel1.SetRowSpan(this.tabControl4, 2);
             this.tabControl4.SelectedIndex = 0;
-            this.tabControl4.Size = new System.Drawing.Size(349, 120);
+            this.tabControl4.Size = new System.Drawing.Size(465, 148);
             this.tabControl4.TabIndex = 10;
             // 
             // tabPage6
@@ -722,10 +762,11 @@
             this.tabPage6.Controls.Add(this.timePeriods);
             this.tabPage6.Controls.Add(this.label2);
             this.tabPage6.Controls.Add(this.label1);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Location = new System.Drawing.Point(4, 25);
+            this.tabPage6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(341, 94);
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage6.Size = new System.Drawing.Size(457, 119);
             this.tabPage6.TabIndex = 0;
             this.tabPage6.Text = "Выделено / Просмотр";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -740,13 +781,15 @@
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8});
+            this.timePeriods.HideSelection = false;
             this.timePeriods.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2,
             listViewItem3});
-            this.timePeriods.Location = new System.Drawing.Point(67, 6);
+            this.timePeriods.Location = new System.Drawing.Point(89, 7);
+            this.timePeriods.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.timePeriods.Name = "timePeriods";
-            this.timePeriods.Size = new System.Drawing.Size(268, 82);
+            this.timePeriods.Size = new System.Drawing.Size(357, 101);
             this.timePeriods.TabIndex = 2;
             this.timePeriods.UseCompatibleStateImageBehavior = false;
             this.timePeriods.View = System.Windows.Forms.View.Details;
@@ -769,18 +812,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 66);
+            this.label2.Location = new System.Drawing.Point(4, 81);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.Size = new System.Drawing.Size(73, 17);
             this.label2.TabIndex = 1;
             this.label2.Text = "Просмотр";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 32);
+            this.label1.Location = new System.Drawing.Point(4, 39);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 13);
+            this.label1.Size = new System.Drawing.Size(75, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Выделено";
             // 
@@ -791,12 +836,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl5.Controls.Add(this.tabPage8);
             this.tabControl5.Controls.Add(this.tabPage7);
-            this.tabControl5.Location = new System.Drawing.Point(15, 300);
-            this.tabControl5.Margin = new System.Windows.Forms.Padding(15, 5, 5, 5);
+            this.tabControl5.Location = new System.Drawing.Point(20, 369);
+            this.tabControl5.Margin = new System.Windows.Forms.Padding(20, 6, 7, 6);
             this.tabControl5.Name = "tabControl5";
             this.tableLayoutPanel1.SetRowSpan(this.tabControl5, 2);
             this.tabControl5.SelectedIndex = 0;
-            this.tabControl5.Size = new System.Drawing.Size(349, 310);
+            this.tabControl5.Size = new System.Drawing.Size(465, 382);
             this.tabControl5.TabIndex = 11;
             // 
             // tabPage8
@@ -804,10 +849,11 @@
             this.tabPage8.AutoScroll = true;
             this.tabPage8.AutoScrollMinSize = new System.Drawing.Size(0, 270);
             this.tabPage8.Controls.Add(this.tableLayoutPanel3);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Location = new System.Drawing.Point(4, 25);
+            this.tabPage8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(341, 284);
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage8.Size = new System.Drawing.Size(457, 353);
             this.tabPage8.TabIndex = 1;
             this.tabPage8.Text = "Сжатие звука";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -823,12 +869,13 @@
             this.tableLayoutPanel3.Controls.Add(this.groupBox3, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.groupBox1, 0, 1);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.78971F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 41.47058F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28.73972F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(341, 284);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(455, 350);
             this.tableLayoutPanel3.TabIndex = 9;
             // 
             // groupBox2
@@ -837,9 +884,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.tableLayoutPanel4);
-            this.groupBox2.Location = new System.Drawing.Point(3, 3);
+            this.groupBox2.Location = new System.Drawing.Point(4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(335, 78);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Size = new System.Drawing.Size(447, 96);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Информация";
@@ -858,68 +907,72 @@
             this.tableLayoutPanel4.Controls.Add(this.label13, 0, 2);
             this.tableLayoutPanel4.Controls.Add(this.label6, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.audioFormatLabel, 1, 1);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(-3, 19);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(-4, 23);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 3;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(338, 59);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(451, 73);
             this.tableLayoutPanel4.TabIndex = 8;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 0);
-            this.label5.Margin = new System.Windows.Forms.Padding(14, 0, 3, 0);
+            this.label5.Location = new System.Drawing.Point(19, 0);
+            this.label5.Margin = new System.Windows.Forms.Padding(19, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 13);
+            this.label5.Size = new System.Drawing.Size(86, 17);
             this.label5.TabIndex = 0;
             this.label5.Text = "Имя файла:";
             // 
             // audioSizeLabel
             // 
             this.audioSizeLabel.AutoSize = true;
-            this.audioSizeLabel.Location = new System.Drawing.Point(121, 38);
+            this.audioSizeLabel.Location = new System.Drawing.Point(162, 48);
+            this.audioSizeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.audioSizeLabel.Name = "audioSizeLabel";
-            this.audioSizeLabel.Size = new System.Drawing.Size(0, 13);
+            this.audioSizeLabel.Size = new System.Drawing.Size(0, 17);
             this.audioSizeLabel.TabIndex = 7;
             // 
             // audioNameLabel
             // 
             this.audioNameLabel.AutoSize = true;
-            this.audioNameLabel.Location = new System.Drawing.Point(121, 0);
+            this.audioNameLabel.Location = new System.Drawing.Point(162, 0);
+            this.audioNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.audioNameLabel.Name = "audioNameLabel";
-            this.audioNameLabel.Size = new System.Drawing.Size(0, 13);
+            this.audioNameLabel.Size = new System.Drawing.Size(0, 17);
             this.audioNameLabel.TabIndex = 3;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(14, 38);
-            this.label13.Margin = new System.Windows.Forms.Padding(14, 0, 3, 0);
+            this.label13.Location = new System.Drawing.Point(19, 48);
+            this.label13.Margin = new System.Windows.Forms.Padding(19, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(52, 13);
+            this.label13.Size = new System.Drawing.Size(65, 17);
             this.label13.TabIndex = 6;
             this.label13.Text = "Размер: ";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 19);
-            this.label6.Margin = new System.Windows.Forms.Padding(14, 0, 3, 0);
+            this.label6.Location = new System.Drawing.Point(19, 24);
+            this.label6.Margin = new System.Windows.Forms.Padding(19, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 13);
+            this.label6.Size = new System.Drawing.Size(65, 17);
             this.label6.TabIndex = 1;
             this.label6.Text = "Формат:";
             // 
             // audioFormatLabel
             // 
             this.audioFormatLabel.AutoSize = true;
-            this.audioFormatLabel.Location = new System.Drawing.Point(121, 19);
+            this.audioFormatLabel.Location = new System.Drawing.Point(162, 24);
+            this.audioFormatLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.audioFormatLabel.Name = "audioFormatLabel";
-            this.audioFormatLabel.Size = new System.Drawing.Size(0, 13);
+            this.audioFormatLabel.Size = new System.Drawing.Size(0, 17);
             this.audioFormatLabel.TabIndex = 4;
             // 
             // groupBox3
@@ -928,9 +981,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.tableLayoutPanel6);
-            this.groupBox3.Location = new System.Drawing.Point(3, 204);
+            this.groupBox3.Location = new System.Drawing.Point(4, 253);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(335, 77);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Size = new System.Drawing.Size(447, 93);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Компандирование G.711";
@@ -950,37 +1005,35 @@
             this.tableLayoutPanel6.Controls.Add(this.button2, 2, 0);
             this.tableLayoutPanel6.Controls.Add(this.button1, 2, 1);
             this.tableLayoutPanel6.Controls.Add(this.codecToDecode, 1, 1);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(-3, 13);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(-4, 16);
+            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            this.tableLayoutPanel6.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(338, 67);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(451, 80);
             this.tableLayoutPanel6.TabIndex = 7;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(19, 49);
+            this.label7.Margin = new System.Windows.Forms.Padding(19, 7, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(107, 17);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Декодировать:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(14, 10);
-            this.label11.Margin = new System.Windows.Forms.Padding(14, 6, 3, 0);
+            this.label11.Location = new System.Drawing.Point(19, 12);
+            this.label11.Margin = new System.Windows.Forms.Padding(19, 7, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(82, 13);
+            this.label11.Size = new System.Drawing.Size(105, 17);
             this.label11.TabIndex = 3;
             this.label11.Text = "Закодировать:";
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(227, 7);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 25);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Сохранить";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // codecToEncode
             // 
@@ -992,11 +1045,54 @@
             this.codecToEncode.Items.AddRange(new object[] {
             "A-Law",
             "Mu-Law"});
-            this.codecToEncode.Location = new System.Drawing.Point(119, 8);
-            this.codecToEncode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
+            this.codecToEncode.Location = new System.Drawing.Point(159, 10);
+            this.codecToEncode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 4);
             this.codecToEncode.Name = "codecToEncode";
-            this.codecToEncode.Size = new System.Drawing.Size(102, 21);
+            this.codecToEncode.Size = new System.Drawing.Size(136, 24);
             this.codecToEncode.TabIndex = 1;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(303, 9);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(144, 29);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Сохранить";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(303, 46);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(144, 30);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Открыть";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // codecToDecode
+            // 
+            this.codecToDecode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.codecToDecode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.codecToDecode.FormattingEnabled = true;
+            this.codecToDecode.Items.AddRange(new object[] {
+            "A-Law",
+            "Mu-Law"});
+            this.codecToDecode.Location = new System.Drawing.Point(159, 47);
+            this.codecToDecode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 4);
+            this.codecToDecode.Name = "codecToDecode";
+            this.codecToDecode.Size = new System.Drawing.Size(136, 24);
+            this.codecToDecode.TabIndex = 7;
             // 
             // groupBox1
             // 
@@ -1004,9 +1100,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.tableLayoutPanel5);
-            this.groupBox1.Location = new System.Drawing.Point(3, 87);
+            this.groupBox1.Location = new System.Drawing.Point(4, 108);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(335, 111);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(447, 137);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ресэмплинг";
@@ -1027,14 +1125,15 @@
             this.tableLayoutPanel5.Controls.Add(this.label8, 0, 2);
             this.tableLayoutPanel5.Controls.Add(this.audioChannelsInfo, 1, 2);
             this.tableLayoutPanel5.Controls.Add(this.saveWavButton, 2, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(-3, 10);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(-4, 12);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            this.tableLayoutPanel5.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.tableLayoutPanel5.RowCount = 3;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32.68081F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.63839F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32.68081F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(338, 101);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(451, 124);
             this.tableLayoutPanel5.TabIndex = 7;
             // 
             // audioBitDepthInfo
@@ -1047,19 +1146,19 @@
             this.audioBitDepthInfo.Items.AddRange(new object[] {
             "8",
             "16"});
-            this.audioBitDepthInfo.Location = new System.Drawing.Point(119, 41);
-            this.audioBitDepthInfo.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
+            this.audioBitDepthInfo.Location = new System.Drawing.Point(159, 50);
+            this.audioBitDepthInfo.Margin = new System.Windows.Forms.Padding(4, 7, 4, 4);
             this.audioBitDepthInfo.Name = "audioBitDepthInfo";
-            this.audioBitDepthInfo.Size = new System.Drawing.Size(102, 21);
+            this.audioBitDepthInfo.Size = new System.Drawing.Size(136, 24);
             this.audioBitDepthInfo.TabIndex = 5;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 43);
-            this.label4.Margin = new System.Windows.Forms.Padding(14, 8, 3, 0);
+            this.label4.Location = new System.Drawing.Point(19, 53);
+            this.label4.Margin = new System.Windows.Forms.Padding(19, 10, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 13);
+            this.label4.Size = new System.Drawing.Size(127, 17);
             this.label4.TabIndex = 4;
             this.label4.Text = "Разрядность (Bit):";
             // 
@@ -1068,29 +1167,29 @@
             this.audioSampleRateInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.audioSampleRateInfo.Location = new System.Drawing.Point(119, 10);
-            this.audioSampleRateInfo.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
+            this.audioSampleRateInfo.Location = new System.Drawing.Point(159, 12);
+            this.audioSampleRateInfo.Margin = new System.Windows.Forms.Padding(4, 7, 4, 4);
             this.audioSampleRateInfo.Name = "audioSampleRateInfo";
-            this.audioSampleRateInfo.Size = new System.Drawing.Size(102, 20);
+            this.audioSampleRateInfo.Size = new System.Drawing.Size(136, 22);
             this.audioSampleRateInfo.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 12);
-            this.label3.Margin = new System.Windows.Forms.Padding(14, 8, 3, 0);
+            this.label3.Location = new System.Drawing.Point(19, 15);
+            this.label3.Margin = new System.Windows.Forms.Padding(19, 10, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 13);
+            this.label3.Size = new System.Drawing.Size(98, 17);
             this.label3.TabIndex = 3;
             this.label3.Text = "Частота (Hz):";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 76);
-            this.label8.Margin = new System.Windows.Forms.Padding(14, 8, 3, 0);
+            this.label8.Location = new System.Drawing.Point(19, 94);
+            this.label8.Margin = new System.Windows.Forms.Padding(19, 10, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(76, 13);
+            this.label8.Size = new System.Drawing.Size(100, 17);
             this.label8.TabIndex = 7;
             this.label8.Text = "Каналы (кол):";
             // 
@@ -1104,10 +1203,10 @@
             this.audioChannelsInfo.Items.AddRange(new object[] {
             "mono",
             "stereo"});
-            this.audioChannelsInfo.Location = new System.Drawing.Point(119, 74);
-            this.audioChannelsInfo.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
+            this.audioChannelsInfo.Location = new System.Drawing.Point(159, 91);
+            this.audioChannelsInfo.Margin = new System.Windows.Forms.Padding(4, 7, 4, 4);
             this.audioChannelsInfo.Name = "audioChannelsInfo";
-            this.audioChannelsInfo.Size = new System.Drawing.Size(102, 21);
+            this.audioChannelsInfo.Size = new System.Drawing.Size(136, 24);
             this.audioChannelsInfo.TabIndex = 8;
             // 
             // saveWavButton
@@ -1115,9 +1214,10 @@
             this.saveWavButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveWavButton.Location = new System.Drawing.Point(227, 7);
+            this.saveWavButton.Location = new System.Drawing.Point(303, 9);
+            this.saveWavButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.saveWavButton.Name = "saveWavButton";
-            this.saveWavButton.Size = new System.Drawing.Size(108, 25);
+            this.saveWavButton.Size = new System.Drawing.Size(144, 30);
             this.saveWavButton.TabIndex = 6;
             this.saveWavButton.Text = "Сохранить wav";
             this.saveWavButton.UseVisualStyleBackColor = true;
@@ -1126,10 +1226,11 @@
             // tabPage7
             // 
             this.tabPage7.Controls.Add(this.tableLayoutPanel2);
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Location = new System.Drawing.Point(4, 25);
+            this.tabPage7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(341, 284);
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage7.Size = new System.Drawing.Size(457, 353);
             this.tabPage7.TabIndex = 0;
             this.tabPage7.Text = "Запись звука";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -1147,14 +1248,15 @@
             this.tableLayoutPanel2.Controls.Add(this.startRecordButton, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.stopRecordButton, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.recordTimerLabel, 1, 3);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 4);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(338, 278);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(451, 342);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // devicesListView
@@ -1167,11 +1269,13 @@
             this.chanelsCountColumnHeader});
             this.devicesListView.FullRowSelect = true;
             this.devicesListView.GridLines = true;
-            this.devicesListView.Location = new System.Drawing.Point(3, 3);
+            this.devicesListView.HideSelection = false;
+            this.devicesListView.Location = new System.Drawing.Point(4, 4);
+            this.devicesListView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.devicesListView.MultiSelect = false;
             this.devicesListView.Name = "devicesListView";
             this.tableLayoutPanel2.SetRowSpan(this.devicesListView, 4);
-            this.devicesListView.Size = new System.Drawing.Size(227, 272);
+            this.devicesListView.Size = new System.Drawing.Size(302, 334);
             this.devicesListView.TabIndex = 0;
             this.devicesListView.UseCompatibleStateImageBehavior = false;
             this.devicesListView.View = System.Windows.Forms.View.Details;
@@ -1190,9 +1294,10 @@
             // 
             this.refreshDeviceListButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.refreshDeviceListButton.Location = new System.Drawing.Point(236, 3);
+            this.refreshDeviceListButton.Location = new System.Drawing.Point(314, 4);
+            this.refreshDeviceListButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.refreshDeviceListButton.Name = "refreshDeviceListButton";
-            this.refreshDeviceListButton.Size = new System.Drawing.Size(99, 32);
+            this.refreshDeviceListButton.Size = new System.Drawing.Size(133, 39);
             this.refreshDeviceListButton.TabIndex = 1;
             this.refreshDeviceListButton.Text = "Обновить";
             this.refreshDeviceListButton.UseVisualStyleBackColor = true;
@@ -1202,9 +1307,10 @@
             // 
             this.startRecordButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.startRecordButton.Location = new System.Drawing.Point(236, 170);
+            this.startRecordButton.Location = new System.Drawing.Point(314, 209);
+            this.startRecordButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.startRecordButton.Name = "startRecordButton";
-            this.startRecordButton.Size = new System.Drawing.Size(99, 31);
+            this.startRecordButton.Size = new System.Drawing.Size(133, 38);
             this.startRecordButton.TabIndex = 2;
             this.startRecordButton.Text = "Старт";
             this.startRecordButton.UseVisualStyleBackColor = true;
@@ -1214,9 +1320,10 @@
             // 
             this.stopRecordButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.stopRecordButton.Location = new System.Drawing.Point(236, 207);
+            this.stopRecordButton.Location = new System.Drawing.Point(314, 255);
+            this.stopRecordButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.stopRecordButton.Name = "stopRecordButton";
-            this.stopRecordButton.Size = new System.Drawing.Size(99, 32);
+            this.stopRecordButton.Size = new System.Drawing.Size(133, 39);
             this.stopRecordButton.TabIndex = 3;
             this.stopRecordButton.Text = "Стоп";
             this.stopRecordButton.UseVisualStyleBackColor = true;
@@ -1229,9 +1336,10 @@
             this.recordTimerLabel.AutoSize = true;
             this.recordTimerLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.recordTimerLabel.ForeColor = System.Drawing.Color.Blue;
-            this.recordTimerLabel.Location = new System.Drawing.Point(236, 246);
+            this.recordTimerLabel.Location = new System.Drawing.Point(314, 303);
+            this.recordTimerLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.recordTimerLabel.Name = "recordTimerLabel";
-            this.recordTimerLabel.Size = new System.Drawing.Size(99, 25);
+            this.recordTimerLabel.Size = new System.Drawing.Size(133, 32);
             this.recordTimerLabel.TabIndex = 4;
             this.recordTimerLabel.Text = "00:00:000";
             // 
@@ -1240,9 +1348,10 @@
             this.trackBarOriginal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarOriginal.Location = new System.Drawing.Point(1085, 298);
+            this.trackBarOriginal.Location = new System.Drawing.Point(1447, 367);
+            this.trackBarOriginal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackBarOriginal.Name = "trackBarOriginal";
-            this.trackBarOriginal.Size = new System.Drawing.Size(143, 44);
+            this.trackBarOriginal.Size = new System.Drawing.Size(190, 54);
             this.trackBarOriginal.TabIndex = 12;
             this.trackBarOriginal.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarOriginal.Value = 10;
@@ -1255,10 +1364,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.originalVizualizationTab, 2);
             this.originalVizualizationTab.Controls.Add(this.tabPage2);
-            this.originalVizualizationTab.Location = new System.Drawing.Point(372, 28);
+            this.originalVizualizationTab.Location = new System.Drawing.Point(496, 35);
+            this.originalVizualizationTab.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.originalVizualizationTab.Name = "originalVizualizationTab";
             this.originalVizualizationTab.SelectedIndex = 0;
-            this.originalVizualizationTab.Size = new System.Drawing.Size(856, 264);
+            this.originalVizualizationTab.Size = new System.Drawing.Size(1141, 324);
             this.originalVizualizationTab.TabIndex = 3;
             // 
             // tabPage2
@@ -1266,12 +1376,31 @@
             this.tabPage2.AutoScroll = true;
             this.tabPage2.AutoScrollMinSize = new System.Drawing.Size(848, 0);
             this.tabPage2.Controls.Add(this.originalWaveViewer);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(848, 238);
+            this.tabPage2.Size = new System.Drawing.Size(1133, 295);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "Редактор";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // originalWaveViewer
+            // 
+            this.originalWaveViewer.Audio = null;
+            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
+            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalWaveViewer.Location = new System.Drawing.Point(0, 0);
+            this.originalWaveViewer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.originalWaveViewer.Name = "originalWaveViewer";
+            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
+            this.originalWaveViewer.PenWidth = 1F;
+            this.originalWaveViewer.SamplesPerPixel = 128;
+            this.originalWaveViewer.Size = new System.Drawing.Size(1133, 295);
+            this.originalWaveViewer.Spectrogram = null;
+            this.originalWaveViewer.Spectrum = null;
+            this.originalWaveViewer.StartPosition = ((long)(0));
+            this.originalWaveViewer.TabIndex = 0;
+            this.originalWaveViewer.WaveStream = null;
             // 
             // originalPlayTimer
             // 
@@ -1293,95 +1422,15 @@
             this.changePositionTimer.Interval = 1;
             this.changePositionTimer.Tick += new System.EventHandler(this.changePositionTimer_Tick);
             // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(227, 38);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 26);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Открыть";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // codecToDecode
-            // 
-            this.codecToDecode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.codecToDecode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.codecToDecode.FormattingEnabled = true;
-            this.codecToDecode.Items.AddRange(new object[] {
-            "A-Law",
-            "Mu-Law"});
-            this.codecToDecode.Location = new System.Drawing.Point(119, 39);
-            this.codecToDecode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
-            this.codecToDecode.Name = "codecToDecode";
-            this.codecToDecode.Size = new System.Drawing.Size(102, 21);
-            this.codecToDecode.TabIndex = 7;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(14, 41);
-            this.label7.Margin = new System.Windows.Forms.Padding(14, 6, 3, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(84, 13);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Декодировать:";
-            // 
-            // spectrumViewer
-            // 
-            this.spectrumViewer.Audio = null;
-            this.spectrumViewer.BackColor = System.Drawing.Color.Black;
-            this.spectrumViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spectrumViewer.Location = new System.Drawing.Point(0, 0);
-            this.spectrumViewer.Name = "spectrumViewer";
-            this.spectrumViewer.PenColor = System.Drawing.Color.Red;
-            this.spectrumViewer.PenWidth = 2;
-            this.spectrumViewer.Size = new System.Drawing.Size(848, 368);
-            this.spectrumViewer.TabIndex = 1;
-            // 
-            // originalSpectrogramViewer
-            // 
-            this.originalSpectrogramViewer.Area = null;
-            this.originalSpectrogramViewer.Audio = null;
-            this.originalSpectrogramViewer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(1)))));
-            this.originalSpectrogramViewer.Count = 0;
-            this.originalSpectrogramViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.originalSpectrogramViewer.Location = new System.Drawing.Point(0, 0);
-            this.originalSpectrogramViewer.MinimumSize = new System.Drawing.Size(0, 512);
-            this.originalSpectrogramViewer.Name = "originalSpectrogramViewer";
-            this.originalSpectrogramViewer.Size = new System.Drawing.Size(831, 512);
-            this.originalSpectrogramViewer.StartPosition = ((long)(0));
-            this.originalSpectrogramViewer.TabIndex = 1;
-            // 
-            // originalWaveViewer
-            // 
-            this.originalWaveViewer.Audio = null;
-            this.originalWaveViewer.BackColor = System.Drawing.Color.Black;
-            this.originalWaveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.originalWaveViewer.Location = new System.Drawing.Point(0, 0);
-            this.originalWaveViewer.Name = "originalWaveViewer";
-            this.originalWaveViewer.penColor = System.Drawing.Color.DodgerBlue;
-            this.originalWaveViewer.PenWidth = 1F;
-            this.originalWaveViewer.SamplesPerPixel = 128;
-            this.originalWaveViewer.Size = new System.Drawing.Size(848, 238);
-            this.originalWaveViewer.Spectrogram = null;
-            this.originalWaveViewer.Spectrum = null;
-            this.originalWaveViewer.StartPosition = ((long)(0));
-            this.originalWaveViewer.TabIndex = 0;
-            this.originalWaveViewer.WaveStream = null;
-            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1234, 766);
+            this.ClientSize = new System.Drawing.Size(1645, 943);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(715, 540);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(947, 654);
             this.Name = "MainForm";
             this.Text = "Sound Editor";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
